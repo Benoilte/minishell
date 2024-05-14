@@ -6,19 +6,20 @@
 #    By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/05/14 16:04:20 by bebrandt         ###   ########.fr        #
+#    Updated: 2024/05/14 18:06:01 by bebrandt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			=	minishell
+NAME				=	minishell
 
-MAIN			=
-SRCS_DIR		=	srcs/
-OBJ_DIR			=	objs/
+MAIN				=
+SRCS_DIR			=	srcs/
+OBJ_DIR				=	objs/
 
 # main ressources
 
-MAIN_DIR		=	$(SRCS_DIR)main/
+MAIN_DIR			=	$(SRCS_DIR)main/
+
 ifeq ($(MAIN), ben)
 	MAIN_SRCS		+=	$(addprefix $(MAIN_DIR), $(addsuffix .c, main_ben))
 else ifeq ($(MAIN), tom)
@@ -26,62 +27,68 @@ else ifeq ($(MAIN), tom)
 else
 	MAIN_SRCS		+=	$(addprefix $(MAIN_DIR), $(addsuffix .c, minishell))
 endif
-MAIN_SRCS		+=	$(addprefix $(MAIN_DIR), $(addsuffix .c, prompt))
+
+MAIN_SRCS			+=	$(addprefix $(MAIN_DIR), $(addsuffix .c, prompt))
 
 # lexer ressources
 
-LEXER_DIR		=	$(SRCS_DIR)lexer/
-LEXER_SRCS		=	$(addprefix $(LEXER_DIR), $(addsuffix .c, lexer))
+LEXER_DIR			=	$(SRCS_DIR)lexer/
+LEXER_SRCS			=	$(addprefix $(LEXER_DIR), $(addsuffix .c, lexer))
 
 # parser ressources
 
-PARSER_DIR		=	$(SRCS_DIR)parser/
-PARSER_SRCS		=	$(addprefix $(PARSER_DIR), $(addsuffix .c, parser))
+PARSER_DIR			=	$(SRCS_DIR)parser/
+PARSER_SRCS			=	$(addprefix $(PARSER_DIR), $(addsuffix .c, parser))
 
 # builtins ressources
 
-BUILTINS_DIR	=	$(SRCS_DIR)builtins/
-BUILTINS_SRCS	=	$(addprefix $(BUILTINS_DIR), $(addsuffix .c, builtins))
+BUILTINS_DIR		=	$(SRCS_DIR)builtins/
+BUILTINS_SRCS		=	$(addprefix $(BUILTINS_DIR), $(addsuffix .c, builtins))
 
 # exec ressources
 
-EXEC_DIR		=	$(SRCS_DIR)exec/
-EXEC_SRCS		=	$(addprefix $(EXEC_DIR), $(addsuffix .c, exec))
+EXEC_DIR			=	$(SRCS_DIR)exec/
+EXEC_SRCS			=	$(addprefix $(EXEC_DIR), $(addsuffix .c, exec))
+
+# struct_utils ressources
+
+STRUCT_UTILS_DIR	=	$(SRCS_DIR)struct_utils/
+STRUCT_UTILS_SRCS	=	$(addprefix $(STRUCT_UTILS_DIR), $(addsuffix .c, struct_utils))
 
 # test ressources
 
-TEST_DIR		=	$(SRCS_DIR)test/
-TEST_SRCS		=	$(addprefix $(TEST_DIR), $(addsuffix .c, test))
+TEST_DIR			=	$(SRCS_DIR)test/
+TEST_SRCS			=	$(addprefix $(TEST_DIR), $(addsuffix .c, test))
 
 # sources and objects variables
 
-SRCS			=	$(MAIN_SRCS) $(LEXER_SRCS) $(PARSER_SRCS) $(BUILTINS_SRCS) $(EXEC_SRCS) $(TEST_SRCS)
-OBJS			=	$(patsubst %.c, $(OBJ_DIR)%.o, $(notdir $(SRCS)));
+SRCS				=	$(MAIN_SRCS) $(LEXER_SRCS) $(PARSER_SRCS) $(BUILTINS_SRCS) $(EXEC_SRCS) $(STRUCT_UTILS_SRCS) $(TEST_SRCS)
+OBJS				=	$(patsubst %.c, $(OBJ_DIR)%.o, $(notdir $(SRCS)));
 
 # path to find .c file
 
-VPATH			=	 $(MAIN_DIR):$(LEXER_DIR):$(PARSER_DIR):$(BUILTINS_DIR):$(EXEC_DIR):$(TEST_DIR)
+VPATH				=	 $(MAIN_DIR):$(LEXER_DIR):$(PARSER_DIR):$(BUILTINS_DIR):$(EXEC_DIR):$(STRUCT_UTILS_DIR):$(TEST_DIR)
 
 # libft variable
 
-LIBFT_DIR		=	libft/
-LIBFT_NAME		=	libft.a
-LIBFT_FLAGS		=	-L$(LIBFT_DIR) -lft
+LIBFT_DIR			=	libft/
+LIBFT_NAME			=	libft.a
+LIBFT_FLAGS			=	-L$(LIBFT_DIR) -lft
 
 # compilation variable
 
-CC				=	gcc 
-HDRS			=	-Iincludes/.
-CFLAGS			=	-Wall -Wextra -Werror
-RLFLAGS			=	-L$(HOME)/.brew/opt/readline/lib -lreadline
-RM				=	rm -f
+CC					=	gcc 
+HDRS				=	-Iincludes/.
+CFLAGS				=	-Wall -Wextra -Werror
+RLFLAGS				=	-L$(HOME)/.brew/opt/readline/lib -lreadline
+RM					=	rm -f
 
 # color variable
 
-RED				=	\033[0;31m
-GREEN			=	\033[0;32m
-YELLOW			=	\033[0;33m
-NONE			=	\033[0m
+RED					=	\033[0;31m
+GREEN				=	\033[0;32m
+YELLOW				=	\033[0;33m
+NONE				=	\033[0m
 
 all: $(LIBFT_DIR)$(LIBFT_NAME) $(NAME)
 
@@ -114,11 +121,11 @@ fclean: clean
 re: fclean all
 
 ifeq ($(MAIN), ben)
-	$(info MAIN: $(MAIN))
+	$(info compile with MAIN: $(MAIN))
 else ifeq ($(MAIN), tom)
-	$(info MAIN: $(MAIN))
+	$(info compile with MAIN: $(MAIN))
 else
-	$(info MAIN: is not define)
+	$(info compile with MAIN: minishell)
 endif
 
 .PHONY: all clean fclean re

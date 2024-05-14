@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_ben.c                                         :+:      :+:    :+:   */
+/*   struct_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/14 11:18:33 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/14 17:30:51 by bebrandt         ###   ########.fr       */
+/*   Created: 2024/05/14 18:02:34 by bebrandt          #+#    #+#             */
+/*   Updated: 2024/05/14 18:02:54 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	main(void)
+void	struct_utils(void)
 {
-	t_instructions	inst;
-
-	inst.fd[0] = 1;
-	inst.fd[1] = 2;
-	ft_printf("main function for ben\n");
-	prompt();
-	ft_printf("\n");
-	ft_printf("fd[0] = %d\n", inst.fd[0]);
-	ft_printf("fd[0] = %d\n", inst.fd[1]);
+	ft_printf("struct_utils function\n");
 }
