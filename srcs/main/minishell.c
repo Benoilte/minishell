@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:29:53 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/14 13:04:04 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/14 18:04:18 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	main(void)
 	builtins();
 	ft_printf("\n");
 	exec();
+	ft_printf("\n");
+	struct_utils();
 	ft_printf("\n");
 	test();
 }

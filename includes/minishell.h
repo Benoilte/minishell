@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/14 17:23:40 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/14 18:04:00 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ void	builtins(void);
 // exec/exec.c
 
 void	exec(void);
+
+// test/struct_utils.c
+
+void	struct_utils(void);
 
 // test/test.c
 
