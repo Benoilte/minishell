@@ -6,7 +6,7 @@
 #    By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/10 17:15:49 by bebrandt          #+#    #+#              #
-#    Updated: 2024/05/14 11:54:05 by bebrandt         ###   ########.fr        #
+#    Updated: 2024/05/14 13:51:58 by bebrandt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,18 +59,14 @@ HDRS			=	-Iincludes/.
 # usefull command
 
 CC				=	gcc $(HDRS)
-
 CFLAGS			=	-Wall -Wextra -Werror -g
-
 AR				=	ar rcs
-
 RM				=	rm -f
 
 
 RED			=	\033[0;31m
-
 GREEN		=	\033[0;32m
-
+YELLOW		=	\033[0;33m
 NONE		=	\033[0m
 
 VPATH			=	 $(LIBFT_DIR):$(GNL_DIR):$(FT_PRINTF_DIR)
@@ -81,7 +77,7 @@ all:	$(NAME)
 
 $(OBJ_DIR)%.o:	%.c
 	@mkdir -p $(OBJ_DIR)
-	@echo "$(GREEN)##### Creating" [ $@ ] " #####$(NONE)"
+	@printf "$(YELLOW).$(NONE)"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 # program compilation
