@@ -6,12 +6,14 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:29:38 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/14 11:29:49 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:47:17 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../includes/minishell.h"
 
 int	main(void)
 {
 	ft_printf("main function for tom\n");
+	prompt();
 }

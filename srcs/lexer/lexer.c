@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/14 12:52:29 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/14 12:57:03 by bebrandt         ###   ########.fr       */
+/*   Created: 2024/05/14 12:53:37 by bebrandt          #+#    #+#             */
+/*   Updated: 2024/05/14 12:56:49 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	prompt(void)
+void	lexer(void)
 {
-	ft_printf("prompt function\n");
+	ft_printf("lexer function\n");
 }

@@ -6,11 +6,14 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:18:33 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/14 11:29:30 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:47:09 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../../includes/minishell.h"
 
 int	main(void)
 {
 	ft_printf("main function for ben\n");
+	prompt();
 }

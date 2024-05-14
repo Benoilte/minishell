@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/14 12:52:29 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/14 12:57:03 by bebrandt         ###   ########.fr       */
+/*   Created: 2024/05/14 12:54:57 by bebrandt          #+#    #+#             */
+/*   Updated: 2024/05/14 12:57:09 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	prompt(void)
+void	test(void)
 {
-	ft_printf("prompt function\n");
+	ft_printf("test function\n");
 }
