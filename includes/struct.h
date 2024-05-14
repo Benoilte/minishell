@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:12:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/14 20:07:36 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/15 00:34:33 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_env
 {
 	char			*name;
 	char			*value;
-	struct s_env	*env;
+	struct s_env	*next;
 }					t_env;
 
 typedef struct s_instructions
@@ -52,5 +52,32 @@ typedef struct s_token_cmd
 	int					type;
 	struct s_token_cmd	*next;
 }						t_token_cmd;
+
+// struct_utils/init.c
+
+void	*init_bash(t_bash **bash, char **envp);
+t_env	*init_env(char **envp);
+
+// struct_utils/new.c
+
+t_env	*new_env(char *name, char *value);
+
+// struct_utils/add_back.c
+
+void	add_back_env(t_env **env, t_env *new);
+
+// struct_utils/last.c
+
+t_env	*last_env(t_env *env);
+
+// struct_utils/clear_all.c
+
+void	clear_env(t_env **env);
+
+// struct_utils/clear_one.c
+
+// struct_utils/struct_utils.c
+
+void	struct_utils(void);
 
 #endif
