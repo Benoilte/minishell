@@ -6,7 +6,7 @@
 #    By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/05/14 16:04:20 by bebrandt         ###   ########.fr        #
+#    Updated: 2024/05/14 17:38:54 by bebrandt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ OBJ_DIR			=	objs/
 # main ressources
 
 MAIN_DIR		=	$(SRCS_DIR)main/
+
 ifeq ($(MAIN), ben)
 	MAIN_SRCS		+=	$(addprefix $(MAIN_DIR), $(addsuffix .c, main_ben))
 else ifeq ($(MAIN), tom)
@@ -26,6 +27,7 @@ else ifeq ($(MAIN), tom)
 else
 	MAIN_SRCS		+=	$(addprefix $(MAIN_DIR), $(addsuffix .c, minishell))
 endif
+
 MAIN_SRCS		+=	$(addprefix $(MAIN_DIR), $(addsuffix .c, prompt))
 
 # lexer ressources
@@ -114,11 +116,11 @@ fclean: clean
 re: fclean all
 
 ifeq ($(MAIN), ben)
-	$(info MAIN: $(MAIN))
+	$(info compile with MAIN: $(MAIN))
 else ifeq ($(MAIN), tom)
-	$(info MAIN: $(MAIN))
+	$(info compile with MAIN: $(MAIN))
 else
-	$(info MAIN: is not define)
+	$(info compile with MAIN: minishell)
 endif
 
 .PHONY: all clean fclean re
