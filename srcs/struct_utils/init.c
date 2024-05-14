@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 20:25:18 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/14 20:44:16 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/15 00:36:28 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,18 @@ void	*init_bash(t_bash **bash, char **envp)
 t_env	*init_env(char **envp)
 {
 	t_env	*env;
+	t_env	*new;
+	char	**split;
+	int		i;
 
-	if (envp[0] == NULL)
+	i = 0;
+	if (envp[i] == NULL)
 		return (NULL);
+	while (envp[i])
+	{
+		split = ft_split(envp[i], '=');
+		if (split == NULL)
+			clear_env(env);
+	}
+	return (env);
 }
