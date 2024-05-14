@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/14 18:04:00 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/14 20:42:56 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ void	builtins(void);
 // exec/exec.c
 
 void	exec(void);
+
+// test/init.c
+
+void	*init_bash(t_bash **bash, char **envp);
+t_env	*init_env(char **envp);
 
 // test/struct_utils.c
 
