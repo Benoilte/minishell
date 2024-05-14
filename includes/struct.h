@@ -6,19 +6,27 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:12:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/14 17:20:16 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/14 20:07:36 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
 
-typedef struct s_sequence
+typedef struct s_bash
 {
 	char					*working_directory;
-	char					*env;
+	int						exit_code;
+	struct s_env			*env;
 	struct s_instructions	*instructions;
-}							t_sequence;
+}							t_bash;
+
+typedef struct s_env
+{
+	char			*name;
+	char			*value;
+	struct s_env	*env;
+}					t_env;
 
 typedef struct s_instructions
 {
@@ -44,6 +52,5 @@ typedef struct s_token_cmd
 	int					type;
 	struct s_token_cmd	*next;
 }						t_token_cmd;
-
 
 #endif
