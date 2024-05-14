@@ -6,15 +6,15 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 23:12:59 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/02/01 14:17:34 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/15 00:11:45 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
 static int	ft_count_word(char const *s, char c);
-static void	ft_fill_strs(char **strs, char const *s, char c);
-static void	ft_free_strs(char **strs, int len);
+static int	ft_fill_strs(char **strs, char const *s, char c);
+static int	ft_free_strs(char **strs, int len);
 
 /*
 Split 's' string according 'c' delimiter. allocate memory needed.
@@ -29,9 +29,10 @@ char	**ft_split(char const *s, char c)
 	words = ft_count_word(s, c);
 	str_str = (char **)malloc((words + 1) * sizeof(char *));
 	if (!str_str)
-		return ((void *)0);
-	ft_fill_strs(str_str, s, c);
-	return (str_str);
+		return (NULL);
+	if (ft_fill_strs(str_str, s, c) == 0)
+		return (str_str);
+	return (NULL);
 }
 
 /*
@@ -63,7 +64,7 @@ static int	ft_count_word(char const *s, char c)
 Fill 'strs' tab with words from 's' delimited by 'c'
 ft_fill_strs(allocate_strs, "fhelloffworldff", f) => [[hello], [world], [0]]
 */
-static void	ft_fill_strs(char **strs, char const *s, char c)
+static int	ft_fill_strs(char **strs, char const *s, char c)
 {
 	int	start;
 	int	end;
@@ -79,21 +80,22 @@ static void	ft_fill_strs(char **strs, char const *s, char c)
 			while (s[end] != c && s[end] != '\0')
 				end++;
 			strs[i_str] = ft_substr(s, start, end - start);
-			if (strs[i_str] == (void *)0)
-				ft_free_strs(strs, i_str);
+			if (strs[i_str] == NULL)
+				return (ft_free_strs(strs, i_str));
 			i_str++;
 			start = end - 1;
 		}
 		start++;
 	}
 	strs[i_str] = 0;
+	return (0);
 }
 
 /*
 If allocation memory problem occurs in the middle of strs tab.
 ft_free_strs free all previous memory allocated in tab + free the tab.
 */
-static void	ft_free_strs(char **strs, int len)
+static int	ft_free_strs(char **strs, int len)
 {
 	int	i;
 
@@ -104,4 +106,5 @@ static void	ft_free_strs(char **strs, int len)
 		i++;
 	}
 	free(strs);
+	return (1);
 }
