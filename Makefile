@@ -3,68 +3,122 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+         #
+#    By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/03/04 12:47:55 by bebrandt         ###   ########.fr        #
+#    Updated: 2024/05/14 15:46:40 by bebrandt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=
+NAME			=	minishell
 
-SRCS_DIR	=	srcs/
+MAIN			=
+SRCS_DIR		=	srcs/
+OBJ_DIR			=	objs/
 
-SRCS	=	$(addsuffix .c, )
+# main ressources
 
-OBJ 	= $(FDF_SRCS:.c=.o)
+MAIN_DIR		=	$(SRCS_DIR)main/
+ifeq ($(MAIN), ben)
+	MAIN_SRCS		+=	$(addprefix $(MAIN_DIR), $(addsuffix .c, main_ben))
+else ifeq ($(MAIN), tom)
+	MAIN_SRCS		+=	$(addprefix $(MAIN_DIR), $(addsuffix .c, main_tom))
+else
+	MAIN_SRCS		+=	$(addprefix $(MAIN_DIR), $(addsuffix .c, minishell))
+endif
+MAIN_SRCS		+=	$(addprefix $(MAIN_DIR), $(addsuffix .c, prompt))
 
-OBJS 	= $(addprefix $(OBJ_DIR),$(FDF_OBJ))
+# lexer ressources
 
-LIBFT_DIR	=	libft/
+LEXER_DIR		=	$(SRCS_DIR)lexer/
+LEXER_SRCS		=	$(addprefix $(LEXER_DIR), $(addsuffix .c, lexer))
 
-LIBFT_NAME	=	libft.a
+# parser ressources
 
-CC			=	gcc
+PARSER_DIR		=	$(SRCS_DIR)parser/
+PARSER_SRCS		=	$(addprefix $(PARSER_DIR), $(addsuffix .c, parser))
 
-CFLAGS		=	-Wall -Wextra -Werror -g
+# builtins ressources
 
-RM			=	rm -f
+BUILTINS_DIR	=	$(SRCS_DIR)builtins/
+BUILTINS_SRCS	=	$(addprefix $(BUILTINS_DIR), $(addsuffix .c, builtins))
 
-OBJ_DIR		=	objs/
+# exec ressources
 
+EXEC_DIR		=	$(SRCS_DIR)exec/
+EXEC_SRCS		=	$(addprefix $(EXEC_DIR), $(addsuffix .c, exec))
 
-RED			=	\033[0;31m
-GREEN		=	\033[0;32m
-NONE		=	\033[0m
+# test ressources
+
+TEST_DIR		=	$(SRCS_DIR)test/
+TEST_SRCS		=	$(addprefix $(TEST_DIR), $(addsuffix .c, test))
+
+# sources and objects variables
+
+SRCS			=	$(MAIN_SRCS) $(LEXER_SRCS) $(PARSER_SRCS) $(BUILTINS_SRCS) $(EXEC_SRCS) $(TEST_SRCS)
+OBJS			=	$(patsubst %.c, $(OBJ_DIR)%.o, $(notdir $(SRCS)));
+
+# path to find .c file
+
+VPATH			=	 $(MAIN_DIR):$(LEXER_DIR):$(PARSER_DIR):$(BUILTINS_DIR):$(EXEC_DIR):$(TEST_DIR)
+
+# libft variable
+
+LIBFT_DIR		=	libft/
+LIBFT_NAME		=	libft.a
+LIBFT_FLAGS		=	-L$(LIBFT_DIR) -lft
+
+# compilation variable
+
+CC				=	gcc 
+HDRS			=	-Iincludes/.
+CFLAGS			=	-Wall -Wextra -Werror
+RLFLAGS			=	-L$(HOME)/.brew/opt/readline/lib -lreadline
+RM				=	rm -f
+
+# color variable
+
+RED				=	\033[0;31m
+GREEN			=	\033[0;32m
+YELLOW			=	\033[0;33m
+NONE			=	\033[0m
 
 all: $(LIBFT_DIR)$(LIBFT_NAME) $(NAME)
 
-$(NAME): $(FDF_OBJS)
-	$(CC) $(CFLAGS) -o $@ $^ -L$(LIBFT_DIR) -lft
+$(NAME): $(OBJS)
+	@printf "\n$(GREEN)minishell object created successfully$(NONE)\n"
+	@$(CC) $(HDRS) $(CFLAGS) -o $@ $^ $(LIBFT_FLAGS) $(RLFLAGS)
+	@printf "$(GREEN)minishell program created successfully$(NONE)\n"
 
 $(LIBFT_DIR)$(LIBFT_NAME):
+	@printf "libft: "
 	@make -C $(LIBFT_DIR) all
+	@printf "\n$(GREEN)libft created successfully$(NONE)\n"
+	@printf "minishell object: "
 
-$(OBJ_DIR)%.o: $(SRCS_DIR)%.c
+$(OBJ_DIR)%.o: %.c
 	@mkdir -p $(OBJ_DIR)
-	@echo "$(GREEN)##### Creating" [ $@ ] " #####$(NONE)"
-	@$(CC) $(CFLAGS) $(OS_FLAGS) -c -o $@ $< $(INCLUDES)
-
-$(MLX_LIB):
-	@make -C $(MLX_DIR)
+	@$(CC) $(HDRS) $(CFLAGS) -c $^ -o $@
+	@printf "$(YELLOW).$(NONE)"
 
 clean:
 	@make -C $(LIBFT_DIR) clean
-	@make -C $(MLX_DIR) clean
-	@rm -f $(FDF_OBJS)
-	@echo "$(RED)##### Removed object files #####$(NONE)"
+	@$(RM) $(OBJS)
+	@echo "$(RED)##### Removed minishell object files #####$(NONE)"
 
 fclean: clean
 	@make -C $(LIBFT_DIR) fclean
-	@make -C $(MLX_DIR) clean
 	@rm -f $(NAME)
-	@echo "$(RED)##### Removed binary files #####$(NONE)"
+	@echo "$(RED)##### Removed minishell executable #####$(NONE)"
 
 re: fclean all
+
+ifeq ($(MAIN), ben)
+	$(info MAIN: $(MAIN))
+else ifeq ($(MAIN), tom)
+	$(info MAIN: $(MAIN))
+else
+	$(info MAIN: is not define)
+endif
 
 .PHONY: all clean fclean re
