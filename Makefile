@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+         #
+#    By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/05/14 18:06:01 by bebrandt         ###   ########.fr        #
+#    Updated: 2024/05/15 14:03:25 by bebrandt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ EXEC_SRCS			=	$(addprefix $(EXEC_DIR), $(addsuffix .c, exec))
 # struct_utils ressources
 
 STRUCT_UTILS_DIR	=	$(SRCS_DIR)struct_utils/
-STRUCT_UTILS_SRCS	=	$(addprefix $(STRUCT_UTILS_DIR), $(addsuffix .c, struct_utils))
+STRUCT_UTILS_SRCS	=	$(addprefix $(STRUCT_UTILS_DIR), $(addsuffix .c, init new add_back last clear_one clear_all))
 
 # test ressources
 
@@ -77,7 +77,7 @@ LIBFT_FLAGS			=	-L$(LIBFT_DIR) -lft
 
 # compilation variable
 
-CC					=	gcc 
+CC					=	gcc
 HDRS				=	-Iincludes/.
 CFLAGS				=	-Wall -Wextra -Werror
 RLFLAGS				=	-L$(HOME)/.brew/opt/readline/lib -lreadline
