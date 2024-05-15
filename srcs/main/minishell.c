@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:29:53 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/14 20:24:26 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:00:44 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	main(int argc, char *argv[], char *envp[])
 	else
 	{
 		init_bash(&bash, envp);
+		test_print_env(bash->env);
+		clear_bash(&bash);
 	}
 	return (EXIT_SUCCESS);
 }
