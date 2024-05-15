@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:12:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/15 00:34:33 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:56:23 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ typedef struct s_token_cmd
 
 // struct_utils/init.c
 
-void	*init_bash(t_bash **bash, char **envp);
+void	init_bash(t_bash **bash, char **envp);
 t_env	*init_env(char **envp);
 
 // struct_utils/new.c
 
-t_env	*new_env(char *name, char *value);
+t_env	*new_env(char *name_to_value);
 
 // struct_utils/add_back.c
 
@@ -72,12 +72,9 @@ t_env	*last_env(t_env *env);
 
 // struct_utils/clear_all.c
 
-void	clear_env(t_env **env);
+void	*clear_env(t_env **env);
+void	*clear_bash(t_bash **bash);
 
 // struct_utils/clear_one.c
-
-// struct_utils/struct_utils.c
-
-void	struct_utils(void);
 
 #endif

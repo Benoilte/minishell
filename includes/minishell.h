@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/15 00:14:48 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:47:14 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ void	exec(void);
 
 // test/test.c
 
-void	test(void);
+void	test_print_env(t_env *env);
 
 #endif
