@@ -6,21 +6,38 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 22:30:56 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/14 22:35:01 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:01:01 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_env	*new_env(char *name, char *value)
+// name_to_value should be equal to name=value || name= || name
+t_env	*new_env(char *name_to_value)
 {
 	t_env	*env;
+	int		i;
 
 	env = (t_env *)malloc(sizeof(t_env));
-	if (env == NULL)
+	if (!env)
 		return (NULL);
-	env->name = name;
-	env->value = value;
+	i = 0;
+	while (name_to_value[i] && name_to_value[i] != '=')
+		i++;
+	env->name = ft_substr(name_to_value, 0, i);
+	if (!env->name)
+	{
+		free(env);
+		return (NULL);
+	}
+	env->value = ft_substr(name_to_value, i, ft_strlen(name_to_value) - i);
+	if (!env->value)
+	{
+		free(env->name);
+		free(env);
+		return (NULL);
+	}
 	env->next = NULL;
 	return (env);
 }
+

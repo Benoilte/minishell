@@ -6,15 +6,15 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 20:25:18 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/15 00:36:28 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:43:24 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	*init_bash(t_bash **bash, char **envp)
+void	init_bash(t_bash **bash, char **envp)
 {
-	if (bash == NULL)
+	if (!bash)
 		exit(EXIT_FAILURE);
 	else
 	{
@@ -24,7 +24,7 @@ void	*init_bash(t_bash **bash, char **envp)
 		(*bash)->working_directory = NULL;
 		(*bash)->exit_code = 0;
 		(*bash)->env = init_env(envp);
-		if ((*bash)->env == NULL)
+		if (!(*bash)->env)
 		{
 			free(*bash);
 			exit(EXIT_FAILURE);
@@ -36,18 +36,20 @@ void	*init_bash(t_bash **bash, char **envp)
 t_env	*init_env(char **envp)
 {
 	t_env	*env;
-	t_env	*new;
-	char	**split;
+	t_env	*new_e;
 	int		i;
 
 	i = 0;
+	env = NULL;
 	if (envp[i] == NULL)
 		return (NULL);
 	while (envp[i])
 	{
-		split = ft_split(envp[i], '=');
-		if (split == NULL)
-			clear_env(env);
+		new_e = new_env(envp[i]);
+		if (!new_e)
+			return (clear_env(&env));
+		add_back_env(&env, new_e);
+		i++;
 	}
 	return (env);
 }
