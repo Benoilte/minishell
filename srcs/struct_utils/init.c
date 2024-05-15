@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 20:25:18 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/15 13:43:24 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/15 18:52:26 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	init_bash(t_bash **bash, char **envp)
 t_env	*init_env(char **envp)
 {
 	t_env	*env;
-	t_env	*new_e;
+	t_env	*new;
 	int		i;
 
 	i = 0;
@@ -45,10 +45,10 @@ t_env	*init_env(char **envp)
 		return (NULL);
 	while (envp[i])
 	{
-		new_e = new_env(envp[i]);
-		if (!new_e)
+		new = new_env(envp[i]);
+		if (!new)
 			return (clear_env(&env));
-		add_back_env(&env, new_e);
+		add_back_env(&env, new);
 		i++;
 	}
 	return (env);
