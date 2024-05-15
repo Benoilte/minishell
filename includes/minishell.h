@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/14 18:04:00 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:47:14 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,8 @@ void	builtins(void);
 
 void	exec(void);
 
-// test/struct_utils.c
-
-void	struct_utils(void);
-
 // test/test.c
 
-void	test(void);
+void	test_print_env(t_env *env);
 
 #endif

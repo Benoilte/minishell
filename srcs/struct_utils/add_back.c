@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct_utils.c                                     :+:      :+:    :+:   */
+/*   add_back.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/14 18:02:34 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/14 18:02:54 by bebrandt         ###   ########.fr       */
+/*   Created: 2024/05/14 22:31:19 by bebrandt          #+#    #+#             */
+/*   Updated: 2024/05/15 12:13:29 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	struct_utils(void)
+void	add_back_env(t_env **env, t_env *new)
 {
-	ft_printf("struct_utils function\n");
+	t_env	*last;
+
+	if (!env || !new)
+		return ;
+	last = last_env(*env);
+	if (!*env)
+		*env = new;
+	else
+		last->next = new;
 }
