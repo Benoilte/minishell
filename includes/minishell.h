@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/15 13:47:14 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/16 16:53:15 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,21 @@
 
 # include "struct.h"
 # include "../libft/includes/libft.h"
+
+// binary flags to define a cmd type
+
+enum
+{
+	INPUT = 1 ,
+	HEREDOC = 2,
+	OUTPUT_TRUNCATE = 4,
+	OUTPUT_APPEND = 8,
+	D_QUOTES = 16,
+	S_QUOTES = 32,
+	BUILTIN = 64,
+	CMD = 128,
+	WORD = 256
+};
 
 // main/minishell.c
 
