@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/16 16:53:15 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/17 16:36:58 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@
 
 # include "struct.h"
 # include "../libft/includes/libft.h"
+
+// readline lib
+
+#include <readline/readline.h>
+#include <readline/history.h>
 
 // binary flags to define a cmd type
 
@@ -41,7 +46,11 @@ void	prompt(void);
 
 //lexer/lexer.c
 
-void	lexer(void);
+void	lexing(t_bash *bash, char *sequence);
+void	set_redirection(t_bash *bash, char *sequence, int *i);
+void	set_quotes(t_bash *bash, char *sequence, int *i, int *cmd);
+void	set_pipe(t_bash *bash, int *i, int *cmd);
+void	set_word(t_bash *bash, char *sequence, int *i, int *cmd);
 
 // parser/parser.c
 
