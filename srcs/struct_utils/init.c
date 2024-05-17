@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 20:25:18 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/15 18:52:26 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/17 14:56:28 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,12 @@ void	init_bash(t_bash **bash, char **envp)
 			exit(EXIT_FAILURE);
 		(*bash)->working_directory = NULL;
 		(*bash)->exit_code = 0;
-		(*bash)->env = init_env(envp);
-		if (!(*bash)->env)
-		{
-			free(*bash);
-			exit(EXIT_FAILURE);
-		}
+		(*bash)->env = init_env(*bash, envp);
 		(*bash)->instructions = NULL;
 	}
 }
 
-t_env	*init_env(char **envp)
+t_env	*init_env(t_bash *bash, char **envp)
 {
 	t_env	*env;
 	t_env	*new;
@@ -47,7 +42,10 @@ t_env	*init_env(char **envp)
 	{
 		new = new_env(envp[i]);
 		if (!new)
-			return (clear_env(&env));
+		{
+			clear_bash(&bash);
+			exit(EXIT_FAILURE);
+		}
 		add_back_env(&env, new);
 		i++;
 	}
