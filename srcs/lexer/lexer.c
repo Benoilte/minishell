@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:53:37 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/17 18:17:20 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/17 18:23:04 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,19 @@ void	set_quotes(t_bash *bash, char *sequence, int *i, int *cmd)
 {
 	char	quote;
 	int		origin;
-	t_t
+	char	*data;
+	// t_t
 
 	(void)bash;
 	(void)cmd;
 	// if (*cmd == 0)
 	// 	bash->instruction->cmd->type |= CMD;
 	quote = sequence[*i];
-	*i += 1;
 	origin = *i;
+	*i += 1;
 	while (sequence[*i] && sequence[*i] != quote)
 		*i += 1;
-	data = ft_substr(sequence, origin, *i - origin);
+	data = ft_substr(sequence, origin, (*i - origin) + 1);
 	ft_printf("data in quotes: %s\n", data);
 	free(data);
 	*i += 1;
