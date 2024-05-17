@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 22:30:56 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/15 13:01:01 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/17 14:41:18 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_env	*new_env(char *name_to_value)
 		free(env);
 		return (NULL);
 	}
+	i++;
 	env->value = ft_substr(name_to_value, i, ft_strlen(name_to_value) - i);
 	if (!env->value)
 	{
@@ -40,4 +41,3 @@ t_env	*new_env(char *name_to_value)
 	env->next = NULL;
 	return (env);
 }
-

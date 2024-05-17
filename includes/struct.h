@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:12:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/15 13:56:23 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/17 14:51:21 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_token_cmd
 // struct_utils/init.c
 
 void	init_bash(t_bash **bash, char **envp);
-t_env	*init_env(char **envp);
+t_env	*init_env(t_bash *bash, char **envp);
 
 // struct_utils/new.c
 
