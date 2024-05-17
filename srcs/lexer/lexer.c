@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:53:37 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/17 16:39:43 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/17 18:17:20 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void	lexing(t_bash *bash, char *sequence)
 		clear_bash_and_exit(&bash, EXIT_FAILURE);
 	while (sequence[i])
 	{
-		if ((sequence[i] == '<') || (sequence[i] == '>'))
+		if (ft_isspace(sequence[i]))
+			i++;
+		else if ((sequence[i] == '<') || (sequence[i] == '>'))
 			set_redirection(bash, sequence, &i);
 		else if ((sequence[i] == '\"') || (sequence[i] == '\''))
 			set_quotes(bash, sequence, &i, &cmd);
@@ -32,7 +34,6 @@ void	lexing(t_bash *bash, char *sequence)
 			set_pipe(bash, &i, &cmd);
 		else
 			set_word(bash, sequence, &i, &cmd);
-		i++;
 	}
 }
 
@@ -40,24 +41,37 @@ void	set_redirection(t_bash *bash, char *sequence, int *i)
 {
 	(void)bash;
 	(void)sequence;
-	(void)i;
+	*i += 1;
 	ft_printf("set the redirections\n");
 }
 
 void	set_quotes(t_bash *bash, char *sequence, int *i, int *cmd)
 {
+	char	quote;
+	int		origin;
+	t_t
+
 	(void)bash;
-	(void)sequence;
-	(void)i;
 	(void)cmd;
-	ft_printf("set the quotes format\n");
+	// if (*cmd == 0)
+	// 	bash->instruction->cmd->type |= CMD;
+	quote = sequence[*i];
+	*i += 1;
+	origin = *i;
+	while (sequence[*i] && sequence[*i] != quote)
+		*i += 1;
+	data = ft_substr(sequence, origin, *i - origin);
+	ft_printf("data in quotes: %s\n", data);
+	free(data);
+	*i += 1;
+
 }
 
 void	set_pipe(t_bash *bash, int *i, int *cmd)
 {
 	(void)bash;
-	(void)i;
 	(void)cmd;
+	*i += 1;
 	ft_printf("set the pipe\n");
 }
 
@@ -65,7 +79,7 @@ void	set_word(t_bash *bash, char *sequence, int *i, int *cmd)
 {
 	(void)bash;
 	(void)sequence;
-	(void)i;
 	(void)cmd;
+	*i += 1;
 	ft_printf("set the word\n");
 }
