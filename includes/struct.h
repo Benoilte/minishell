@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:12:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/17 16:43:38 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/17 18:18:11 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,13 @@ typedef struct s_instruction
 	struct s_instruction	*next;
 }							t_instruction;
 
-typedef struct s_token_red
+typedef struct s_token
 {
 	char				*data;
 	int					type;
-	char				*file;
-	char				*limiter;
-	struct s_token_red	*next;
-}						t_token_red;
-
-typedef struct s_token_cmd
-{
-	char				*data;
-	int					type;
-	struct s_token_cmd	*next;
-}						t_token_cmd;
+	char				*option;
+	struct s_token	*next;
+}						t_token;
 
 // struct_utils/init.c
 
