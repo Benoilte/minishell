@@ -6,29 +6,11 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 10:33:22 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 13:39:56 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 14:40:29 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	define_cmd_token_type(t_token *token, int *cmd, char quote)
-{
-	if (quote == '\'')
-		token->data_type |= S_QUOTES;
-	if (quote == '\"')
-		token->data_type |= D_QUOTES;
-	if (*cmd == 0)
-	{
-		if (is_builtin(token->data))
-			token->data_type |= BUILTIN;
-		else
-			token->data_type |= CMD;
-	}
-	else
-		token->data_type |= WORD;
-	*cmd += 1;
-}
 
 /*
 ◦ echo with option -n
