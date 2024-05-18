@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:53:37 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 16:26:23 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 17:43:21 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,10 @@ void	lexing(t_bash *bash, char *sequence)
 			set_input_redirection(bash, sequence, &i);
 		else if (sequence[i] == '>')
 			set_output_redirection(bash, sequence, &i);
-		else if ((sequence[i] == '\"') || (sequence[i] == '\''))
-			set_quotes(bash, sequence, &i, &cmd);
 		else if (sequence[i] == '|')
 			set_pipe(bash, &i, &cmd);
 		else
-			set_word(bash, sequence, &i, &cmd);
+			set_text_token(bash, sequence, &i, &cmd);
 	}
 }
 
@@ -62,13 +60,14 @@ void	set_pipe(t_bash *bash, int *i, int *cmd)
 	*i += 1;
 }
 
-void	set_word(t_bash *bash, char *sequence, int *i, int *cmd)
+void	set_text_token(t_bash *bash, char *sequence, int *i, int *cmd)
 {
 	t_token			*new;
 	t_instruction	*last_inst;
 
+	(void)sequence;
 	new = init_token(bash);
-	new->data = get_word(bash, new, sequence, i);
+	new->data = get_text(bash, new, &(new->data_type), i);
 	define_cmd_token_type(new, cmd);
 	last_inst = last_instruction(bash->instruction);
 	add_back_token(&(last_inst->cmd), new);

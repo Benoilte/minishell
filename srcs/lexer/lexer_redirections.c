@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 13:41:41 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 15:06:05 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 17:41:08 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ void	set_token_option(t_bash *bash, t_token *new, char *sequence, int *i)
 		new->option = get_data_in_quotes(bash, new, sequence, i);
 	}
 	else
-		new->option = get_word(bash, new, sequence, i);
+		new->option = get_text(bash, new, &(new->option_type), i);
 	new->option_type |= REDIRECTION;
 }

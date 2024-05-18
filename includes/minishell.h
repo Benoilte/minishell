@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 15:27:43 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 17:40:43 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	prompt(void);
 void	lexing(t_bash *bash, char *sequence);
 void	set_quotes(t_bash *bash, char *sequence, int *i, int *cmd);
 void	set_pipe(t_bash *bash, int *i, int *cmd);
-void	set_word(t_bash *bash, char *sequence, int *i, int *cmd);
+void	set_text_token(t_bash *bash, char *sequence, int *i, int *cmd);
 
 //lexer/lexer_cmd.c
 
@@ -65,7 +65,8 @@ void	set_token_option(t_bash *bash, t_token *new, char *sequence, int *i);
 //lexer/lexer_get_str.c
 
 char	*get_data_in_quotes(t_bash *bash, t_token *new, char *sequence, int *i);
-char	*get_word(t_bash *bash, t_token *new, char *sequence, int *i);
+char	*get_text(t_bash *bash, t_token *new, int *type, int *i);
+void	move_to_next_quote(char quote, char *sequence, int *i);
 
 //lexer/lexer_define_type.c
 
