@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 14:58:06 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 15:27:43 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ void	exec(void);
 void	test_print_env(t_env *env);
 void	test_print_instruction(t_instruction *instruction);
 void	test_print_cmd_token(t_token *token);
+void	test_print_red_token(t_token *token);
 
 #endif
