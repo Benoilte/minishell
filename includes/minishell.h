@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 13:21:13 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 14:58:06 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,30 @@ void	prompt(void);
 //lexer/lexer.c
 
 void	lexing(t_bash *bash, char *sequence);
-void	set_redirection(t_bash *bash, char *sequence, int *i);
 void	set_quotes(t_bash *bash, char *sequence, int *i, int *cmd);
 void	set_pipe(t_bash *bash, int *i, int *cmd);
 void	set_word(t_bash *bash, char *sequence, int *i, int *cmd);
 
-//lexer/lexer_utils.c
+//lexer/lexer_cmd.c
 
-void	define_cmd_token_type(t_token *token, int *cmd, char quote);
 int		is_builtin(char *word);
+
+//lexer/lexer_redirections.c
+
+void	set_input_redirection(t_bash *bash, char *sequence, int *i);
+void	set_output_redirection(t_bash *bash, char *sequence, int *i);
+void	set_token_option(t_bash *bash, t_token *new, char *sequence, int *i);
+
+//lexer/lexer_get_str.c
+
+char	*get_data_in_quotes(t_bash *bash, t_token *new, char *sequence, int *i);
+char	*get_word(t_bash *bash, t_token *new, char *sequence, int *i);
+
+//lexer/lexer_define_type.c
+
+void	define_cmd_token_type(t_token *token, int *cmd);
+void	define_quotes_token_type(int *type, char quote);
+void	define_red_token_type(t_token *new, char *sequence, int *i);
 
 // parser/parser.c
 

@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:12:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 11:35:55 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 15:04:57 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ typedef struct s_token
 
 void			init_bash(t_bash **bash, char **envp);
 t_env			*init_env(t_bash *bash, char **envp);
+t_instruction	*init_instruction(t_bash *bash);
+t_token			*init_token(t_bash *bash);
 
 // struct_utils/new.c
 
