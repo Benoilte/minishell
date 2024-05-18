@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 22:30:56 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/17 16:38:22 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 11:15:30 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,20 @@ t_instruction	*new_instruction(void)
 	instruction->cmd_array = NULL;
 	instruction->next = NULL;
 	return (instruction);
+}
+
+t_token	*new_token(void)
+{
+	t_token	*token;
+
+	token = (t_token *)malloc(sizeof(t_token));
+	if (!token)
+		return (NULL);
+	token->data = NULL;
+	token->option = NULL;
+	token->n_quotes = 0;
+	token->data_type = 0;
+	token->option_type = 0;
+	token->next = NULL;
+	return (token);
 }
