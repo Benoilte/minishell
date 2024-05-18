@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:54:57 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 11:49:46 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 13:25:31 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,22 @@ void	test_print_env(t_env *env)
 	}
 }
 
+void	test_print_instruction(t_instruction *instruction)
+{
+	t_instruction	*tmp;
+	int				i;
+
+	i = 1;
+	tmp = instruction;
+	while (tmp)
+	{
+		ft_printf("\n- INST : %d -------------------\n", i);
+		test_print_cmd_token(tmp->cmd);
+		i++;
+		tmp = tmp->next;
+	}
+}
+
 void	test_print_cmd_token(t_token *token)
 {
 	t_token	*tmp;
@@ -31,12 +47,13 @@ void	test_print_cmd_token(t_token *token)
 
 	i = 1;
 	tmp = token;
+	ft_printf("\n----------- CMD TOKEN --------\n\n");
 	while (tmp)
 	{
-		ft_printf("TOKEN : %d   ", i);
-		ft_printf("DATA : %s   ", tmp->data);
-		ft_printf("N_QUOTES : %d   ", tmp->n_quotes);
-		ft_printf("TYPE : %d\n", tmp->data_type);
+		ft_printf("TOKEN : %-4d   ", i);
+		ft_printf("DATA : %-20s   ", tmp->data);
+		ft_printf("N_QUOTES : %-2d   ", tmp->n_quotes);
+		ft_printf("TYPE : %-4d\n", tmp->data_type);
 		i++;
 		tmp = tmp->next;
 	}
