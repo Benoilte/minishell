@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 00:25:27 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 11:32:30 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 13:17:13 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,21 @@ void	*clear_env(t_env **env)
 
 void	*clear_instruction(t_instruction **instruction)
 {
-	if ((*instruction)->red)
-		clear_token(&(*instruction)->red);
-	if ((*instruction)->cmd)
-		clear_token(&(*instruction)->cmd);
-	free(*instruction);
+	t_instruction	*clear;
+	t_instruction	*next;
+
+	clear = *instruction;
 	*instruction = NULL;
+	while (clear != NULL)
+	{
+		next = clear->next;
+		if ((clear)->red)
+			clear_token(&(clear)->red);
+		if ((clear)->cmd)
+			clear_token(&(clear)->cmd);
+		free(clear);
+		clear = next;
+	}
 	return (NULL);
 }
 
