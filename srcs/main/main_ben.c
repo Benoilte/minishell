@@ -6,21 +6,43 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:18:33 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/14 17:30:51 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 16:36:36 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	main(void)
+int	main(int argc, char *argv[], char *envp[])
 {
-	t_instructions	inst;
+	t_bash	*bash;
 
-	inst.fd[0] = 1;
-	inst.fd[1] = 2;
-	ft_printf("main function for ben\n");
-	prompt();
-	ft_printf("\n");
-	ft_printf("fd[0] = %d\n", inst.fd[0]);
-	ft_printf("fd[0] = %d\n", inst.fd[1]);
+	(void)argv;
+	if (argc != 1)
+		ft_printf("run the program without argument as follow: ./minishell\n");
+	else
+	{
+		init_bash(&bash, envp);
+		while (1)
+		{
+			bash->sequence = readline("minishell> ");
+			if (ft_strlen(bash->sequence) == 0)
+				printf("%s", bash->sequence);
+			else if (ft_strncmp(bash->sequence, "exit", ft_strlen(bash->sequence)) == 0)
+				break ;
+			else if (ft_strncmp(bash->sequence, "env", ft_strlen(bash->sequence)) == 0)
+				test_print_env(bash->env);
+			else
+			{
+				add_history(bash->sequence);
+				lexing(bash, bash->sequence);
+				test_print_instruction(bash->instruction);
+				clear_instruction(&(bash)->instruction);
+			}
+			free(bash->sequence);
+			bash->sequence = NULL;		
+		}
+		rl_clear_history();
+		clear_bash(&bash);
+	}
+	return (EXIT_SUCCESS);
 }
