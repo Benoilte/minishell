@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 10:33:22 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 11:36:27 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 12:06:06 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	define_cmd_token_type(t_token *token, int *cmd, char quote)
 
 int	is_builtin(char *word)
 {
+	if (ft_strlen(word) == 0)
+		return (0);
 	if (ft_strncmp(word, "echo", ft_strlen(word)) == 0)
 		return (1);
 	if (ft_strncmp(word, "cd", ft_strlen(word)) == 0)
