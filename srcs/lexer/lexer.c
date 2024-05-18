@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:53:37 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/17 18:23:04 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 11:55:55 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,23 +49,27 @@ void	set_quotes(t_bash *bash, char *sequence, int *i, int *cmd)
 {
 	char	quote;
 	int		origin;
-	char	*data;
-	// t_t
+	t_token	*new;
 
-	(void)bash;
-	(void)cmd;
-	// if (*cmd == 0)
-	// 	bash->instruction->cmd->type |= CMD;
+	new = new_token();
+	if (!new)
+		clear_bash_and_exit(&bash, EXIT_FAILURE);
+	new->n_quotes++;
 	quote = sequence[*i];
-	origin = *i;
 	*i += 1;
+	origin = *i;
 	while (sequence[*i] && sequence[*i] != quote)
 		*i += 1;
-	data = ft_substr(sequence, origin, (*i - origin) + 1);
-	ft_printf("data in quotes: %s\n", data);
-	free(data);
-	*i += 1;
-
+	new->data = ft_substr(sequence, origin, *i - origin);
+	if (sequence[*i] == quote)
+	{
+		new->n_quotes++;
+		*i += 1;
+	}
+	if (!new->data)
+		clear_bash_and_exit(&bash, EXIT_FAILURE);
+	define_cmd_token_type(new, cmd, quote);
+	add_back_token(&(bash->instruction->cmd), new);
 }
 
 void	set_pipe(t_bash *bash, int *i, int *cmd)
