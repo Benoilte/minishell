@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:53:37 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 11:55:55 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 13:22:39 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,10 @@ void	set_redirection(t_bash *bash, char *sequence, int *i)
 
 void	set_quotes(t_bash *bash, char *sequence, int *i, int *cmd)
 {
-	char	quote;
-	int		origin;
-	t_token	*new;
+	char			quote;
+	int				origin;
+	t_token			*new;
+	t_instruction	*last_inst;
 
 	new = new_token();
 	if (!new)
@@ -61,30 +62,46 @@ void	set_quotes(t_bash *bash, char *sequence, int *i, int *cmd)
 	while (sequence[*i] && sequence[*i] != quote)
 		*i += 1;
 	new->data = ft_substr(sequence, origin, *i - origin);
+	if (!new->data)
+		clear_bash_and_exit(&bash, EXIT_FAILURE);
 	if (sequence[*i] == quote)
 	{
 		new->n_quotes++;
 		*i += 1;
 	}
-	if (!new->data)
-		clear_bash_and_exit(&bash, EXIT_FAILURE);
 	define_cmd_token_type(new, cmd, quote);
-	add_back_token(&(bash->instruction->cmd), new);
+	last_inst = last_instruction(bash->instruction);
+	add_back_token(&(last_inst->cmd), new);
 }
 
 void	set_pipe(t_bash *bash, int *i, int *cmd)
 {
-	(void)bash;
-	(void)cmd;
+	t_instruction	*new;
+
+	new = new_instruction();
+	if (!new)
+		clear_bash_and_exit(&bash, EXIT_FAILURE);
+	add_back_instruction(&(bash->instruction), new);
+	*cmd = 0;
 	*i += 1;
-	ft_printf("set the pipe\n");
 }
 
 void	set_word(t_bash *bash, char *sequence, int *i, int *cmd)
 {
-	(void)bash;
-	(void)sequence;
-	(void)cmd;
-	*i += 1;
-	ft_printf("set the word\n");
+	int				origin;
+	t_token			*new;
+	t_instruction	*last_inst;
+
+	origin = *i;
+	new = new_token();
+	if (!new)
+		clear_bash_and_exit(&bash, EXIT_FAILURE);
+	while (sequence[*i] && ft_isspace(sequence[*i]) == 0)
+		*i += 1;
+	new->data = ft_substr(sequence, origin, *i - origin);
+	if (!new->data)
+		clear_bash_and_exit(&bash, EXIT_FAILURE);
+	define_cmd_token_type(new, cmd, '\0');
+	last_inst = last_instruction(bash->instruction);
+	add_back_token(&(last_inst->cmd), new);
 }
