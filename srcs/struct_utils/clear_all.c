@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 00:25:27 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/17 16:48:43 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 10:18:24 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,11 @@ void	*clear_instruction(t_instruction **instruction)
 {
 	free(*instruction);
 	*instruction = NULL;
+	return (NULL);
+}
+
+void	*clear_token(t_token **token)
+{
+	free(*token);
 	return (NULL);
 }

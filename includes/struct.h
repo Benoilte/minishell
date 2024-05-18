@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:12:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/17 18:18:11 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 10:18:45 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ typedef struct s_bash
 
 typedef struct s_env
 {
-	char			*name;
-	char			*value;
-	struct s_env	*next;
-}					t_env;
+	char					*name;
+	char					*value;
+	struct s_env			*next;
+}							t_env;
 
 typedef struct s_instruction
 {
@@ -39,11 +39,11 @@ typedef struct s_instruction
 
 typedef struct s_token
 {
-	char				*data;
-	int					type;
-	char				*option;
-	struct s_token	*next;
-}						t_token;
+	char					*data;
+	int						type;
+	char					*option;
+	struct s_token			*next;
+}							t_token;
 
 // struct_utils/init.c
 
@@ -58,10 +58,14 @@ t_instruction	*new_instruction(void);
 // struct_utils/add_back.c
 
 void			add_back_env(t_env **env, t_env *new);
+void			add_back_instruction(t_instruction **inst, t_instruction *new);
+void			add_back_token(t_token **token, t_token *new);
 
 // struct_utils/last.c
 
 t_env			*last_env(t_env *env);
+t_instruction	*last_instruction(t_instruction *inst);
+t_token			*last_token(t_token *token);
 
 // struct_utils/clear_all.c
 
@@ -69,6 +73,7 @@ void			*clear_bash_and_exit(t_bash **bash, int exit_code);
 void			*clear_bash(t_bash **bash);
 void			*clear_env(t_env **env);
 void			*clear_instruction(t_instruction **instruction);
+void			*clear_token(t_token **token);
 
 // struct_utils/clear_one.c
 
