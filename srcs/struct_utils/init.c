@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 20:25:18 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/17 16:07:22 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 15:04:23 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,24 @@ t_env	*init_env(t_bash *bash, char **envp)
 		i++;
 	}
 	return (env);
+}
+
+t_instruction	*init_instruction(t_bash *bash)
+{
+	t_instruction	*new;
+
+	new = new_instruction();
+	if (!new)
+		clear_bash_and_exit(&bash, EXIT_FAILURE);
+	return (new);
+}
+
+t_token	*init_token(t_bash *bash)
+{
+	t_token	*new;
+
+	new = new_token();
+	if (!new)
+		clear_bash_and_exit(&bash, EXIT_FAILURE);
+	return (new);
 }
