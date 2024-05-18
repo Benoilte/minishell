@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:18:33 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/17 16:48:06 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 10:07:08 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,13 @@ int	main(int argc, char *argv[], char *envp[])
 				test_print_env(bash->env);
 			else
 			{
+				add_history(sequence);
 				lexing(bash, sequence);
 				clear_instruction(&(bash)->instruction);
 			}
 			free(sequence);		
 		}
+		rl_clear_history();
 		free (sequence);
 		clear_bash(&bash);
 	}
