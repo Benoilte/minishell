@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:18:33 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 13:21:55 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 16:36:36 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_bash	*bash;
-	char	*sequence;
-	int		input_is_not_exit;
 
 	(void)argv;
 	if (argc != 1)
@@ -24,27 +22,26 @@ int	main(int argc, char *argv[], char *envp[])
 	else
 	{
 		init_bash(&bash, envp);
-			input_is_not_exit = 1;
-		while (input_is_not_exit)
+		while (1)
 		{
-			sequence = readline("minishell> ");
-			if (ft_strlen(sequence) == 0)
-				printf("%s", sequence);
-			else if (ft_strncmp(sequence, "exit", ft_strlen(sequence)) == 0)
+			bash->sequence = readline("minishell> ");
+			if (ft_strlen(bash->sequence) == 0)
+				printf("%s", bash->sequence);
+			else if (ft_strncmp(bash->sequence, "exit", ft_strlen(bash->sequence)) == 0)
 				break ;
-			else if (ft_strncmp(sequence, "env", ft_strlen(sequence)) == 0)
+			else if (ft_strncmp(bash->sequence, "env", ft_strlen(bash->sequence)) == 0)
 				test_print_env(bash->env);
 			else
 			{
-				add_history(sequence);
-				lexing(bash, sequence);
+				add_history(bash->sequence);
+				lexing(bash, bash->sequence);
 				test_print_instruction(bash->instruction);
 				clear_instruction(&(bash)->instruction);
 			}
-			free(sequence);		
+			free(bash->sequence);
+			bash->sequence = NULL;		
 		}
 		rl_clear_history();
-		free (sequence);
 		clear_bash(&bash);
 	}
 	return (EXIT_SUCCESS);
