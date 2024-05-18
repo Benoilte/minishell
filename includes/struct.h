@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:12:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 15:04:57 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 16:30:13 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 typedef struct s_bash
 {
 	char					*working_directory;
+	char					*sequence;
 	int						exit_code;
 	struct s_env			*env;
 	struct s_instruction	*instruction;
