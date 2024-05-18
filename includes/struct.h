@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:12:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 10:18:45 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 11:35:55 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ typedef struct s_env
 
 typedef struct s_instruction
 {
-	struct s_token_red		*red;
-	struct s_token_cmd		*cmd;
+	struct s_token			*red;
+	struct s_token			*cmd;
 	int						fd[2];
 	char					**cmd_array;
 	struct s_instruction	*next;
@@ -40,8 +40,10 @@ typedef struct s_instruction
 typedef struct s_token
 {
 	char					*data;
-	int						type;
+	int						data_type;
+	int						n_quotes;
 	char					*option;
+	int						option_type;
 	struct s_token			*next;
 }							t_token;
 
@@ -54,6 +56,7 @@ t_env			*init_env(t_bash *bash, char **envp);
 
 t_env			*new_env(char *name_to_value);
 t_instruction	*new_instruction(void);
+t_token			*new_token(void);
 
 // struct_utils/add_back.c
 

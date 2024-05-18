@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/17 16:36:58 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 11:44:32 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,16 @@
 
 enum
 {
-	INPUT = 1 ,
-	HEREDOC = 2,
-	OUTPUT_TRUNCATE = 4,
-	OUTPUT_APPEND = 8,
-	D_QUOTES = 16,
-	S_QUOTES = 32,
-	BUILTIN = 64,
-	CMD = 128,
-	WORD = 256
+	REDIRECTION = 1,
+	INPUT = 2 ,
+	HEREDOC = 4,
+	OUTPUT_TRUNCATE = 8,
+	OUTPUT_APPEND = 16,
+	D_QUOTES = 32,
+	S_QUOTES = 64,
+	BUILTIN = 128,
+	CMD = 256,
+	WORD = 512
 };
 
 // main/minishell.c
@@ -52,6 +53,11 @@ void	set_quotes(t_bash *bash, char *sequence, int *i, int *cmd);
 void	set_pipe(t_bash *bash, int *i, int *cmd);
 void	set_word(t_bash *bash, char *sequence, int *i, int *cmd);
 
+//lexer/lexer_utils.c
+
+void	define_cmd_token_type(t_token *token, int *cmd, char quote);
+int		is_builtin(char *word);
+
 // parser/parser.c
 
 void	parser(void);
@@ -67,5 +73,6 @@ void	exec(void);
 // test/test.c
 
 void	test_print_env(t_env *env);
+void	test_print_cmd_token(t_token *token);
 
 #endif
