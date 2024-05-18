@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 20:25:18 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 15:04:23 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 16:37:02 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	init_bash(t_bash **bash, char **envp)
 		if (!*bash)
 			exit(EXIT_FAILURE);
 		(*bash)->working_directory = NULL;
+		(*bash)->sequence = NULL;
 		(*bash)->exit_code = 0;
 		(*bash)->env = init_env(*bash, envp);
 		(*bash)->instruction = NULL;

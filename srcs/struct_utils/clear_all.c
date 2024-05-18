@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 00:25:27 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 13:17:13 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 16:37:22 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	*clear_bash(t_bash **bash)
 {
 	if ((*bash)->working_directory)
 		free((*bash)->working_directory);
+	if ((*bash)->sequence)
+		free((*bash)->sequence);
 	if ((*bash)->instruction)
 		clear_instruction(&(*bash)->instruction);
 	if ((*bash)->env)
