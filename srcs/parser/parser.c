@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:54:31 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/19 12:04:55 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/19 12:22:08 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	check_instruction(t_bash *bash, t_instruction *instruction)
 {
 	(void)bash;
 	if (!instruction->cmd && !instruction->red)
-		return (print_error_msg(INSTRUCTION_EMPTY));
+		return (print_error_msg(NULL, INSTRUCTION_EMPTY, NULL));
 	return (PARSING_OK);
 }
 

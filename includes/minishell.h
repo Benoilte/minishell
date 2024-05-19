@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/19 11:58:17 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/19 12:21:50 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	prompt(void);
 
 // main/verbose.c
 
-int	print_error_msg(char *msg);
+int		print_error_msg(char *cmd, char *msg, char *token);
 
 //lexer/lexer.c
 
