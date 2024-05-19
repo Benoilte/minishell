@@ -6,7 +6,7 @@
 #    By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/05/18 14:38:25 by bebrandt         ###   ########.fr        #
+#    Updated: 2024/05/19 17:05:15 by bebrandt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ LEXER_SRCS			=	$(addprefix $(LEXER_DIR), $(addsuffix .c, lexer lexer_cmd \
 # parser ressources
 
 PARSER_DIR			=	$(SRCS_DIR)parser/
-PARSER_SRCS			=	$(addprefix $(PARSER_DIR), $(addsuffix .c, parser))
+PARSER_SRCS			=	$(addprefix $(PARSER_DIR), $(addsuffix .c, parser parser_utils parser_check_redirections parser_check_cmd))
 
 # builtins ressources
 

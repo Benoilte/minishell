@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_redirections.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 13:41:41 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 22:21:24 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/19 16:00:53 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	set_redirection(t_bash *bash, char *sequence, int *i)
 	new->data = get_redirection_data(bash, new, i);
 	while (ft_isspace(sequence[*i]))
 		*i += 1;
-	set_token_option(bash, new, sequence, i);
+	if (sequence[*i])
+		set_token_option(bash, new, sequence, i);
 	last_inst = last_instruction(bash->instruction);
 	add_back_token(&(last_inst->red), new);
 }
@@ -33,6 +34,16 @@ void	set_token_option(t_bash *bash, t_token *new, char *sequence, int *i)
 {
 	if ((sequence[*i] == '<') || (sequence[*i] == '>'))
 		new->option = get_redirection_data(bash, new, i);
+	else if (sequence[*i] == '|')
+	{
+		new->option = ft_strdup("|");
+		if (!new->option)
+		{
+			clear_token(&new);
+			clear_bash_and_exit(&bash, EXIT_FAILURE);
+		}
+		*i += 1;
+	}
 	else
 		new->option = get_text(bash, new, &(new->option_type), i);
 	new->option_type |= REDIRECTION;
