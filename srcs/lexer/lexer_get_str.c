@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_get_str.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 14:26:05 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 17:39:43 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 22:25:07 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,25 @@ void	move_to_next_quote(char quote, char *sequence, int *i)
 	*i += 1;
 	while (sequence[*i] && sequence[*i] != quote)
 		*i += 1;
+}
+
+char	*get_redirection_data(t_bash *bash, t_token *new, int *i)
+{
+	int		origin;
+	char	red_sign;
+	char	*data;
+	char	*sequence;
+
+	sequence = bash->sequence;
+	red_sign = sequence[*i];
+	origin = *i;
+	while (sequence[*i] == red_sign)
+		*i += 1;
+	data = ft_substr(sequence, origin, *i - origin);
+	if (!data)
+	{
+		clear_token(&new);
+		clear_bash_and_exit(&bash, EXIT_FAILURE);
+	}
+	return (data);
 }

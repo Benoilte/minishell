@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:53:37 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 17:43:21 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 22:22:09 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,8 @@ void	lexing(t_bash *bash, char *sequence)
 	{
 		if (ft_isspace(sequence[i]))
 			i++;
-		else if (sequence[i] == '<')
-			set_input_redirection(bash, sequence, &i);
-		else if (sequence[i] == '>')
-			set_output_redirection(bash, sequence, &i);
+		else if ((sequence[i] == '<') || (sequence[i] == '>'))
+			set_redirection(bash, sequence, &i);
 		else if (sequence[i] == '|')
 			set_pipe(bash, &i, &cmd);
 		else
