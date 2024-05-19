@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_get_str.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 14:26:05 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 22:25:07 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/19 15:37:46 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*get_text(t_bash *bash, t_token *new, int *type, int *i)
 	sequence = bash->sequence;
 	origin = *i;
 	while (sequence[*i] && ft_isspace(sequence[*i]) == 0
-		&& sequence[*i] != '<' && sequence[*i] != '>')
+		&& sequence[*i] != '<' && sequence[*i] != '>' && sequence[*i] != '|')
 	{
 		if ((sequence[*i] == '\"') || (sequence[*i] == '\''))
 		{
