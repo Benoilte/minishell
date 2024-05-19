@@ -6,13 +6,37 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:54:31 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/14 12:57:06 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/19 12:04:55 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	parser(void)
+int	parsing(t_bash *bash)
 {
-	ft_printf("parser function\n");
+	t_instruction	*instruction;
+
+	instruction = bash->instruction;
+	while (instruction)
+	{
+		if (check_instruction(bash, instruction) == PARSING_ERROR)
+			return (PARSING_ERROR);
+		update_instruction(bash, instruction);
+		instruction = instruction->next;
+	}
+	return (PARSING_OK);
+}
+
+int	check_instruction(t_bash *bash, t_instruction *instruction)
+{
+	(void)bash;
+	if (!instruction->cmd && !instruction->red)
+		return (print_error_msg(INSTRUCTION_EMPTY));
+	return (PARSING_OK);
+}
+
+void	update_instruction(t_bash *bash, t_instruction *instruction)
+{
+	(void)bash;
+	(void)instruction;
 }

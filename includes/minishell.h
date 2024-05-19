@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/19 10:03:07 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/19 11:58:17 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 // PERSONNAL LIB
 
 # include "struct.h"
+# include "error.h"
 # include "../libft/includes/libft.h"
 
 // readline lib
@@ -45,6 +46,10 @@ enum
 // main/prompt.c
 
 void	prompt(void);
+
+// main/verbose.c
+
+int	print_error_msg(char *msg);
 
 //lexer/lexer.c
 
@@ -77,7 +82,9 @@ void	define_red_token_type(t_token *new, char *sequence, int *i);
 
 // parser/parser.c
 
-void	parser(void);
+int		parsing(t_bash *bash);
+int		check_instruction(t_bash *bash, t_instruction *instruction);
+void	update_instruction(t_bash *bash, t_instruction *instruction);
 
 // builtins/builtins.c
 
