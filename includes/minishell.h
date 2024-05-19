@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 15:27:43 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/19 10:03:07 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 
 // readline lib
 
-#include <readline/readline.h>
-#include <readline/history.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 // binary flags to define a cmd type
 
@@ -30,13 +30,14 @@ enum
 	REDIRECTION = 1,
 	INPUT = 2 ,
 	HEREDOC = 4,
-	OUTPUT_TRUNCATE = 8,
-	OUTPUT_APPEND = 16,
-	D_QUOTES = 32,
-	S_QUOTES = 64,
-	BUILTIN = 128,
-	CMD = 256,
-	WORD = 512
+	HERESTRING = 8,
+	OUTPUT_TRUNCATE = 16,
+	OUTPUT_APPEND = 32,
+	D_QUOTES = 64,
+	S_QUOTES = 128,
+	BUILTIN = 256,
+	CMD = 512,
+	WORD = 1024
 };
 
 // main/minishell.c
@@ -50,7 +51,7 @@ void	prompt(void);
 void	lexing(t_bash *bash, char *sequence);
 void	set_quotes(t_bash *bash, char *sequence, int *i, int *cmd);
 void	set_pipe(t_bash *bash, int *i, int *cmd);
-void	set_word(t_bash *bash, char *sequence, int *i, int *cmd);
+void	set_text_token(t_bash *bash, char *sequence, int *i, int *cmd);
 
 //lexer/lexer_cmd.c
 
@@ -58,14 +59,15 @@ int		is_builtin(char *word);
 
 //lexer/lexer_redirections.c
 
-void	set_input_redirection(t_bash *bash, char *sequence, int *i);
-void	set_output_redirection(t_bash *bash, char *sequence, int *i);
+void	set_redirection(t_bash *bash, char *sequence, int *i);
 void	set_token_option(t_bash *bash, t_token *new, char *sequence, int *i);
 
 //lexer/lexer_get_str.c
 
 char	*get_data_in_quotes(t_bash *bash, t_token *new, char *sequence, int *i);
-char	*get_word(t_bash *bash, t_token *new, char *sequence, int *i);
+char	*get_text(t_bash *bash, t_token *new, int *type, int *i);
+void	move_to_next_quote(char quote, char *sequence, int *i);
+char	*get_redirection_data(t_bash *bash, t_token *new, int *i);
 
 //lexer/lexer_define_type.c
 

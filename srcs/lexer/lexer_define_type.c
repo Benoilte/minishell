@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_define_type.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 14:38:55 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 15:07:36 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/18 22:22:42 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,17 @@ void	define_quotes_token_type(int *type, char quote)
 
 void	define_red_token_type(t_token *new, char *sequence, int *i)
 {
-	if ((sequence[*i] == '<') && (sequence[*i + 1] == '<'))
+	if ((sequence[*i] == '<') && (sequence[*i + 1] == '<')
+		&& (sequence[*i + 2] == '<'))
 	{
+		new->data_type |= HERESTRING;
+	}
+	else if ((sequence[*i] == '<') && (sequence[*i + 1] == '<'))
 		new->data_type |= HEREDOC;
-		*i += 1;
-	}
 	else if ((sequence[*i] == '>') && (sequence[*i + 1] == '>'))
-	{
 		new->data_type |= OUTPUT_APPEND;
-		*i += 1;
-	}
 	else if (sequence[*i] == '<')
 		new->data_type |= INPUT;
 	else if (sequence[*i] == '>')
 		new->data_type |= OUTPUT_TRUNCATE;
-	*i += 1;
 }
