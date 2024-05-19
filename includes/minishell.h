@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/19 13:54:40 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:07:30 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,6 @@ enum
 // main/prompt.c
 
 void	prompt(void);
-
-// main/verbose.c
-
-int		print_parsing_error_msg(char *msg, char *token);
 
 //lexer/lexer.c
 
