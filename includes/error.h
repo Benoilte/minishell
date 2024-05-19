@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 11:29:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/19 13:15:57 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/19 15:00:29 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,17 @@ enum
 };
 
 # define INSTRUCTION_EMPTY "syntax error command is empty after a pipe"
+
+// Parsing redirection error
+
 # define HERESTRING_NOT_IMPLEMENTED "syntax error Here Strings `<<<' redirection is \
 not implemented"
-# define CMD_NOT_FOUND "command not found"
 # define UNEXPECTED_TOKEN "syntax error near unexpected token"
+
+// Parsing command error
+
+// Parsing shared error
+
+# define UNCLOSED_QUOTES "syntax error unclosed quotes"
 
 #endif
