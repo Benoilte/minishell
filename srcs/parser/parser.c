@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:54:31 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/19 12:22:08 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/19 13:06:05 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,20 @@ int	parsing(t_bash *bash)
 
 int	check_instruction(t_bash *bash, t_instruction *instruction)
 {
+	t_token	*red;
+	t_token	*cmd;
+
 	(void)bash;
-	if (!instruction->cmd && !instruction->red)
-		return (print_error_msg(NULL, INSTRUCTION_EMPTY, NULL));
+	red = instruction->red;
+	cmd = instruction->cmd;
+	if (!cmd && !red)
+		return (print_parsing_error_msg(INSTRUCTION_EMPTY, NULL));
+	while (red)
+	{
+		if (check_redirections(red) == PARSING_ERROR)
+			return (PARSING_ERROR);
+		red = red->next;
+	}
 	return (PARSING_OK);
 }
 
