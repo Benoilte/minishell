@@ -6,11 +6,11 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:39:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/19 13:16:18 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/19 13:52:26 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/parser.h"
 
 int	check_redirections(t_token *red)
 {

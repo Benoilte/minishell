@@ -6,11 +6,11 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:54:31 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/19 13:06:05 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/19 13:52:33 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/parser.h"
 
 int	parsing(t_bash *bash)
 {

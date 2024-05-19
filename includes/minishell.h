@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/19 13:05:39 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/19 13:54:40 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,16 +83,6 @@ void	define_red_token_type(t_token *new, char *sequence, int *i);
 // parser/parser.c
 
 int		parsing(t_bash *bash);
-int		check_instruction(t_bash *bash, t_instruction *instruction);
-void	update_instruction(t_bash *bash, t_instruction *instruction);
-
-// parser/parser_check_redirections.c
-
-int		check_redirections(t_token *red);
-int		check_data_redirection(char *data, int type);
-int		check_opt_redirection(char *option, int type);
-
-// parser/parser_check_cmd.c
 
 // builtins/builtins.c
 
