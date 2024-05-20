@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:54:31 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/20 14:46:06 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/20 18:13:54 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,19 @@ int	check_instruction(t_instruction *instruction)
 
 void	update_instruction(t_bash *bash, t_instruction *instruction)
 {
-	(void)bash;
-	(void)instruction;
+	t_token	*red;
+	t_token	*cmd;
+
+	red = instruction->red;
+	cmd = instruction->cmd;
+	while (red)
+	{
+		update_data(bash, red->option);
+		red = red->next;
+	}
+	while (cmd)
+	{
+		update_data(bash, cmd->data);
+		cmd = cmd->next;
+	}
 }
