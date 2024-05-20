@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:48:16 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/20 14:14:25 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:46:12 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 // parser/parser.c
 
-int		check_instruction(t_bash *bash, t_instruction *instruction);
+int		check_instruction(t_instruction *instruction);
 void	update_instruction(t_bash *bash, t_instruction *instruction);
 
 // parser/parser_check_redirections.c
