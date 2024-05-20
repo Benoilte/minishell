@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_redirections.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 13:41:41 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/20 09:16:35 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/20 11:53:12 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,7 @@ void	set_token_option(t_bash *bash, t_token *new, char *sequence, int *i)
 {
 	if ((sequence[*i] == '<') || (sequence[*i] == '>'))
 		new->option = get_redirection_data(bash, new, i);
-	else if (sequence[*i] == '|')
-	{
-		new->option = get_one_char_token(bash, new, sequence, i);
-		// new->option = ft_strdup("|");
-		// if (!new->option)
-		// {
-		// 	clear_token(&new);
-		// 	clear_bash_and_exit(&bash, EXIT_FAILURE);
-		// }
-		// *i += 1;
-	}
 	else
-		new->option = get_text(bash, new, &(new->option_type), i);
+		new->option = get_text_data(bash, new, &(new->option_type), i);
 	new->option_type |= REDIRECTION;
 }
