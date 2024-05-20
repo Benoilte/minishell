@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_update_data.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:54:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/20 18:15:59 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/20 18:35:45 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,15 @@ void	update_data(t_bash *bash, char *data)
 			get_environnemnt_var(bash, &data_updated, data, &i);
 			start = i;
 		}
-		// else if ((data[i] == '\'') || (data[i] == '\"'))
-		// {
-		// 	get_text_out_of_quotes(data_updated, data + start, i - start);
-		// 	// get_data_in_quotes(bash, data_updated, data, &i);
-		// 	start = i;
-		// }
-		i++;
+		else if ((data[i] == '\'') || (data[i] == '\"'))
+		{
+			get_text_out_of_quotes(bash, &data_updated, data + start, i - start);
+			i++;
+			// get_data_in_quotes(bash, data_updated, data, &i);
+			start = i;
+		}
+		else
+			i++;
 	}
 	if (i > start)
 		get_text_out_of_quotes(bash, &data_updated, data + start, i - start);
@@ -52,6 +54,7 @@ void	get_text_out_of_quotes(t_bash *bash, t_list **data_updated, char *src, int 
 	char	*text_out_of_quotes;
 	t_list	*new;
 
+	ft_printf("len: %d\n", len);
 	if (len == 0)
 		return ;
 	text_out_of_quotes = ft_substr(src, 0, len);
