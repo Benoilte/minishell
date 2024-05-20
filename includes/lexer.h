@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 23:58:33 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/20 12:06:44 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/20 13:57:58 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	set_text_token(t_bash *bash, char *sequence, int *i, int *cmd);
 //lexer/lexer_cmd.c
 
 int		is_builtin(char *word);
-int		is_unexpected_token_cmd(char c);
 
 //lexer/lexer_redirections.c
 

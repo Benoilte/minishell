@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:54:31 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/19 16:34:52 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/20 13:43:03 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ int	check_instruction(t_bash *bash, t_instruction *instruction)
 		if (check_redirections(red) == PARSING_ERROR)
 			return (PARSING_ERROR);
 		red = red->next;
+	}
+	while (cmd)
+	{
+		if (check_cmd(cmd) == PARSING_ERROR)
+			return (PARSING_ERROR);
+		cmd = cmd->next;
 	}
 	return (PARSING_OK);
 }
