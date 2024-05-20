@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:12:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/20 14:48:31 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:55:54 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ typedef struct s_token
 {
 	char					*data;
 	int						data_type;
-	int						n_quotes;
 	char					*option;
 	int						option_type;
 	struct s_token			*next;
