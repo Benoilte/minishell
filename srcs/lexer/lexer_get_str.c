@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_get_str.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 14:26:05 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/19 15:37:46 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/20 00:20:55 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/lexer.h"
 
 char	*get_data_in_quotes(t_bash *bash, t_token *new, char *sequence, int *i)
 {
@@ -46,7 +46,7 @@ char	*get_text(t_bash *bash, t_token *new, int *type, int *i)
 
 	sequence = bash->sequence;
 	origin = *i;
-	while (sequence[*i] && ft_isspace(sequence[*i]) == 0
+	while (sequence[*i] && (ft_isspace(sequence[*i]) == 0)
 		&& sequence[*i] != '<' && sequence[*i] != '>' && sequence[*i] != '|')
 	{
 		if ((sequence[*i] == '\"') || (sequence[*i] == '\''))
@@ -92,5 +92,19 @@ char	*get_redirection_data(t_bash *bash, t_token *new, int *i)
 		clear_token(&new);
 		clear_bash_and_exit(&bash, EXIT_FAILURE);
 	}
+	return (data);
+}
+
+char	*get_one_char_token(t_bash *bash, t_token *new, char *sequence, int *i)
+{
+	char	*data;
+
+	data = ft_substr(sequence, *i, 1);
+	if (!data)
+	{
+		clear_token(&new);
+		clear_bash_and_exit(&bash, EXIT_FAILURE);
+	}
+	*i += 1;
 	return (data);
 }

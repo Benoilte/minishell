@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_redirections.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 13:41:41 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/19 16:00:53 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/20 09:16:35 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/lexer.h"
 
 void	set_redirection(t_bash *bash, char *sequence, int *i)
 {
@@ -36,13 +36,14 @@ void	set_token_option(t_bash *bash, t_token *new, char *sequence, int *i)
 		new->option = get_redirection_data(bash, new, i);
 	else if (sequence[*i] == '|')
 	{
-		new->option = ft_strdup("|");
-		if (!new->option)
-		{
-			clear_token(&new);
-			clear_bash_and_exit(&bash, EXIT_FAILURE);
-		}
-		*i += 1;
+		new->option = get_one_char_token(bash, new, sequence, i);
+		// new->option = ft_strdup("|");
+		// if (!new->option)
+		// {
+		// 	clear_token(&new);
+		// 	clear_bash_and_exit(&bash, EXIT_FAILURE);
+		// }
+		// *i += 1;
 	}
 	else
 		new->option = get_text(bash, new, &(new->option_type), i);
