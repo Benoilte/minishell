@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:12:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/20 14:55:54 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/20 19:12:24 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,9 @@ void			*clear_instruction(t_instruction **instruction);
 void			*clear_token(t_token **token);
 
 // struct_utils/clear_one.c
+
+// struct_utils/env_utils.c
+
+char			*get_value(t_bash *bash, char *name);
 
 #endif

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+         #
+#    By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/05/20 16:28:29 by bebrandt         ###   ########.fr        #
+#    Updated: 2024/05/20 18:52:28 by bebrandt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,8 @@ EXEC_SRCS			=	$(addprefix $(EXEC_DIR), $(addsuffix .c, exec))
 # struct_utils ressources
 
 STRUCT_UTILS_DIR	=	$(SRCS_DIR)struct_utils/
-STRUCT_UTILS_SRCS	=	$(addprefix $(STRUCT_UTILS_DIR), $(addsuffix .c, init new add_back last clear_one clear_all))
+STRUCT_UTILS_SRCS	=	$(addprefix $(STRUCT_UTILS_DIR), $(addsuffix .c, init new add_back \
+						last clear_one clear_all env_utils))
 
 # test ressources
 

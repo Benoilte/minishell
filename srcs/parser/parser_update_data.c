@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:54:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/20 18:35:45 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/20 19:14:54 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	update_data(t_bash *bash, char *data)
 		get_text_out_of_quotes(bash, &data_updated, data + start, i - start);
 	while (data_updated)
 	{
-		ft_printf("%s", data_updated->content);
+		if (data_updated->content)
+			ft_printf("%s", data_updated->content);
 		data_updated = data_updated->next;
 	}
 	ft_printf("\n");
@@ -84,12 +85,7 @@ void	get_environnemnt_var(t_bash *bash, t_list **data_updated, char *data, int *
 	env_var_name = ft_substr(data, origin, *i - origin);
 	if (!env_var_name)
 		clear_bash_and_exit(&bash, EXIT_FAILURE);
-	env_var_value = ft_strdup("oups");
-	if (!env_var_value)
-	{
-		free(env_var_name);
-		clear_bash_and_exit(&bash, EXIT_FAILURE);
-	}
+	env_var_value = get_value(bash, env_var_name);
 	free(env_var_name);
 	new = ft_lstnew(env_var_value);
 	if (!new)
