@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:54:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/20 19:14:54 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/20 20:00:25 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,21 @@ void	update_data(t_bash *bash, char *data)
 	{
 		if (data[i] == '$')
 		{
-			get_text_out_of_quotes(bash, &data_updated, data + start, i - start);
+			get_text_unchanged(bash, &data_updated, data + start, i - start);
 			get_environnemnt_var(bash, &data_updated, data, &i);
 			start = i;
 		}
 		else if ((data[i] == '\'') || (data[i] == '\"'))
 		{
-			get_text_out_of_quotes(bash, &data_updated, data + start, i - start);
-			i++;
-			// get_data_in_quotes(bash, data_updated, data, &i);
+			get_text_unchanged(bash, &data_updated, data + start, i - start);
+			get_text_inside_quotes(bash, &data_updated, data, &i);
 			start = i;
 		}
 		else
 			i++;
 	}
 	if (i > start)
-		get_text_out_of_quotes(bash, &data_updated, data + start, i - start);
+		get_text_unchanged(bash, &data_updated, data + start, i - start);
 	while (data_updated)
 	{
 		if (data_updated->content)
@@ -50,7 +49,7 @@ void	update_data(t_bash *bash, char *data)
 	ft_printf("\n");
 }
 
-void	get_text_out_of_quotes(t_bash *bash, t_list **data_updated, char *src, int len)
+void	get_text_unchanged(t_bash *bash, t_list **data_updated, char *src, int len)
 {
 	char	*text_out_of_quotes;
 	t_list	*new;
@@ -91,6 +90,31 @@ void	get_environnemnt_var(t_bash *bash, t_list **data_updated, char *data, int *
 	if (!new)
 	{
 		free(env_var_value);
+		clear_bash_and_exit(&bash, EXIT_FAILURE);
+	}
+	ft_lstadd_back(data_updated, new);
+}
+
+void	get_text_inside_quotes(t_bash *bash, t_list **data_updated, char *data, int *i)
+{
+	int			origin;
+	char		quote;
+	char		*text_inside_of_quotes;
+	t_list		*new;
+
+	quote = data[*i];
+	*i += 1;
+	origin = *i;
+	while (data[*i] && data[*i] != quote)
+		*i += 1;
+	text_inside_of_quotes = ft_substr(data, origin, *i - origin);
+	*i += 1;
+	if (!text_inside_of_quotes)
+		clear_bash_and_exit(&bash, EXIT_FAILURE);
+	new = ft_lstnew(text_inside_of_quotes);
+	if (!new)
+	{
+		free(text_inside_of_quotes);
 		clear_bash_and_exit(&bash, EXIT_FAILURE);
 	}
 	ft_lstadd_back(data_updated, new);
