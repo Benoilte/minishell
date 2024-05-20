@@ -1,31 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/14 12:54:12 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/20 16:35:51 by tmartin2         ###   ########.fr       */
+/*   Created: 2024/05/20 13:22:50 by tmartin2          #+#    #+#             */
+/*   Updated: 2024/05/20 13:31:39 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/builtins.h"
 
-// TODO : structure bash en attande pour recupe le builtins
-void builtins(t_bash *bash)
+//fonction pour supprimer tout les espace
+void trim(t_bash *bash)
 {
-	int exit_status;
-	exit_status = 0;
-	pwd(bash);
-	cd(bash);
-	echo(bash);
-	ft_export(bash->env, bash);
-	ft_unset(bash);
-	if (ft_strcmp(bash->sequence, "env") == 0)
-		print_env(bash->env);
-	exit_status = ft_exit(bash);
-	if (exit_status != 0)
-		exit(exit_status);
-	
+    char *str = bash->sequence;
+    int len = ft_strlen(str);
+    int i = 0;
+    int j = 0;
+    
+    while (i < len)
+    {
+        if (str[i] != ' ')
+            str[j++] = str[i];
+        i++;
+    }
+    str[j] = '\0';
+}
+int ft_exit(t_bash *bash)
+{
+    int exit = 0;
+    trim(bash);
+    if (ft_strcmp(bash->sequence, "exit") == 0)
+    {
+        exit = 1;
+    }
+    return (exit);
 }

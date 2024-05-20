@@ -1,31 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/14 12:54:12 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/20 16:35:51 by tmartin2         ###   ########.fr       */
+/*   Created: 2024/05/20 13:54:13 by tmartin2          #+#    #+#             */
+/*   Updated: 2024/05/20 13:58:54 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/builtins.h"
 
-// TODO : structure bash en attande pour recupe le builtins
-void builtins(t_bash *bash)
+void echo(t_bash *bash)
 {
-	int exit_status;
-	exit_status = 0;
-	pwd(bash);
-	cd(bash);
-	echo(bash);
-	ft_export(bash->env, bash);
-	ft_unset(bash);
-	if (ft_strcmp(bash->sequence, "env") == 0)
-		print_env(bash->env);
-	exit_status = ft_exit(bash);
-	if (exit_status != 0)
-		exit(exit_status);
-	
+    char *rl;
+    char *msg;
+    int new_line;
+    
+    if (ft_strncmp(bash->sequence, "echo ", 5) == 0)
+    {
+        rl = bash->sequence;
+        msg = rl + 5;
+        new_line = 1;
+        if (ft_strncmp(msg, "-n ", 3) == 0)
+        {
+            new_line = 0;
+            msg += 3;
+        }
+        printf("%s", msg);
+        if (new_line)
+            printf("\n");
+    }
 }
+
