@@ -6,11 +6,11 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:53:37 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 22:22:09 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/20 09:10:23 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/lexer.h"
 
 void	lexing(t_bash *bash, char *sequence)
 {

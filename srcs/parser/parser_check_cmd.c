@@ -3,12 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parser_check_cmd.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:49:24 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/19 13:52:22 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/20 09:10:36 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parser.h"
 
+/*
+& ( ) ;
+*/

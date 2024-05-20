@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 10:33:22 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 14:40:29 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/20 00:05:39 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/lexer.h"
 
 /*
 ◦ echo with option -n
@@ -40,5 +40,21 @@ int	is_builtin(char *word)
 		return (1);
 	if (ft_strncmp(word, "exit", ft_strlen(word)) == 0)
 		return (1);
+	return (0);
+}
+
+int	is_unexpected_token_cmd(char c)
+{
+	char	*tokens;
+	int		i;
+
+	tokens = "();&";
+	i = 0;
+	while (tokens[i])
+	{
+		if (tokens[i] == c)
+			return (1);
+		i++;
+	}
 	return (0);
 }

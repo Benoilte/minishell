@@ -6,11 +6,11 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 14:38:55 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 22:22:42 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/20 09:12:28 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/lexer.h"
 
 void	define_cmd_token_type(t_token *token, int *cmd)
 {
