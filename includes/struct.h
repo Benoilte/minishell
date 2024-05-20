@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:12:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 16:30:13 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:48:31 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,23 @@ typedef struct s_token
 	int						option_type;
 	struct s_token			*next;
 }							t_token;
+
+// binary flags to define a cmd type
+
+enum
+{
+	REDIRECTION = 1,
+	INPUT = 2 ,
+	HEREDOC = 4,
+	HERESTRING = 8,
+	OUTPUT_TRUNCATE = 16,
+	OUTPUT_APPEND = 32,
+	D_QUOTES = 64,
+	S_QUOTES = 128,
+	BUILTIN = 256,
+	CMD = 512,
+	WORD = 1024
+};
 
 // struct_utils/init.c
 
