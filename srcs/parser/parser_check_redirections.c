@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:39:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/20 14:18:30 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:33:47 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ int	check_opt_redirection(char *option, int type)
 		return (print_parsing_error_msg(UNEXPECTED_TOKEN, "newline", 0));
 	if (option[i] == '#')
 		return (print_parsing_error_msg(UNEXPECTED_TOKEN, "newline", 0));
-	// if (option[i] == '|')
-	// 	return (print_parsing_error_msg(UNEXPECTED_TOKEN, "|", 0));
 	if (unexpected_red_token(option[i]))
 		return (print_parsing_error_msg(UNEXPECTED_TOKEN, NULL, option[i]));
 	if (type_equal_to(D_QUOTES, type) || type_equal_to(S_QUOTES, type))
