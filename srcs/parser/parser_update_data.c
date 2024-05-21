@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_update_data.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:54:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 09:35:29 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/21 09:54:14 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,14 @@ void	get_text_unchanged(t_bash *bash, t_list **recast, char *src, int *i)
 	t_list	*new;
 
 	origin = *i;
-	while (src[*i]
-		&& ((src[*i] != '$') && (src[*i] != '\'') && (src[*i] != '\"')))
+	while (src[*i])
+	{
+		if ((src[*i] == '$') || (src[*i] == '\"'))
+			break ;
+		else if (!bash->buffer && (src[*i] == '\''))
+			break ;
 		*i += 1;
+	}
 	text_unchanged = ft_substr(src, origin, *i - origin);
 	if (!text_unchanged)
 		clear_bash_and_exit(&bash, EXIT_FAILURE);
