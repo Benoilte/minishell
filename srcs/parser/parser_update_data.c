@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:54:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/20 20:00:25 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/21 08:19:37 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,62 +14,58 @@
 
 void	update_data(t_bash *bash, char *data)
 {
-	int		start;
-	int		i;
-	t_list	*data_updated;
+	t_list	*recast;
 
-	data_updated = NULL;
-	i = 0;
-	start = 0;
-	while (data[i])
+	recast = NULL;
+	filter_data(bash, &recast, data, 0);
+	while (recast)
 	{
-		if (data[i] == '$')
-		{
-			get_text_unchanged(bash, &data_updated, data + start, i - start);
-			get_environnemnt_var(bash, &data_updated, data, &i);
-			start = i;
-		}
-		else if ((data[i] == '\'') || (data[i] == '\"'))
-		{
-			get_text_unchanged(bash, &data_updated, data + start, i - start);
-			get_text_inside_quotes(bash, &data_updated, data, &i);
-			start = i;
-		}
-		else
-			i++;
-	}
-	if (i > start)
-		get_text_unchanged(bash, &data_updated, data + start, i - start);
-	while (data_updated)
-	{
-		if (data_updated->content)
-			ft_printf("%s", data_updated->content);
-		data_updated = data_updated->next;
+		if (recast->content)
+			ft_printf("%s", recast->content);
+		recast = recast->next;
 	}
 	ft_printf("\n");
 }
 
-void	get_text_unchanged(t_bash *bash, t_list **data_updated, char *src, int len)
+void	filter_data(t_bash *bash, t_list **recast, char *src, char quote)
 {
-	char	*text_out_of_quotes;
-	t_list	*new;
+	int		i;
 
-	ft_printf("len: %d\n", len);
-	if (len == 0)
-		return ;
-	text_out_of_quotes = ft_substr(src, 0, len);
-	if (!text_out_of_quotes)
-		clear_bash_and_exit(&bash, EXIT_FAILURE);
-	new = ft_lstnew(text_out_of_quotes);
-	if (!new)
+	i = 0;
+	while (src[i])
 	{
-		free(text_out_of_quotes);
-		clear_bash_and_exit(&bash, EXIT_FAILURE);
+		if (src[i] == '$')
+			get_env_value(bash, recast, src, &i);
+		else if (quote != '\"' && ((src[i] == '\'') || (src[i] == '\"')))
+			get_text_in_quotes(bash, recast, src, &i);
+		else
+			get_text_unchanged(bash, recast, src, &i);
 	}
-	ft_lstadd_back(data_updated, new);
 }
 
-void	get_environnemnt_var(t_bash *bash, t_list **data_updated, char *data, int *i)
+void	get_text_unchanged(t_bash *bash, t_list **recast, char *src, int *i)
+{
+	int		origin;
+	char	*text_unchanged;
+	t_list	*new;
+
+	origin = *i;
+	while (src[*i]
+		&& ((src[*i] != '$') && (src[*i] != '\'') && (src[*i] != '\"')))
+		*i += 1;
+	text_unchanged = ft_substr(src, origin, *i - origin);
+	if (!text_unchanged)
+		clear_bash_and_exit(&bash, EXIT_FAILURE);
+	new = ft_lstnew(text_unchanged);
+	if (!new)
+	{
+		free(text_unchanged);
+		clear_bash_and_exit(&bash, EXIT_FAILURE);
+	}
+	ft_lstadd_back(recast, new);
+}
+
+void	get_env_value(t_bash *bash, t_list **recast, char *data, int *i)
 {
 	int		origin;
 	char	*env_var_name;
@@ -92,10 +88,10 @@ void	get_environnemnt_var(t_bash *bash, t_list **data_updated, char *data, int *
 		free(env_var_value);
 		clear_bash_and_exit(&bash, EXIT_FAILURE);
 	}
-	ft_lstadd_back(data_updated, new);
+	ft_lstadd_back(recast, new);
 }
 
-void	get_text_inside_quotes(t_bash *bash, t_list **data_updated, char *data, int *i)
+void	get_text_in_quotes(t_bash *bash, t_list **recast, char *data, int *i)
 {
 	int			origin;
 	char		quote;
@@ -111,11 +107,17 @@ void	get_text_inside_quotes(t_bash *bash, t_list **data_updated, char *data, int
 	*i += 1;
 	if (!text_inside_of_quotes)
 		clear_bash_and_exit(&bash, EXIT_FAILURE);
+	if (quote == '\"')
+	{
+		filter_data(bash, recast, text_inside_of_quotes, '\"');
+		free(text_inside_of_quotes);
+		return ;
+	}
 	new = ft_lstnew(text_inside_of_quotes);
 	if (!new)
 	{
 		free(text_inside_of_quotes);
 		clear_bash_and_exit(&bash, EXIT_FAILURE);
 	}
-	ft_lstadd_back(data_updated, new);
+	ft_lstadd_back(recast, new);
 }
