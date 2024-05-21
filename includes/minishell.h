@@ -6,7 +6,7 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 13:11:33 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:09:13 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void builtins(t_bash *bash);
 
 // exec/exec.c
 
-void	exec(t_bash *bash, char **argv);
+void	exec(t_bash *bash, char **envp);
 
 // test/test.c
 

@@ -6,7 +6,7 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:29:38 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 14:26:59 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:07:38 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ int	main(int argc, char *argv[], char *envp[])
 			if (ft_strlen(bash->sequence) == 0)
 				printf("%s", bash->sequence);
 			builtins(bash);
-			//instruc(bash);
-			//exec(bash, argv);
+			exec(bash, envp);
 			add_history(bash->sequence);
 			free(bash->sequence);
 			bash->sequence = NULL;		

@@ -6,12 +6,12 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:53:54 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 14:26:25 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:36:08 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../../includes/minishell.h"
-// #include "../../includes/exec.h"
+#include "../../includes/minishell.h"
+#include "../../includes/exec.h"
 
 // //fonction teste qui recupere les instruction 
 // // Fonction pour ajouter une instruction à la liste chaînée
@@ -53,14 +53,15 @@
 //     // Ajouter la nouvelle instruction à la liste chaînée
 //     add_instruction(bash, new_instr);
 // }
-// // void ft_cmd(t_bash *bash, char **argv)
-// // {
-// // 	instruct(bash);
-// // 	check_instruction(bash->instruction, bash->env);
-// // 	while()
-	
-// // }
-// void	exec(t_bash *bash, char **argv)
-// {
-// 	ft_cmd(bash, argv);
-// }
+void ft_cmd(t_bash *bash, char **envp)
+{
+	char *cmd_path;
+	t_instruction *current;
+	cmd_path = check_instruction(&current->cmd->data, envp);
+	if (execve(cmd_path, current->cmd->data, envp) == -1);
+		error();
+}
+void	exec(t_bash *bash, char **envp)
+{
+	ft_cmd(bash, envp);
+}
