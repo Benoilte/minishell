@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:54:31 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/20 18:13:54 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/21 13:02:48 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	update_instruction(t_bash *bash, t_instruction *instruction)
 	}
 	while (cmd)
 	{
-		update_data(bash, cmd->data);
+		cmd->data = update_data(bash, cmd->data);
 		cmd = cmd->next;
 	}
 }

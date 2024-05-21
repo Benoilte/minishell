@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:48:16 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 12:07:04 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/21 13:03:19 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		print_parsing_error_msg(char *msg, char *token_str, char token_c);
 
 // parser/parser_update_data.c
 
-void	update_data(t_bash *bash, char *data);
+char	*update_data(t_bash *bash, char *data);
 void	filter_data(t_bash *bash, t_list **recast, char *src, char quote);
 void	get_text_unchanged(t_bash *bash, t_list **recast, char *src, int *i);
 void	get_env_value(t_bash *bash, t_list **recast, char *data, int *i);

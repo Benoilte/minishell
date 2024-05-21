@@ -6,13 +6,13 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:54:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 12:10:29 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/21 13:06:56 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parser.h"
 
-void	update_data(t_bash *bash, char *data)
+char	*update_data(t_bash *bash, char *data)
 {
 	t_list	*recast;
 	int		length_data_updated;
@@ -22,7 +22,8 @@ void	update_data(t_bash *bash, char *data)
 	filter_data(bash, &recast, data, 0);
 	length_data_updated = count_length_data_updated(recast);
 	data_updated = duplicate_data_updated(bash, recast, length_data_updated);
-	ft_printf("data updated: %s\n", data_updated);
+	free(data);
+	return (data_updated);
 }
 
 void	filter_data(t_bash *bash, t_list **recast, char *src, char quote)
@@ -70,6 +71,7 @@ void	get_env_value(t_bash *bash, t_list **recast, char *data, int *i)
 	char	*env_var_name;
 	char	*env_var_value;
 
+	if ()
 	*i += 1;
 	origin = *i;
 	while (data[*i]
