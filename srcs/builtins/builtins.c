@@ -6,7 +6,7 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:54:12 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/20 16:35:51 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/05/21 09:39:38 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,4 @@ void builtins(t_bash *bash)
 	exit_status = ft_exit(bash);
 	if (exit_status != 0)
 		exit(exit_status);
-	
 }
