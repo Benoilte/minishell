@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+         #
+#    By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/05/20 18:52:28 by bebrandt         ###   ########.fr        #
+#    Updated: 2024/05/21 10:33:58 by bebrandt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ LEXER_SRCS			=	$(addprefix $(LEXER_DIR), $(addsuffix .c, lexer lexer_cmd \
 PARSER_DIR			=	$(SRCS_DIR)parser/
 PARSER_SRCS			=	$(addprefix $(PARSER_DIR), $(addsuffix .c, parser parser_utils \
 						parser_check_redirections parser_check_cmd \
-						parser_update_data))
+						parser_update_data parser_update_data_utils))
 
 # builtins ressources
 
@@ -57,7 +57,7 @@ EXEC_SRCS			=	$(addprefix $(EXEC_DIR), $(addsuffix .c, exec))
 
 STRUCT_UTILS_DIR	=	$(SRCS_DIR)struct_utils/
 STRUCT_UTILS_SRCS	=	$(addprefix $(STRUCT_UTILS_DIR), $(addsuffix .c, init new add_back \
-						last clear_one clear_all env_utils))
+						last clear_one clear_all env_utils bash_utils))
 
 # test ressources
 
