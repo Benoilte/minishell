@@ -6,7 +6,7 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:12:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/20 15:02:47 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/05/21 11:25:18 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ typedef struct s_bash
 	char					*working_directory;
 	char					*sequence;
 	int						exit_code;
+	char					*buffer;
 	struct s_env			*env;
 	struct s_instruction	*instruction;
 }							t_bash;
@@ -42,11 +43,27 @@ typedef struct s_token
 {
 	char					*data;
 	int						data_type;
-	int						n_quotes;
 	char					*option;
 	int						option_type;
 	struct s_token			*next;
 }							t_token;
+
+// binary flags to define a cmd type
+
+enum
+{
+	REDIRECTION = 1,
+	INPUT = 2 ,
+	HEREDOC = 4,
+	HERESTRING = 8,
+	OUTPUT_TRUNCATE = 16,
+	OUTPUT_APPEND = 32,
+	D_QUOTES = 64,
+	S_QUOTES = 128,
+	BUILTIN = 256,
+	CMD = 512,
+	WORD = 1024
+};
 
 // struct_utils/init.c
 
@@ -82,5 +99,13 @@ void			*clear_instruction(t_instruction **instruction);
 void			*clear_token(t_token **token);
 
 // struct_utils/clear_one.c
+
+// struct_utils/env_utils.c
+
+char			*get_value(t_bash *bash, char *name);
+
+// struct_utils/bash_utils.c
+
+void			reset_buffer(char *buffer);
 
 #endif

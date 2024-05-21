@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 20:25:18 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 16:37:02 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/21 08:26:40 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	init_bash(t_bash **bash, char **envp)
 		(*bash)->working_directory = NULL;
 		(*bash)->sequence = NULL;
 		(*bash)->exit_code = 0;
+		(*bash)->buffer = NULL;
 		(*bash)->env = init_env(*bash, envp);
 		(*bash)->instruction = NULL;
 	}

@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:54:57 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 15:39:43 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:57:07 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ void	test_print_cmd_token(t_token *token)
 	while (tmp)
 	{
 		ft_printf("TOKEN : %-4d", i);
-		ft_printf("DATA : %-20s", tmp->data);
-		ft_printf("N_QUOTES : %-8d", tmp->n_quotes);
+		ft_printf("DATA : %-30s", tmp->data);
 		ft_printf("TYPE : %-8d\n", tmp->data_type);
 		i++;
 		tmp = tmp->next;
@@ -71,9 +70,8 @@ void	test_print_red_token(t_token *token)
 	while (tmp)
 	{
 		ft_printf("TOKEN : %-4d", i);
-		ft_printf("DATA : %-20s", tmp->data);
-		ft_printf("OPTION : %-20s", tmp->option);
-		ft_printf("N_QUOTES : %-8d", tmp->n_quotes);
+		ft_printf("DATA : %-10s", tmp->data);
+		ft_printf("OPTION : %-30s", tmp->option);
 		ft_printf("DATA_TYPE : %-8d", tmp->data_type);
 		ft_printf("OPTION_TYPE : %-8d\n", tmp->option_type);
 		i++;
