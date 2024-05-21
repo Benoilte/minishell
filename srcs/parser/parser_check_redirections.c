@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:39:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/19 17:02:32 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:18:30 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,21 +58,21 @@ int	check_opt_redirection(char *option, int type)
 		return (print_parsing_error_msg(UNEXPECTED_TOKEN, "newline", 0));
 	if (option[i] == '#')
 		return (print_parsing_error_msg(UNEXPECTED_TOKEN, "newline", 0));
-	if (option[i] == '|')
-		return (print_parsing_error_msg(UNEXPECTED_TOKEN, "|", 0));
-	if (is_unexpected_token(option[i]))
+	// if (option[i] == '|')
+	// 	return (print_parsing_error_msg(UNEXPECTED_TOKEN, "|", 0));
+	if (unexpected_red_token(option[i]))
 		return (print_parsing_error_msg(UNEXPECTED_TOKEN, NULL, option[i]));
 	if (type_equal_to(D_QUOTES, type) || type_equal_to(S_QUOTES, type))
 	{
 		if (check_closed_quotes(option) == PARSING_ERROR)
 			return (PARSING_ERROR);
 	}
-	if (check_text_out_of_quotes(option) == PARSING_ERROR)
+	if (check_text_out_of_quotes(option, unexpected_red_token) == PARSING_ERROR)
 		return (PARSING_ERROR);
 	return (PARSING_OK);
 }
 
-int	is_unexpected_token(char c)
+int	unexpected_red_token(char c)
 {
 	char	*tokens;
 	int		i;
