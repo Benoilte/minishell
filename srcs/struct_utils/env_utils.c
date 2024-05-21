@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 18:53:44 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/20 19:17:22 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/21 13:51:24 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ char	*get_value(t_bash *bash, char *name)
 		}
 		tmp = tmp->next;
 	}
-	return (NULL);
+	value = ft_strdup("");
+	return (value);
 }

@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:54:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 13:06:56 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/21 13:46:07 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,10 @@ void	get_env_value(t_bash *bash, t_list **recast, char *data, int *i)
 	char	*env_var_name;
 	char	*env_var_value;
 
-	if ()
 	*i += 1;
 	origin = *i;
+	if ((data[*i] == '\0') || (data[*i] == '\''))
+		origin -= 1;
 	while (data[*i]
 		&& ((data[*i] != '$') && (data[*i] != '\'') && (data[*i] != '\"')))
 		*i += 1;
@@ -82,6 +83,11 @@ void	get_env_value(t_bash *bash, t_list **recast, char *data, int *i)
 	{
 		ft_lstclear(recast, &free_content);
 		clear_bash_and_exit(&bash, EXIT_FAILURE);
+	}
+	if (ft_strncmp(env_var_name, "$", ft_strlen(env_var_name)) == 0)
+	{
+		add_back_recast(bash, recast, env_var_name);
+		return ;
 	}
 	env_var_value = get_value(bash, env_var_name);
 	free(env_var_name);
