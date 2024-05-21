@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:54:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 10:56:16 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/21 12:10:29 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,14 @@
 void	update_data(t_bash *bash, char *data)
 {
 	t_list	*recast;
+	int		length_data_updated;
+	char	*data_updated;
 
 	recast = NULL;
 	filter_data(bash, &recast, data, 0);
-	while (recast)
-	{
-		if (recast->content)
-			ft_printf("%s", recast->content);
-		recast = recast->next;
-	}
-	ft_printf("\n");
+	length_data_updated = count_length_data_updated(recast);
+	data_updated = duplicate_data_updated(bash, recast, length_data_updated);
+	ft_printf("data updated: %s\n", data_updated);
 }
 
 void	filter_data(t_bash *bash, t_list **recast, char *src, char quote)
@@ -92,21 +90,23 @@ void	get_text_in_quotes(t_bash *bash, t_list **recast, char *data, int *i)
 {
 	int			origin;
 	char		quote;
+	char		*get_text_in_quotes;
 
 	quote = data[*i];
 	*i += 1;
 	origin = *i;
 	while (data[*i] && data[*i] != quote)
 		*i += 1;
-	bash->buffer = ft_substr(data, origin, *i - origin);
-	if (!bash->buffer)
+	get_text_in_quotes = ft_substr(data, origin, *i - origin);
+	if (!get_text_in_quotes)
 		clear_bash_and_exit(&bash, EXIT_FAILURE);
 	*i += 1;
 	if (quote == '\"')
 	{
+		bash->buffer = get_text_in_quotes;
 		filter_data(bash, recast, bash->buffer, '\"');
 		reset_buffer(bash->buffer);
 		return ;
 	}
-	add_back_recast(bash, recast, NULL);
+	add_back_recast(bash, recast, get_text_in_quotes);
 }

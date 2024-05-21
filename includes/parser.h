@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:48:16 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 10:52:45 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/21 12:07:04 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,7 @@ void	get_text_in_quotes(t_bash *bash, t_list **recast, char *data, int *i);
 
 void	free_content(void *content);
 void	add_back_recast(t_bash *bash, t_list **recast, char *value);
+int		count_length_data_updated(t_list *recast);
+char	*duplicate_data_updated(t_bash *bash, t_list *recast, int size);
 
 #endif

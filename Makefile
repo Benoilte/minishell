@@ -6,7 +6,7 @@
 #    By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/05/21 10:33:58 by bebrandt         ###   ########.fr        #
+#    Updated: 2024/05/21 11:44:19 by bebrandt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,7 +98,7 @@ all: $(LIBFT_DIR)$(LIBFT_NAME) $(NAME)
 
 $(NAME): $(OBJS)
 	@printf "\n$(GREEN)minishell object created successfully$(NONE)\n"
-	@$(CC) $(HDRS) $(CFLAGS) -o $@ $^ $(LIBFT_FLAGS) $(RLFLAGS)
+	@$(CC) $(HDRS) $(CFLAGS) -o $@ $^ $(LIBFT_FLAGS) $(RLFLAGS) -g
 	@printf "$(GREEN)minishell program created successfully$(NONE)\n"
 
 $(LIBFT_DIR)$(LIBFT_NAME):
@@ -109,7 +109,7 @@ $(LIBFT_DIR)$(LIBFT_NAME):
 
 $(OBJ_DIR)%.o: %.c
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(HDRS) $(CFLAGS) -c $^ -o $@
+	@$(CC) $(HDRS) $(CFLAGS) -c $^ -o $@ -g
 	@printf "$(YELLOW).$(NONE)"
 
 clean:
