@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:54:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 08:19:37 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/21 09:35:29 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ void	get_text_in_quotes(t_bash *bash, t_list **recast, char *data, int *i)
 {
 	int			origin;
 	char		quote;
-	char		*text_inside_of_quotes;
 	t_list		*new;
 
 	quote = data[*i];
@@ -103,20 +102,22 @@ void	get_text_in_quotes(t_bash *bash, t_list **recast, char *data, int *i)
 	origin = *i;
 	while (data[*i] && data[*i] != quote)
 		*i += 1;
-	text_inside_of_quotes = ft_substr(data, origin, *i - origin);
-	*i += 1;
-	if (!text_inside_of_quotes)
+	bash->buffer = ft_substr(data, origin, *i - origin);
+	if (!bash->buffer)
 		clear_bash_and_exit(&bash, EXIT_FAILURE);
+	*i += 1;
 	if (quote == '\"')
 	{
-		filter_data(bash, recast, text_inside_of_quotes, '\"');
-		free(text_inside_of_quotes);
+		filter_data(bash, recast, bash->buffer, '\"');
+		free(bash->buffer);
+		bash->buffer = NULL;
 		return ;
 	}
-	new = ft_lstnew(text_inside_of_quotes);
+	new = ft_lstnew(bash->buffer);
 	if (!new)
 	{
-		free(text_inside_of_quotes);
+		free(bash->buffer);
+		bash->buffer = NULL;
 		clear_bash_and_exit(&bash, EXIT_FAILURE);
 	}
 	ft_lstadd_back(recast, new);
