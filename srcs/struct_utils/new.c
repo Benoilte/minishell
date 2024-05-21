@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 22:30:56 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 11:15:30 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:56:21 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ t_token	*new_token(void)
 		return (NULL);
 	token->data = NULL;
 	token->option = NULL;
-	token->n_quotes = 0;
 	token->data_type = 0;
 	token->option_type = 0;
 	token->next = NULL;

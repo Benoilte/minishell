@@ -32,23 +32,6 @@
 # include <unistd.h>
 # include <errno.h>
 
-// binary flags to define a cmd type
-
-enum
-{
-	REDIRECTION = 1,
-	INPUT = 2 ,
-	HEREDOC = 4,
-	HERESTRING = 8,
-	OUTPUT_TRUNCATE = 16,
-	OUTPUT_APPEND = 32,
-	D_QUOTES = 64,
-	S_QUOTES = 128,
-	BUILTIN = 256,
-	CMD = 512,
-	WORD = 1024
-};
-
 // main/minishell.c
 
 // main/prompt.c
