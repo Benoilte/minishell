@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:54:31 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 14:54:06 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:36:12 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	parsing(t_bash *bash)
 		if (check_instruction(instruction) == PARSING_ERROR)
 			return (PARSING_ERROR);
 		update_instruction(bash, instruction);
+		fill_cmd_array(bash, instruction);
 		instruction = instruction->next;
 	}
 	return (PARSING_OK);
