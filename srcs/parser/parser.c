@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:54:31 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 13:02:48 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/21 14:54:06 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	update_instruction(t_bash *bash, t_instruction *instruction)
 	cmd = instruction->cmd;
 	while (red)
 	{
-		update_data(bash, red->option);
+		red->option = update_data(bash, red->option);
 		red = red->next;
 	}
 	while (cmd)
