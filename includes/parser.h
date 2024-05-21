@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:48:16 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 08:19:09 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/21 10:52:45 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,10 @@ void	filter_data(t_bash *bash, t_list **recast, char *src, char quote);
 void	get_text_unchanged(t_bash *bash, t_list **recast, char *src, int *i);
 void	get_env_value(t_bash *bash, t_list **recast, char *data, int *i);
 void	get_text_in_quotes(t_bash *bash, t_list **recast, char *data, int *i);
+
+// parser/parser_update_data_utils.c
+
+void	free_content(void *content);
+void	add_back_recast(t_bash *bash, t_list **recast, char *value);
 
 #endif

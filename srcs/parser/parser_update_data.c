@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:54:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 09:54:14 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/21 10:56:16 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	get_text_unchanged(t_bash *bash, t_list **recast, char *src, int *i)
 {
 	int		origin;
 	char	*text_unchanged;
-	t_list	*new;
 
 	origin = *i;
 	while (src[*i])
@@ -60,14 +59,11 @@ void	get_text_unchanged(t_bash *bash, t_list **recast, char *src, int *i)
 	}
 	text_unchanged = ft_substr(src, origin, *i - origin);
 	if (!text_unchanged)
-		clear_bash_and_exit(&bash, EXIT_FAILURE);
-	new = ft_lstnew(text_unchanged);
-	if (!new)
 	{
-		free(text_unchanged);
+		ft_lstclear(recast, &free_content);
 		clear_bash_and_exit(&bash, EXIT_FAILURE);
 	}
-	ft_lstadd_back(recast, new);
+	add_back_recast(bash, recast, text_unchanged);
 }
 
 void	get_env_value(t_bash *bash, t_list **recast, char *data, int *i)
@@ -75,7 +71,6 @@ void	get_env_value(t_bash *bash, t_list **recast, char *data, int *i)
 	int		origin;
 	char	*env_var_name;
 	char	*env_var_value;
-	t_list	*new;
 
 	*i += 1;
 	origin = *i;
@@ -84,23 +79,19 @@ void	get_env_value(t_bash *bash, t_list **recast, char *data, int *i)
 		*i += 1;
 	env_var_name = ft_substr(data, origin, *i - origin);
 	if (!env_var_name)
-		clear_bash_and_exit(&bash, EXIT_FAILURE);
-	env_var_value = get_value(bash, env_var_name);
-	free(env_var_name);
-	new = ft_lstnew(env_var_value);
-	if (!new)
 	{
-		free(env_var_value);
+		ft_lstclear(recast, &free_content);
 		clear_bash_and_exit(&bash, EXIT_FAILURE);
 	}
-	ft_lstadd_back(recast, new);
+	env_var_value = get_value(bash, env_var_name);
+	free(env_var_name);
+	add_back_recast(bash, recast, env_var_value);
 }
 
 void	get_text_in_quotes(t_bash *bash, t_list **recast, char *data, int *i)
 {
 	int			origin;
 	char		quote;
-	t_list		*new;
 
 	quote = data[*i];
 	*i += 1;
@@ -114,16 +105,8 @@ void	get_text_in_quotes(t_bash *bash, t_list **recast, char *data, int *i)
 	if (quote == '\"')
 	{
 		filter_data(bash, recast, bash->buffer, '\"');
-		free(bash->buffer);
-		bash->buffer = NULL;
+		reset_buffer(bash->buffer);
 		return ;
 	}
-	new = ft_lstnew(bash->buffer);
-	if (!new)
-	{
-		free(bash->buffer);
-		bash->buffer = NULL;
-		clear_bash_and_exit(&bash, EXIT_FAILURE);
-	}
-	ft_lstadd_back(recast, new);
+	add_back_recast(bash, recast, NULL);
 }
