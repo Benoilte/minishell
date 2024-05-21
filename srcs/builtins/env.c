@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_tom.c                                         :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/14 11:29:38 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/20 15:57:50 by tmartin2         ###   ########.fr       */
+/*   Created: 2024/05/20 13:42:09 by tmartin2          #+#    #+#             */
+/*   Updated: 2024/05/20 14:01:00 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/builtins.h"
 
-int	main(int argc, char *argv[], char *envp[])
+void print_env(t_env *env)
 {
-	t_bash *bash;
+	t_env	*tmp;
 
-	(void)argv;
-	if (argc != 1)
-		printf("Error : trop d'argument\n");
-	else
+	tmp = env;
+    
+	while (tmp)
 	{
-		init_bash(&bash, envp);
-		while (1)
-		{
-			bash->sequence = readline("minishell> ");
-			if (ft_strlen(bash->sequence) == 0)
-				printf("%s", bash->sequence);
-			builtins(bash);
-		}
+		ft_printf("%s=%s\n", tmp->name, tmp->value);
+		tmp = tmp->next;
 	}
-	return (0);
 }
+

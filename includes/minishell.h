@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/20 14:48:23 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:57:58 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+// other lib
+
+# include <stdio.h>
+# include <string.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <errno.h>
+
 // main/minishell.c
 
 // main/prompt.c
@@ -40,7 +48,7 @@ int		parsing(t_bash *bash);
 
 // builtins/builtins.c
 
-void	builtins(void);
+void builtins(t_bash *bash);
 
 // exec/exec.c
 
