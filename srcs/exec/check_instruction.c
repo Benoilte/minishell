@@ -6,7 +6,7 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:56:23 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/05/21 15:37:44 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/05/21 17:08:49 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char *check_instruction(t_instruction *cmd, char **envp)
     int i;
 
     i = 0;
-    current = *cmd;
+    current = cmd;
     while (current != NULL)
     {
         if (current->cmd->data && current->cmd)
