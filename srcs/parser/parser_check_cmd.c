@@ -6,15 +6,11 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:49:24 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/20 14:14:17 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:33:30 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parser.h"
-
-/*
-& ( ) ;
-*/
 
 int	check_cmd(t_token *cmd)
 {
