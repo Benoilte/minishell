@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+         #
+#    By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/05/21 16:29:29 by bebrandt         ###   ########.fr        #
+#    Updated: 2024/05/21 18:11:35 by bebrandt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,8 +50,8 @@ BUILTINS_SRCS		=	$(addprefix $(BUILTINS_DIR), $(addsuffix .c, builtins pwd utils
 
 # exec ressources
 
-EXEC_DIR			=	$(SRCS_DIR)exec/
-EXEC_SRCS			=	$(addprefix $(EXEC_DIR), $(addsuffix .c, exec))
+# EXEC_DIR			=	$(SRCS_DIR)exec/
+# EXEC_SRCS			=	$(addprefix $(EXEC_DIR), $(addsuffix .c, exec))
 
 # struct_utils ressources
 
