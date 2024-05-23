@@ -6,7 +6,7 @@
 #    By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/05/23 13:02:10 by bebrandt         ###   ########.fr        #
+#    Updated: 2024/05/23 14:55:10 by bebrandt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,8 +49,8 @@ endif
 ifeq ($(PARSER), set)
 	PARSER_DIR			=	$(SRCS_DIR)parser/
 	PARSER_SRCS			=	$(addprefix $(PARSER_DIR), $(addsuffix .c, parser parser_utils \
-							parser_check_redirections parser_check_cmd \
-							parser_update_data parser_update_data_utils))
+							parser_check_redirections parser_check_cmd parser_update_data \
+							parser_update_data_utils parser_update_expansion))
 endif
 
 # builtins ressources
@@ -81,6 +81,7 @@ ifeq ($(TEST), set)
 	TEST_DIR			=	$(SRCS_DIR)test/
 	TEST_SRCS			=	$(addprefix $(TEST_DIR), $(addsuffix .c, test))
 endif
+
 # sources and objects variables
 
 SRCS				=	$(MAIN_SRCS) $(LEXER_SRCS) $(PARSER_SRCS) $(BUILTINS_SRCS) $(EXEC_SRCS) $(STRUCT_UTILS_SRCS) $(TEST_SRCS)

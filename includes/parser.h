@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:48:16 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 16:44:38 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:53:48 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int		print_parsing_error_msg(char *msg, char *token_str, char token_c);
 char	*update_data(t_bash *bash, char *data);
 void	filter_data(t_bash *bash, t_list **recast, char *src, char quote);
 void	get_text_unchanged(t_bash *bash, t_list **recast, char *src, int *i);
-void	get_env_value(t_bash *bash, t_list **recast, char *data, int *i);
 void	get_text_in_quotes(t_bash *bash, t_list **recast, char *data, int *i);
 
 // parser/parser_update_data_utils.c
@@ -57,5 +56,13 @@ void	add_back_recast(t_bash *bash, t_list **recast, char *value);
 int		count_length_data_updated(t_list *recast);
 char	*duplicate_data_updated(t_bash *bash, t_list *recast, int size);
 void	fill_cmd_array(t_bash *bash, t_instruction *instruction);
+
+// parser/parser_update_expansion.c
+
+void	*get_dollar_sign(t_bash *bash, t_list **recast);
+void	*get_last_cmd_exit_status(t_bash *bash, t_list **recast);
+void	*get_process_id(t_bash *bash, t_list **recast);
+void	*get_minishell_name(t_bash *bash, t_list **recast);
+void	*get_env_value(t_bash *bash, t_list **recast, char *data, int *i);
 
 #endif
