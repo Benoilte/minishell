@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/14 12:54:12 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/23 14:58:52 by tmartin2         ###   ########.fr       */
+/*   Created: 2024/05/23 14:35:50 by tmartin2          #+#    #+#             */
+/*   Updated: 2024/05/23 15:22:12 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/builtins.h"
+#ifndef EXEC_H
+# define EXEC_H
 
-// TODO : structure bash en attande pour recupe le builtins
-void builtins(t_bash *bash)
-{
-	int exit_status;
-	exit_status = 0;
-	pwd(bash);
-	cd(bash);
-	echo(bash);
-	ft_export(bash->env, bash);
-	ft_unset(bash);
-	if (ft_strcmp(bash->sequence, "env") == 0)
-		print_env(bash->env);
-	exit_status = ft_exit(bash);
-	if (exit_status != 0)
-		exit(exit_status);
-}
+# include "minishell.h"
+
+// exec/sort_array.c
+
+void sort_array(t_instruction *instruction);
+
+#endif
