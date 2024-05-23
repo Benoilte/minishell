@@ -6,13 +6,13 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/05/23 10:49:15 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:29:13 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/exec.h"
 
-void	exec(void)
+void	exec(t_bash *bash)
 {
-    printf("test\n");
+	sort_array(bash->instruction);
 }

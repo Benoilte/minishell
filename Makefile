@@ -6,7 +6,7 @@
 #    By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 14:23:01 by tmartin2          #+#    #+#              #
-#    Updated: 2024/05/23 14:23:09 by tmartin2         ###   ########.fr        #
+#    Updated: 2024/05/23 14:38:24 by tmartin2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ BUILTINS_SRCS		=	$(addprefix $(BUILTINS_DIR), $(addsuffix .c, builtins pwd utils
 # exec ressources
 
 EXEC_DIR			=	$(SRCS_DIR)exec/
-EXEC_SRCS			=	$(addprefix $(EXEC_DIR), $(addsuffix .c, exec))
+EXEC_SRCS			=	$(addprefix $(EXEC_DIR), $(addsuffix .c, exec sort_array))
 
 # struct_utils ressources
 
