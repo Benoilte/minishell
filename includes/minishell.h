@@ -6,6 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
+/*   Updated: 2024/05/23 10:48:54 by tmartin2         ###   ########.fr       */
 /*   Updated: 2024/05/21 17:47:34 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -52,7 +53,7 @@ void builtins(t_bash *bash);
 
 // exec/exec.c
 
-void	exec(t_bash *bash, char **envp);
+void	exec(void);
 
 // test/test.c
 

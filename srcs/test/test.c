@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:54:57 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 16:52:00 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/21 18:30:21 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	test_print_instruction(t_instruction *instruction)
 	while (tmp)
 	{
 		ft_printf("\n- INST : %d -------------------\n", i);
-		test_print_cmd_array(instruction->cmd_array);
+		test_print_cmd_array(tmp->cmd_array);
 		test_print_red_token(tmp->red);
 		test_print_cmd_token(tmp->cmd);
 		i++;
@@ -49,6 +49,7 @@ void	test_print_cmd_token(t_token *token)
 
 	i = 1;
 	tmp = token;
+	ft_printf("\033[0;36m");
 	ft_printf("\n----------- CMD TOKEN --------\n\n");
 	while (tmp)
 	{
@@ -58,6 +59,7 @@ void	test_print_cmd_token(t_token *token)
 		i++;
 		tmp = tmp->next;
 	}
+	ft_printf("\033[0m");
 }
 
 void	test_print_red_token(t_token *token)
@@ -67,6 +69,7 @@ void	test_print_red_token(t_token *token)
 
 	i = 1;
 	tmp = token;
+	ft_printf("\033[0;32m");
 	ft_printf("\n----------- RED TOKEN --------\n\n");
 	while (tmp)
 	{
@@ -78,6 +81,7 @@ void	test_print_red_token(t_token *token)
 		i++;
 		tmp = tmp->next;
 	}
+	ft_printf("\033[0m");
 }
 
 void	test_print_cmd_array(char **cmd_array)
@@ -85,6 +89,7 @@ void	test_print_cmd_array(char **cmd_array)
 	int	i;
 
 	i = 0;
+	ft_printf("\033[0;33m");
 	ft_printf("----------- cmd array --------\n\n");
 	while (cmd_array[i])
 	{
@@ -94,4 +99,5 @@ void	test_print_cmd_array(char **cmd_array)
 			ft_printf("%s\n", cmd_array[i]);
 		i++;
 	}
+	ft_printf("\033[0m");
 }
