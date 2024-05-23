@@ -6,7 +6,7 @@
 #    By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/23 14:23:01 by tmartin2          #+#    #+#              #
-#    Updated: 2024/05/23 14:38:24 by tmartin2         ###   ########.fr        #
+#    Updated: 2024/05/23 15:44:02 by tmartin2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,12 @@
 NAME				=	minishell
 
 MAIN				=
+LEXER				=	set
+PARSER				=	set
+BUILTINS			=	set
+EXEC				=	set
+STRUCT_UTILS		=	set
+TEST				=	set
 SRCS_DIR			=	srcs/
 OBJ_DIR				=	objs/
 
@@ -33,21 +39,27 @@ MAIN_SRCS			+=	$(addprefix $(MAIN_DIR), $(addsuffix .c, prompt))
 
 # lexer ressources
 
-LEXER_DIR			=	$(SRCS_DIR)lexer/
-LEXER_SRCS			=	$(addprefix $(LEXER_DIR), $(addsuffix .c, lexer lexer_cmd \
-						lexer_redirections lexer_get_str lexer_define_type))
+ifeq ($(LEXER), set)
+	LEXER_DIR			=	$(SRCS_DIR)lexer/
+	LEXER_SRCS			=	$(addprefix $(LEXER_DIR), $(addsuffix .c, lexer lexer_cmd \
+							lexer_redirections lexer_get_str lexer_define_type))
+endif
 
 # parser ressources
 
-PARSER_DIR			=	$(SRCS_DIR)parser/
-PARSER_SRCS			=	$(addprefix $(PARSER_DIR), $(addsuffix .c, parser parser_utils \
-						parser_check_redirections parser_check_cmd \
-						parser_update_data parser_update_data_utils))
+ifeq ($(PARSER), set)
+	PARSER_DIR			=	$(SRCS_DIR)parser/
+	PARSER_SRCS			=	$(addprefix $(PARSER_DIR), $(addsuffix .c, parser parser_utils \
+							parser_check_redirections parser_check_cmd parser_update_data \
+							parser_update_data_utils parser_update_expansion))
+endif
 
 # builtins ressources
 
-BUILTINS_DIR		=	$(SRCS_DIR)builtins/
-BUILTINS_SRCS		=	$(addprefix $(BUILTINS_DIR), $(addsuffix .c, builtins pwd utils_builtins cd exit env echo export unset))
+ifeq ($(BUILTINS), set)
+	BUILTINS_DIR		=	$(SRCS_DIR)builtins/
+	BUILTINS_SRCS		=	$(addprefix $(BUILTINS_DIR), $(addsuffix .c, builtins pwd utils_builtins cd exit env echo export unset))
+endif
 
 # exec ressources
 
@@ -56,14 +68,18 @@ EXEC_SRCS			=	$(addprefix $(EXEC_DIR), $(addsuffix .c, exec sort_array))
 
 # struct_utils ressources
 
-STRUCT_UTILS_DIR	=	$(SRCS_DIR)struct_utils/
-STRUCT_UTILS_SRCS	=	$(addprefix $(STRUCT_UTILS_DIR), $(addsuffix .c, init new add_back \
-						last size clear_one clear_all env_utils bash_utils))
+ifeq ($(STRUCT_UTILS), set)
+	STRUCT_UTILS_DIR	=	$(SRCS_DIR)struct_utils/
+	STRUCT_UTILS_SRCS	=	$(addprefix $(STRUCT_UTILS_DIR), $(addsuffix .c, init new add_back \
+							last size clear_one clear_all env_utils bash_utils))
+endif
 
 # test ressources
 
-TEST_DIR			=	$(SRCS_DIR)test/
-TEST_SRCS			=	$(addprefix $(TEST_DIR), $(addsuffix .c, test))
+ifeq ($(TEST), set)
+	TEST_DIR			=	$(SRCS_DIR)test/
+	TEST_SRCS			=	$(addprefix $(TEST_DIR), $(addsuffix .c, test))
+endif
 
 # sources and objects variables
 
