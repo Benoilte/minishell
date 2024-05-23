@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:48:16 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 13:03:19 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:44:38 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ void	free_content(void *content);
 void	add_back_recast(t_bash *bash, t_list **recast, char *value);
 int		count_length_data_updated(t_list *recast);
 char	*duplicate_data_updated(t_bash *bash, t_list *recast, int size);
+void	fill_cmd_array(t_bash *bash, t_instruction *instruction);
 
 #endif

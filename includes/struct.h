@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:12:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 11:25:18 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:32:25 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,10 @@ void			add_back_token(t_token **token, t_token *new);
 t_env			*last_env(t_env *env);
 t_instruction	*last_instruction(t_instruction *inst);
 t_token			*last_token(t_token *token);
+
+// struct_utils/size.c
+
+int				size_token(t_token *token);
 
 // struct_utils/clear_all.c
 

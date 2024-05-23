@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:49:57 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/20 14:12:05 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:33:14 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	check_closed_quotes(char *data)
 	return (PARSING_OK);
 }
 
-// void	ft_lstiter(t_list *lst, int (is_unexpected_token)(char *))
 int	check_text_out_of_quotes(char *data, int (*is_unexpected_token)(char))
 {
 	int	i;

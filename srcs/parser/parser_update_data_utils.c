@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 10:03:36 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 12:08:20 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:45:06 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,25 @@ char	*duplicate_data_updated(t_bash *bash, t_list *recast, int size)
 	}
 	data_updated[k] = '\0';
 	return (data_updated);
+}
+
+void	fill_cmd_array(t_bash *bash, t_instruction *instruction)
+{
+	t_token	*tmp;
+	int		len;
+	int		i;
+
+	len = size_token(instruction->cmd);
+	instruction->cmd_array = (char **)malloc((sizeof(char *) * len) + 1);
+	if (!instruction->cmd_array)
+		clear_bash_and_exit(&bash, EXIT_FAILURE);
+	i = 0;
+	tmp = instruction->cmd;
+	while (tmp)
+	{
+		instruction->cmd_array[i] = tmp->data;
+		i++;
+		tmp = tmp->next;
+	}
+	instruction->cmd_array[i] = NULL;
 }

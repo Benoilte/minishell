@@ -5,10 +5,11 @@
 #                                                     +:+ +:+         +:+      #
 #    By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/05/23 10:47:35 by tmartin2         ###   ########.fr        #
+#    Created: 2024/05/23 14:23:01 by tmartin2          #+#    #+#              #
+#    Updated: 2024/05/23 14:23:09 by tmartin2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 NAME				=	minishell
 
@@ -57,7 +58,7 @@ EXEC_SRCS			=	$(addprefix $(EXEC_DIR), $(addsuffix .c, exec))
 
 STRUCT_UTILS_DIR	=	$(SRCS_DIR)struct_utils/
 STRUCT_UTILS_SRCS	=	$(addprefix $(STRUCT_UTILS_DIR), $(addsuffix .c, init new add_back \
-						last clear_one clear_all env_utils bash_utils))
+						last size clear_one clear_all env_utils bash_utils))
 
 # test ressources
 

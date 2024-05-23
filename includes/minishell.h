@@ -6,7 +6,7 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/23 10:48:54 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:20:38 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ void	test_print_env(t_env *env);
 void	test_print_instruction(t_instruction *instruction);
 void	test_print_cmd_token(t_token *token);
 void	test_print_red_token(t_token *token);
+void	test_print_cmd_array(char **cmd_array);
 
 #endif
