@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:54:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/23 14:41:02 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:20:03 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ void	filter_data(t_bash *bash, t_list **recast, char *src, char quote)
 		{
 			i += 1;
 			if (src[i] == '\0' || src[i] == '\'')
-				get_dollar_sign(bash, recast);
+				get_dollar_sign(bash, recast, &i);
 			else if (src[i] == '?')
-				get_last_cmd_exit_status(bash, recast);
+				get_last_cmd_exit_status(bash, recast, &i);
 			else if (src[i] == '$')
-				get_process_id(bash, recast);
+				get_process_id(bash, recast, &i);
 			else if (src[i] == '0')
-				get_minishell_name(bash, recast);
+				get_minishell_name(bash, recast, &i);
 			else
 				get_env_value(bash, recast, src, &i);
 		}

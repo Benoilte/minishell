@@ -6,16 +6,17 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:13:10 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/23 14:46:40 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:19:32 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parser.h"
 
-void	*get_dollar_sign(t_bash *bash, t_list **recast)
+void	get_dollar_sign(t_bash *bash, t_list **recast, int *i)
 {
 	char	*dollar;
 
+	*i += 1;
 	dollar = ft_strdup("$");
 	if (!dollar)
 	{
@@ -25,10 +26,11 @@ void	*get_dollar_sign(t_bash *bash, t_list **recast)
 	add_back_recast(bash, recast, dollar);
 }
 
-void	*get_last_cmd_exit_status(t_bash *bash, t_list **recast)
+void	get_last_cmd_exit_status(t_bash *bash, t_list **recast, int *i)
 {
 	char	*last_cmd_exit_status;
 
+	*i += 1;
 	last_cmd_exit_status = ft_itoa(bash->exit_code);
 	if (!last_cmd_exit_status)
 	{
@@ -39,10 +41,11 @@ void	*get_last_cmd_exit_status(t_bash *bash, t_list **recast)
 }
 
 // pgrep minishell
-void	*get_process_id(t_bash *bash, t_list **recast)
+void	get_process_id(t_bash *bash, t_list **recast, int *i)
 {
 	char	*process_id;
 
+	*i += 1;
 	process_id = ft_strdup("0");
 	if (!process_id)
 	{
@@ -52,10 +55,11 @@ void	*get_process_id(t_bash *bash, t_list **recast)
 	add_back_recast(bash, recast, process_id);
 }
 
-void	*get_minishell_name(t_bash *bash, t_list **recast)
+void	get_minishell_name(t_bash *bash, t_list **recast, int *i)
 {
 	char	*minishell_name;
 
+	*i += 1;
 	minishell_name = ft_strdup("minishell");
 	if (!minishell_name)
 	{
@@ -65,7 +69,7 @@ void	*get_minishell_name(t_bash *bash, t_list **recast)
 	add_back_recast(bash, recast, minishell_name);
 }
 
-void	*get_env_value(t_bash *bash, t_list **recast, char *data, int *i)
+void	get_env_value(t_bash *bash, t_list **recast, char *data, int *i)
 {
 	int		origin;
 	char	*env_var_name;
