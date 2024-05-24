@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:48:16 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/24 12:59:57 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:36:37 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 // parser/parser.c
 
 int		check_instruction(t_instruction *instruction);
-void	update_instruction(t_bash *bash, t_instruction *instruction);
+int		update_instruction(t_bash *bash, t_instruction *instruction);
 
 // parser/parser_check_redirections.c
 
@@ -45,24 +45,25 @@ int		print_parsing_error_msg(char *msg, char *token_str, char token_c);
 // parser/parser_update_data.c
 
 char	*update_data(t_bash *bash, char *data);
-void	filter_data(t_bash *bash, t_list **recast, char *src, char quote);
-void	get_text_unchanged(t_bash *bash, t_list **recast, char *src, int *i);
-void	get_text_in_quotes(t_bash *bash, t_list **recast, char *data, int *i);
+int		filter_data(t_bash *bash, t_list **recast, char *src, char quote);
+int		filter_expansion(t_bash *bash, t_list **recast, char *src, int *i);
+int		get_text_unchanged(t_list **recast, char *src, int *i, char quote);
+int		get_text_in_quotes(t_bash *bash, t_list **recast, char *data, int *i);
 
 // parser/parser_update_data_utils.c
 
 void	free_content(void *content);
-void	add_back_recast(t_bash *bash, t_list **recast, char *value);
+int		add_back_recast(t_list **recast, char *value);
 int		count_length_data_updated(t_list *recast);
-char	*duplicate_data_updated(t_bash *bash, t_list *recast, int size);
-void	fill_cmd_array(t_bash *bash, t_instruction *instruction);
+char	*duplicate_data_updated(t_list *recast, int size);
+int		fill_cmd_array(t_instruction *instruction);
 
 // parser/parser_update_expansion.c
 
-void	get_dollar_sign(t_bash *bash, t_list **recast);
-void	get_last_cmd_exit_status(t_bash *bash, t_list **recast, int *i);
-void	get_process_id(t_bash *bash, t_list **recast, int *i);
-void	get_minishell_name(t_bash *bash, t_list **recast, int *i);
-void	get_env_value(t_bash *bash, t_list **recast, char *data, int *i);
+int		get_dollar_sign(t_list **recast);
+int		get_last_cmd_exit_status(t_list **recast, int *i, int exit_status);
+int		get_process_id(t_list **recast, int *i);
+int		get_minishell_name(t_list **recast, int *i);
+int		get_env_value(t_list **recast, t_env *env, char *data, int *i);
 
 #endif

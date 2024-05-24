@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:12:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/24 13:08:10 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:04:22 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void			*clear_token(t_token **token);
 
 // struct_utils/env_utils.c
 
-char			*get_value(t_bash *bash, char *name);
+char			*get_value(t_env *env, char *name);
 
 // struct_utils/bash_utils.c
 

@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:18:33 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/24 11:36:38 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:55:05 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char *argv[], char *envp[])
 				add_history(bash->sequence);
 				if (lexing(bash, bash->sequence) == RETURN_SUCCESS)
 				{
-					if (parsing(bash) == 0)
+					if (parsing(bash) == PARSING_OK)
 					{
 						test_print_instruction(bash->instruction);
 					}

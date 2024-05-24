@@ -6,32 +6,22 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 18:53:44 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 13:51:24 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:37:43 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*get_value(t_bash *bash, char *name)
+char	*get_value(t_env *env, char *name)
 {
 	t_env	*tmp;
-	char	*value;
 
-	tmp = bash->env;
+	tmp = env;
 	while (tmp)
 	{
 		if (ft_strncmp(tmp->name, name, ft_strlen(tmp->name)) == 0)
-		{
-			value = ft_strdup(tmp->value);
-			if (!value)
-			{
-				free(name);
-				clear_bash_and_exit(&bash, EXIT_FAILURE);
-			}
-			return (value);
-		}
+			return (ft_strdup(tmp->value));
 		tmp = tmp->next;
 	}
-	value = ft_strdup("");
-	return (value);
+	return (ft_strdup(""));
 }
