@@ -6,17 +6,16 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:13:10 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/23 15:19:32 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/24 12:58:50 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parser.h"
 
-void	get_dollar_sign(t_bash *bash, t_list **recast, int *i)
+void	get_dollar_sign(t_bash *bash, t_list **recast)
 {
 	char	*dollar;
 
-	*i += 1;
 	dollar = ft_strdup("$");
 	if (!dollar)
 	{

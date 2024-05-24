@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/23 10:48:54 by tmartin2         ###   ########.fr       */
-/*   Updated: 2024/05/21 17:47:34 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:28:50 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -41,7 +41,7 @@ void	prompt(void);
 
 //lexer/lexer.c
 
-void	lexing(t_bash *bash, char *sequence);
+int		lexing(t_bash *bash, char *sequence);
 
 // parser/parser.c
 
@@ -49,7 +49,7 @@ int		parsing(t_bash *bash);
 
 // builtins/builtins.c
 
-void builtins(t_bash *bash);
+void 	builtins(t_bash *bash);
 
 // exec/exec.c
 

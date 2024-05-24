@@ -6,7 +6,7 @@
 #    By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/05/23 15:26:08 by bebrandt         ###   ########.fr        #
+#    Updated: 2024/05/24 14:31:01 by bebrandt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,8 +40,8 @@ MAIN_SRCS			+=	$(addprefix $(MAIN_DIR), $(addsuffix .c, prompt))
 
 ifeq ($(LEXER), set)
 	LEXER_DIR			=	$(SRCS_DIR)lexer/
-	LEXER_SRCS			=	$(addprefix $(LEXER_DIR), $(addsuffix .c, lexer lexer_cmd \
-							lexer_redirections lexer_get_str lexer_define_type))
+	LEXER_SRCS			=	$(addprefix $(LEXER_DIR), $(addsuffix .c, lexer lexer_action_utils \
+							lexer_get_data lexer_define_type))
 endif
 
 # parser ressources

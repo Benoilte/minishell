@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 20:25:18 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 08:26:40 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/24 13:08:03 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void	init_bash(t_bash **bash, char **envp)
 		(*bash)->sequence = NULL;
 		(*bash)->exit_code = 0;
 		(*bash)->buffer = NULL;
-		(*bash)->env = init_env(*bash, envp);
+		(*bash)->env = init_env(envp);
 		(*bash)->instruction = NULL;
 	}
 }
 
-t_env	*init_env(t_bash *bash, char **envp)
+t_env	*init_env(char **envp)
 {
 	t_env	*env;
 	t_env	*new;
@@ -45,8 +45,9 @@ t_env	*init_env(t_bash *bash, char **envp)
 		new = new_env(envp[i]);
 		if (!new)
 		{
-			clear_bash(&bash);
-			exit(EXIT_FAILURE);
+			clear_env(&env);
+			ft_printf("%s init env\n", M_ALLOC);
+			return (NULL);
 		}
 		add_back_env(&env, new);
 		i++;
@@ -54,22 +55,28 @@ t_env	*init_env(t_bash *bash, char **envp)
 	return (env);
 }
 
-t_instruction	*init_instruction(t_bash *bash)
+t_instruction	*init_instruction(void)
 {
 	t_instruction	*new;
 
 	new = new_instruction();
 	if (!new)
-		clear_bash_and_exit(&bash, EXIT_FAILURE);
+	{
+		ft_printf("%s init instruction\n", M_ALLOC);
+		return (NULL);
+	}
 	return (new);
 }
 
-t_token	*init_token(t_bash *bash)
+t_token	*init_token(void)
 {
 	t_token	*new;
 
 	new = new_token();
 	if (!new)
-		clear_bash_and_exit(&bash, EXIT_FAILURE);
+	{
+		ft_printf("%s init token\n", M_ALLOC);
+		return (NULL);
+	}
 	return (new);
 }

@@ -1,26 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_cmd.c                                        :+:      :+:    :+:   */
+/*   lexer_action_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 10:33:22 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/20 11:18:40 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:31:45 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/lexer.h"
-
-/*
-◦ echo with option -n
-◦ cd with only a relative or absolute path
-◦ pwd with no options
-◦ export with no options
-◦ unset with no options
-◦ env with no options or arguments
-◦ exit with no options
-*/
 
 int	is_builtin(char *word)
 {
@@ -43,18 +33,12 @@ int	is_builtin(char *word)
 	return (0);
 }
 
-int	is_unexpected_token_cmd(char c)
+void	move_to_next_quote(char *sequence, int *i)
 {
-	char	*tokens;
-	int		i;
+	char	quote;
 
-	tokens = "();&";
-	i = 0;
-	while (tokens[i])
-	{
-		if (tokens[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
+	quote = sequence[*i];
+	*i += 1;
+	while (sequence[*i] && sequence[*i] != quote)
+		*i += 1;
 }
