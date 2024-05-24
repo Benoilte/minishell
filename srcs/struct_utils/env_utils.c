@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 18:53:44 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/24 16:37:43 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/24 17:25:34 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_value(t_env *env, char *name)
 	tmp = env;
 	while (tmp)
 	{
-		if (ft_strncmp(tmp->name, name, ft_strlen(tmp->name)) == 0)
+		if (ft_strncmp(tmp->name, name, ft_strlen(name)) == 0)
 			return (ft_strdup(tmp->value));
 		tmp = tmp->next;
 	}
