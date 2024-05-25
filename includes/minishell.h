@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/24 14:28:50 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/25 16:29:50 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void 	builtins(t_bash *bash);
 
 // exec/exec.c
 
-void	exec(void);
+void	exec(t_instruction *instruction);
 
 // test/test.c
 
