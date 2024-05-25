@@ -6,12 +6,22 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 11:29:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/19 15:00:29 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/24 11:34:09 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERROR_H
 # define ERROR_H
+
+// memory allocation error
+
+enum
+{
+	RETURN_SUCCESS,
+	RETURN_FAILURE
+};
+
+# define M_ALLOC "Error: Memory allocation"
 
 enum
 {

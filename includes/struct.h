@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:12:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 16:32:25 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:04:22 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ enum
 // struct_utils/init.c
 
 void			init_bash(t_bash **bash, char **envp);
-t_env			*init_env(t_bash *bash, char **envp);
-t_instruction	*init_instruction(t_bash *bash);
-t_token			*init_token(t_bash *bash);
+t_env			*init_env(char **envp);
+t_instruction	*init_instruction(void);
+t_token			*init_token(void);
 
 // struct_utils/new.c
 
@@ -106,7 +106,7 @@ void			*clear_token(t_token **token);
 
 // struct_utils/env_utils.c
 
-char			*get_value(t_bash *bash, char *name);
+char			*get_value(t_env *env, char *name);
 
 // struct_utils/bash_utils.c
 

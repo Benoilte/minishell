@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 00:25:27 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 16:37:22 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/24 17:03:02 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	*clear_instruction(t_instruction **instruction)
 			clear_token(&(clear)->red);
 		if ((clear)->cmd)
 			clear_token(&(clear)->cmd);
+		if (clear->cmd_array)
+			free(clear->cmd_array);
 		free(clear);
 		clear = next;
 	}

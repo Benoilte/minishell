@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:54:31 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 16:36:12 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:55:11 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ int	parsing(t_bash *bash)
 	{
 		if (check_instruction(instruction) == PARSING_ERROR)
 			return (PARSING_ERROR);
-		update_instruction(bash, instruction);
-		fill_cmd_array(bash, instruction);
+		if (update_instruction(bash, instruction) == RETURN_FAILURE)
+			return (RETURN_FAILURE);
+		if (fill_cmd_array(instruction) == RETURN_FAILURE)
+			return (RETURN_FAILURE);
 		instruction = instruction->next;
 	}
 	return (PARSING_OK);
@@ -52,7 +54,7 @@ int	check_instruction(t_instruction *instruction)
 	return (PARSING_OK);
 }
 
-void	update_instruction(t_bash *bash, t_instruction *instruction)
+int	update_instruction(t_bash *bash, t_instruction *instruction)
 {
 	t_token	*red;
 	t_token	*cmd;
@@ -62,11 +64,16 @@ void	update_instruction(t_bash *bash, t_instruction *instruction)
 	while (red)
 	{
 		red->option = update_data(bash, red->option);
+		if (!red->option)
+			return (RETURN_FAILURE);
 		red = red->next;
 	}
 	while (cmd)
 	{
 		cmd->data = update_data(bash, cmd->data);
+		if (!cmd->data)
+			return (RETURN_FAILURE);
 		cmd = cmd->next;
 	}
+	return (RETURN_SUCCESS);
 }
