@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/25 16:29:50 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/27 11:34:56 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ int		parsing(t_bash *bash);
 
 // builtins/builtins.c
 
-void 	builtins(t_bash *bash);
+void builtins(t_instruction *instruction, t_env *env);
 
 // exec/exec.c
 
-void	exec(t_instruction *instruction);
+void	exec(t_instruction *instruction, t_env *env);
 
 // test/test.c
 

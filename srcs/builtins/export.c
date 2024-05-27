@@ -6,13 +6,13 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:04:33 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/05/20 16:09:59 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/05/27 13:20:59 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/builtins.h"
 
-int set_env_var_liste(t_bash *bash, char *envp)
+int set_env_var_liste(t_env *env, char *envp)
 {
     t_env *new;
     t_env *current;
@@ -20,7 +20,7 @@ int set_env_var_liste(t_bash *bash, char *envp)
     new = new_env(envp);
     if(!new)
         return (0);
-    current = bash->env;
+    current = env;
     while (current)
     {
         if (ft_strcmp(current->name, new->name) == 0)
@@ -33,17 +33,17 @@ int set_env_var_liste(t_bash *bash, char *envp)
         }
         current = current->next;
     }
-    add_back_env(&bash->env, new);
+    add_back_env(&env, new);
     return (1);
 }
-void ft_export(t_env *env, t_bash *bash)
+void ft_export(t_env *env, t_instruction *instruction)
 {
     t_env *current;
-    char *rl;
-    char *msg;
+    int start_index;
 
     current = env;
-    if (ft_strcmp(bash->sequence, "export") == 0)
+    start_index = 1;
+    if (instruction->cmd_array[1] == NULL)
     {
         while (current)
         {
@@ -51,13 +51,21 @@ void ft_export(t_env *env, t_bash *bash)
             current = current->next; 
         }
     }
-    if (ft_strncmp(bash->sequence, "export ", 7) == 0)
+    else
     {
-        rl = bash->sequence;
-        msg = rl + 7;
-            if(current->name && current->value)
-                set_env_var_liste(bash, msg);
+        start_index = 1;
+        while (instruction->cmd_array[start_index] != NULL)
+        {
+            if (ft_strchr(instruction->cmd_array[start_index], '=') != NULL)
+            {
+                if (!set_env_var_liste(env, instruction->cmd_array[start_index]))
+                    fprintf(stderr, "export: error setting environment variable\n");
+            }
             else
-                printf("export : invalid input\n");
+            {
+                fprintf(stderr, "export: invalid input: %s\n", instruction->cmd_array[start_index]);
+            }
+            start_index++;
+        }
     }
 }
