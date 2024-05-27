@@ -6,13 +6,13 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/05/23 15:50:44 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/05/27 11:34:48 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-void	exec(t_instruction *instruction)
+void	exec(t_instruction *instruction, t_env *env)
 {
-	sort_array(instruction);
+	sort_array(instruction, env);
 }

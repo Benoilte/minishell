@@ -6,34 +6,30 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:15:42 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/05/20 13:17:05 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/05/27 10:42:12 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/builtins.h"
 
-void cd(t_bash *bash)
+void cd(t_instruction *instruction)
 {
     char *directory;
 
-    if (ft_strncmp(bash->sequence, "cd", 2) == 0)
+    if (instruction->cmd_array[1] != NULL)
+        directory = instruction->cmd_array[1];
+    else
     {
-        directory = bash->sequence + 2;
-        while (*directory == ' ')
-            directory++;
-        if (*directory == '\0')
+        directory = getenv("HOME");
+        if (directory == NULL)
         {
-            directory = getenv("HOME");
-            if (directory == NULL)
-            {
-                fprintf(stderr, "cd : HOME not set\n");
-                return ;
-            }
+            fprintf(stderr, "cd : HOME not set\n");
+            return ;
         }
-        if (chdir(directory) != 0)
-        {
-            fprintf(stderr, "cd: %s: %s\n", directory, strerror(errno));  
-            EXIT_FAILURE;
-        }
+    }
+    if (chdir(directory) != 0)
+    {
+        fprintf(stderr, "cd: %s: %s\n", directory, strerror(errno));  
+        EXIT_FAILURE;
     }
 }

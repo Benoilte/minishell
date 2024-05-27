@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+         #
+#    By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/05/23 14:23:01 by tmartin2          #+#    #+#              #
-#    Updated: 2024/05/23 15:44:02 by tmartin2         ###   ########.fr        #
+#    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
+#    Updated: 2024/05/25 16:29:22 by bebrandt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,8 +41,8 @@ MAIN_SRCS			+=	$(addprefix $(MAIN_DIR), $(addsuffix .c, prompt))
 
 ifeq ($(LEXER), set)
 	LEXER_DIR			=	$(SRCS_DIR)lexer/
-	LEXER_SRCS			=	$(addprefix $(LEXER_DIR), $(addsuffix .c, lexer lexer_cmd \
-							lexer_redirections lexer_get_str lexer_define_type))
+	LEXER_SRCS			=	$(addprefix $(LEXER_DIR), $(addsuffix .c, lexer lexer_action_utils \
+							lexer_get_data lexer_define_type))
 endif
 
 # parser ressources
@@ -63,8 +63,10 @@ endif
 
 # exec ressources
 
-EXEC_DIR			=	$(SRCS_DIR)exec/
-EXEC_SRCS			=	$(addprefix $(EXEC_DIR), $(addsuffix .c, exec sort_array))
+ifeq ($(EXEC), set)
+	EXEC_DIR			=	$(SRCS_DIR)exec/
+	EXEC_SRCS			=	$(addprefix $(EXEC_DIR), $(addsuffix .c, exec sort_array))
+endif
 
 # struct_utils ressources
 

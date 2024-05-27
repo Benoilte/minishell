@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:14:20 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/01/21 18:07:16 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/05/24 13:28:49 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_strdup(const char *s1)
 
 	dest = (char *)malloc((ft_strlen((char *)s1) + 1) * sizeof(char));
 	if (!dest)
-		return ((void *)0);
+		return (NULL);
 	i = 0;
 	while (s1[i])
 	{
