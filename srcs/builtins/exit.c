@@ -6,16 +6,16 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:22:50 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/05/20 13:31:39 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/05/27 11:19:36 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/builtins.h"
 
 //fonction pour supprimer tout les espace
-void trim(t_bash *bash)
+void trim(t_instruction *instruction)
 {
-    char *str = bash->sequence;
+    char *str = instruction->cmd->data;
     int len = ft_strlen(str);
     int i = 0;
     int j = 0;
@@ -28,13 +28,10 @@ void trim(t_bash *bash)
     }
     str[j] = '\0';
 }
-int ft_exit(t_bash *bash)
+int ft_exit(t_instruction *instruction)
 {
     int exit = 0;
-    trim(bash);
-    if (ft_strcmp(bash->sequence, "exit") == 0)
-    {
-        exit = 1;
-    }
+    trim(instruction);
+    exit = 1;
     return (exit);
 }
