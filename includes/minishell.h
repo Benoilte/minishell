@@ -6,7 +6,7 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/27 11:34:56 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:20:40 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void builtins(t_instruction *instruction, t_env *env);
 
 // exec/exec.c
 
-void	exec(t_instruction *instruction, t_env *env);
+void	exec(t_instruction *instruction, t_env *env, char **envp);
 
 // test/test.c
 
