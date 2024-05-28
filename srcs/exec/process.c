@@ -6,7 +6,7 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:51:22 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/05/28 16:02:07 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:36:15 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void child_process(t_instruction *instruction, t_env *env, char **envp)
 			close(instruction->fd[0]);
 		}
 		waitpid(pid, &status, 0);
+		
 	}
 }
 
