@@ -6,7 +6,7 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:30:23 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/05/28 15:30:37 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/05/30 13:16:21 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,7 @@ void ft_cmd(t_instruction *instruction, t_env *env, char **envp)
         fprintf(stderr, "path: error\n");
         _exit(EXIT_FAILURE); // Quitter si le chemin n'est pas trouvé
     }
-
-    printf("Executing command via execve: %s\n", path);
-    if (execve(path, instruction->cmd_array, envp) == -1)
+    if (execve(path, instruction->cmd_array, envp) < 0)
     {
         perror("execve");
         free(path);

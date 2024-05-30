@@ -6,7 +6,7 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:50 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/05/28 13:24:25 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/05/30 12:13:54 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ void ft_cmd(t_instruction *instruction, t_env *env, char **envp);
 
 // exec/process.c
 
-void child_process(t_instruction *instruction, t_env *env, char **envp);
+void child_process(t_instruction *instruction, t_env *env, char **envp, int prev_fd[2]);
 
 #endif
