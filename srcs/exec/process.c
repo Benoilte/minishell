@@ -6,7 +6,7 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:51:22 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/05/30 13:14:13 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/05/30 13:41:42 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,12 @@ void child_process(t_instruction *instruction, t_env *env, char **envp, int prev
 
     pid = fork();
     if (pid == -1)
+    {
         perror("fork");
+    }
     else if (pid == 0)
     {
+        // Processus enfant
         if (prev_fd[0] != -1)
         {
             close(prev_fd[1]);
@@ -34,17 +37,23 @@ void child_process(t_instruction *instruction, t_env *env, char **envp, int prev
             dup2(instruction->fd[1], STDOUT_FILENO);
             close(instruction->fd[1]);
         }
-        sort_array(instruction, env, envp);
+
+        ft_cmd(instruction, env, envp);
     }
     else
     {
+        // Processus parent
         if (prev_fd[0] != -1)
         {
             close(prev_fd[0]);
             close(prev_fd[1]);
         }
+
         if (instruction->next != NULL)
+        {
             close(instruction->fd[1]);
+        }
+
         waitpid(pid, NULL, 0);
     }
 }
