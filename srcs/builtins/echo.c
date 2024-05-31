@@ -6,7 +6,7 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:54:13 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/05/27 11:13:23 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/05/31 17:44:38 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,19 @@ void	echo(t_instruction *instruciton)
 		new_line = 0;
 		start_index = 2;
 	}
-	i = start_index;
-	while (instruciton->cmd_array[i] != NULL)
+	if (instruciton->red != NULL)
+		red(instruciton);
+	else
 	{
-		printf("%s", instruciton->cmd_array[i]);
-		if (instruciton->cmd_array[i + 1] != NULL)
-			printf(" ");
-		i++;
+		i = start_index;
+		while (instruciton->cmd_array[i] != NULL)
+		{
+			printf("%s", instruciton->cmd_array[i]);
+			if (instruciton->cmd_array[i + 1] != NULL)
+				printf(" ");
+			i++;
+		}
+		if (new_line)
+			printf("\n");
 	}
-	if (new_line)
-		printf("\n");
 }
