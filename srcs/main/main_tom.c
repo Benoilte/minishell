@@ -6,7 +6,7 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:29:38 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/30 12:56:06 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/05/31 17:02:24 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ int	main(int argc, char *argv[], char *envp[])
 		while (1)
 		{
 			bash->sequence = readline("minishell> ");
-			
-			ft_printf("I just read this: <%s>\n", bash->sequence);
 			if (ft_strlen(bash->sequence) > 0)
 			{
 				add_history(bash->sequence);
@@ -37,7 +35,7 @@ int	main(int argc, char *argv[], char *envp[])
 					exec(bash->instruction, bash->env, envp);
 				}
 				//test_print_instruction(bash->instruction);
-				//clear_instruction(&(bash)->instruction);
+				clear_instruction(&(bash)->instruction);
 			}
 			free(bash->sequence);
 			//bash->sequence = NULL;		
