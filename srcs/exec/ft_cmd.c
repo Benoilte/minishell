@@ -6,7 +6,7 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:30:23 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/05/30 13:16:21 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:49:33 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,12 @@ void ft_cmd(t_instruction *instruction, t_env *env, char **envp)
     if (!path)
     {
         fprintf(stderr, "path: error\n");
-        _exit(EXIT_FAILURE); // Quitter si le chemin n'est pas trouvé
+        // _exit(EXIT_FAILURE); // Quitter si le chemin n'est pas trouvé
     }
     if (execve(path, instruction->cmd_array, envp) < 0)
     {
         perror("execve");
         free(path);
-        _exit(EXIT_FAILURE);  // Utiliser _exit pour terminer le processus enfant
+        // _exit(EXIT_FAILURE);  // Utiliser _exit pour terminer le processus enfant
     }
 }

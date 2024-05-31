@@ -6,7 +6,7 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/05/30 13:24:44 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/05/31 17:24:25 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,3 +40,4 @@ void exec(t_instruction *instruction, t_env *env, char **envp)
         current = current->next;
     }
 }
+
