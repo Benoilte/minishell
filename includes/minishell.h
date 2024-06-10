@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/10 10:51:20 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:20:11 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,23 @@
 
 // main/minishell.c
 
+void	print_how_to_use_minishell(void);
+
+// main/interactive_minishell.c
+
+void	start_interactive_minishell(t_bash *bash);
+
+// main/non_interactive_minishell.c
+
+void	start_non_interactive_minishell(t_bash *bash, char *file);
+char	*get_sequence(int fd);
+
 // main/minishell_utils.c
 
 int		type_equal_to(int flag, int type);
 
 // main/prompt.c
 
-void	prompt(void);
 
 //lexer/lexer.c
 
