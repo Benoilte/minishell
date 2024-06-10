@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+         #
+#    By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/05/31 16:20:42 by tmartin2         ###   ########.fr        #
+#    Updated: 2024/06/10 10:49:53 by bebrandt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ else
 	MAIN_SRCS		+=	$(addprefix $(MAIN_DIR), $(addsuffix .c, minishell))
 endif
 
-MAIN_SRCS			+=	$(addprefix $(MAIN_DIR), $(addsuffix .c, prompt))
+MAIN_SRCS			+=	$(addprefix $(MAIN_DIR), $(addsuffix .c, prompt minishell_utils))
 
 # lexer ressources
 
