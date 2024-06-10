@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:18:33 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/24 14:55:05 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:58:13 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,16 @@ int	main(int argc, char *argv[], char *envp[])
 		while (1)
 		{
 			bash->sequence = readline("minishell> ");
-			if (ft_strlen(bash->sequence) == 0)
-				printf("%s", bash->sequence);
-			else if (ft_strncmp(bash->sequence, "exit", ft_strlen(bash->sequence)) == 0)
-				break ;
-			else if (ft_strncmp(bash->sequence, "env", ft_strlen(bash->sequence)) == 0)
-				test_print_env(bash->env);
-			else
-			{
+			if (ft_strlen(bash->sequence) > 0)
 				add_history(bash->sequence);
-				if (lexing(bash, bash->sequence) == RETURN_SUCCESS)
+			if (lexing(bash, bash->sequence) == RETURN_SUCCESS)
+			{
+				if (parsing(bash) == PARSING_OK)
 				{
-					if (parsing(bash) == PARSING_OK)
-					{
-						test_print_instruction(bash->instruction);
-					}
+					test_print_instruction(bash->instruction);
 				}
-				// test_print_instruction(bash->instruction);
-				clear_instruction(&(bash)->instruction);
 			}
+			clear_instruction(&(bash)->instruction);
 			free(bash->sequence);
 			bash->sequence = NULL;		
 		}
