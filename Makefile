@@ -6,7 +6,7 @@
 #    By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/06/10 10:49:53 by bebrandt         ###   ########.fr        #
+#    Updated: 2024/06/10 15:54:44 by bebrandt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ else
 	MAIN_SRCS		+=	$(addprefix $(MAIN_DIR), $(addsuffix .c, minishell))
 endif
 
-MAIN_SRCS			+=	$(addprefix $(MAIN_DIR), $(addsuffix .c, prompt minishell_utils))
+MAIN_SRCS			+=	$(addprefix $(MAIN_DIR), $(addsuffix .c, interactive_minishell \
+						non_interactive_minishell minishell_utils))
 
 # lexer ressources
 
