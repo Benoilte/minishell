@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:48:16 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/10 17:14:45 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:21:46 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,6 @@
 // MINISHELL HEADER
 
 # include "minishell.h"
-
-enum
-{
-	PARSING_OK,
-	PARSING_ERROR
-};
 
 enum
 {
