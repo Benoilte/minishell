@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 11:29:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/10 16:58:35 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:21:55 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ enum
 {
 	RETURN_SUCCESS,
 	RETURN_FAILURE
+};
+
+enum
+{
+	PARSING_OK,
+	PARSING_ERROR
 };
 
 # define M_ALLOC "Error: Memory allocation"
