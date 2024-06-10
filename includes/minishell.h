@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/27 14:20:40 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/06/10 10:51:20 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@
 
 // main/minishell.c
 
+// main/minishell_utils.c
+
+int		type_equal_to(int flag, int type);
+
 // main/prompt.c
 
 void	prompt(void);
@@ -49,7 +53,7 @@ int		parsing(t_bash *bash);
 
 // builtins/builtins.c
 
-void builtins(t_instruction *instruction, t_env *env);
+void	builtins(t_instruction *instruction, t_env *env);
 
 // exec/exec.c
 

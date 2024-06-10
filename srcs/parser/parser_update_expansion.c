@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:13:10 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/24 16:32:48 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/10 10:53:01 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	get_last_cmd_exit_status(t_list **recast, int *i, int exit_status)
 	return (add_back_recast(recast, last_cmd_exit_status));
 }
 
-// pgrep minishell
 int	get_process_id(t_list **recast, int *i)
 {
 	char	*process_id;
