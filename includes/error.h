@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 11:29:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/24 11:34:09 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:58:35 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,6 @@ enum
 };
 
 # define M_ALLOC "Error: Memory allocation"
-
-enum
-{
-	PARSING_OK,
-	PARSING_ERROR
-};
 
 # define INSTRUCTION_EMPTY "syntax error command is empty after a pipe"
 
