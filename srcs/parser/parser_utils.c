@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:49:57 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 16:33:14 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:54:57 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,6 @@ int	print_parsing_error_msg(char *msg, char *token_str, char token_c)
 	else
 		ft_printf("minishell: %s\n", msg);
 	return (PARSING_ERROR);
-}
-
-int	type_equal_to(int flag, int type)
-{
-	return ((type & flag) == flag);
 }
 
 int	check_closed_quotes(char *data)

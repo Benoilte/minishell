@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/27 14:20:40 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:20:11 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,23 @@
 
 // main/minishell.c
 
+void	print_how_to_use_minishell(void);
+
+// main/interactive_minishell.c
+
+void	start_interactive_minishell(t_bash *bash);
+
+// main/non_interactive_minishell.c
+
+void	start_non_interactive_minishell(t_bash *bash, char *file);
+char	*get_sequence(int fd);
+
+// main/minishell_utils.c
+
+int		type_equal_to(int flag, int type);
+
 // main/prompt.c
 
-void	prompt(void);
 
 //lexer/lexer.c
 
@@ -49,7 +63,7 @@ int		parsing(t_bash *bash);
 
 // builtins/builtins.c
 
-void builtins(t_instruction *instruction, t_env *env);
+void	builtins(t_instruction *instruction, t_env *env);
 
 // exec/exec.c
 

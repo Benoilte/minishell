@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
+/*   minishell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/14 12:52:29 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/14 12:57:03 by bebrandt         ###   ########.fr       */
+/*   Created: 2024/06/10 10:48:49 by bebrandt          #+#    #+#             */
+/*   Updated: 2024/06/10 10:50:22 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	prompt(void)
+int	type_equal_to(int flag, int type)
 {
-	ft_printf("prompt function\n");
+	return ((type & flag) == flag);
 }
