@@ -6,7 +6,7 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:04:33 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/05/27 13:20:59 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:09:20 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,24 +47,33 @@ void ft_export(t_env *env, t_instruction *instruction)
     {
         while (current)
         {
+   		if (instruction->red != NULL)
+		{   
+            ft_putstr_fd("declare -x ", STDOUT_FILENO);
+            ft_putstr_fd(current->name, STDOUT_FILENO);
+            ft_putstr_fd("=", STDOUT_FILENO);
+            ft_putendl_fd(current->value, STDOUT_FILENO);
+		}
+        else
             printf("declare -x %s=%s\n", current->name, current->value);
-            current = current->next; 
+        current = current->next; 
         }
+        exit(EXIT_SUCCESS);
     }
     else
     {
         start_index = 1;
         while (instruction->cmd_array[start_index] != NULL)
         {
-            if (ft_strchr(instruction->cmd_array[start_index], '=') != NULL)
+            if (instruction->red != NULL)
+                exit(EXIT_SUCCESS);
+            else if (ft_strchr(instruction->cmd_array[start_index], '=') != NULL)
             {
                 if (!set_env_var_liste(env, instruction->cmd_array[start_index]))
                     fprintf(stderr, "export: error setting environment variable\n");
             }
             else
-            {
                 fprintf(stderr, "export: invalid input: %s\n", instruction->cmd_array[start_index]);
-            }
             start_index++;
         }
     }

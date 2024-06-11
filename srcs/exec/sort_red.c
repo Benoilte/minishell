@@ -6,7 +6,7 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:11 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/05/31 17:43:37 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/06/07 13:11:34 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	sort_red(t_instruction *instruction, t_env *env)
 			|| current_red_token->data_type == INPUT)
 			red(instruction);
 		else if (current_red_token->data_type == HEREDOC)
-			printf("here_doc\n");
+			here_doc(instruction);
 		current_red_token = current_red_token->next;
 	}
 }

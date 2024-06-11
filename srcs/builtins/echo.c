@@ -6,7 +6,7 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:54:13 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/05/31 17:44:38 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:36:15 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,15 @@ void	echo(t_instruction *instruciton)
 		start_index = 2;
 	}
 	if (instruciton->red != NULL)
-		red(instruciton);
+	{
+		i = start_index;
+		while (instruciton->cmd_array[i] != NULL)
+		{
+			ft_putstr_fd(instruciton->cmd_array[i], STDOUT_FILENO);
+			exit(EXIT_SUCCESS);
+			i++;
+		}
+	}
 	else
 	{
 		i = start_index;

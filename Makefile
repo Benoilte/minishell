@@ -6,7 +6,7 @@
 #    By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/05/31 16:20:42 by tmartin2         ###   ########.fr        #
+#    Updated: 2024/06/11 10:41:59 by tmartin2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ endif
 
 ifeq ($(EXEC), set)
 	EXEC_DIR			=	$(SRCS_DIR)exec/
-	EXEC_SRCS			=	$(addprefix $(EXEC_DIR), $(addsuffix .c, exec sort_red ft_cmd process red sort_cmd_builtin))
+	EXEC_SRCS			=	$(addprefix $(EXEC_DIR), $(addsuffix .c, exec sort_red ft_cmd process red sort_cmd_builtin utils_exec))
 endif
 
 # struct_utils ressources
