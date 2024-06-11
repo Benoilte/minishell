@@ -6,7 +6,7 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:38:16 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/05/31 17:54:54 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:38:01 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void trim(t_instruction *instruction);
 
 //builtins/env.c
 
-void print_env(t_env *env);
+void print_env(t_env *env, t_instruction *instruction);
 
 //builtins/echo.c
 
