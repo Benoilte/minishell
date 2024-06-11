@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interactive_minishell.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:56:12 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/11 19:47:06 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/11 22:45:14 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 void	start_interactive_minishell(t_bash *bash)
 {
+	set_signal_action();
 	while (1)
 	{
 		bash->sequence = readline("minishell> ");
 		if (!bash->sequence)
 		{
-			printf("exit");
+			ft_printf("exit\n");
 			clear_bash_and_exit(&bash, EXIT_FAILURE);
 		}
 		if (ft_strlen(bash->sequence) > 0)
@@ -36,4 +37,26 @@ void	start_interactive_minishell(t_bash *bash)
 		bash->sequence = NULL;
 	}
 	rl_clear_history();
+}
+
+void	set_signal_action(void)
+{
+	struct sigaction	new_action;
+
+	signal(SIGQUIT, SIG_IGN);
+	new_action.sa_handler = &signal_handler;
+	sigemptyset(&new_action.sa_mask);
+	new_action.sa_flags = 0;
+	sigaction(SIGINT, &new_action, NULL);
+}
+
+void	signal_handler(int signum)
+{
+	if (signum == SIGINT)
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 }
