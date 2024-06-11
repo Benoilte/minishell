@@ -1,43 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   size.c                                             :+:      :+:    :+:   */
+/*   interactive_minishell.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/21 16:29:37 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/10 17:08:48 by bebrandt         ###   ########.fr       */
+/*   Created: 2024/06/10 15:56:12 by bebrandt          #+#    #+#             */
+/*   Updated: 2024/06/10 15:56:27 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	size_instruction(t_instruction *instruction)
+void	start_interactive_minishell(t_bash *bash)
 {
-	int				i;
-	t_instruction	*tmp;
-
-	i = 0;
-	tmp = instruction;
-	while (tmp)
+	while (1)
 	{
-		tmp = tmp->next;
-		i++;
+		bash->sequence = readline("minishell> ");
+		if (ft_strlen(bash->sequence) > 0)
+			add_history(bash->sequence);
+		if (lexing(bash, bash->sequence) == RETURN_SUCCESS)
+		{
+			if (parsing(bash) == PARSING_OK)
+			{
+				test_print_instruction(bash->instruction);
+			}
+		}
+		clear_instruction(&(bash)->instruction);
+		free(bash->sequence);
+		bash->sequence = NULL;
 	}
-	return (i);
-}
-
-int	size_token(t_token *token)
-{
-	int		i;
-	t_token	*tmp;
-
-	i = 0;
-	tmp = token;
-	while (tmp)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (i);
+	rl_clear_history();
 }
