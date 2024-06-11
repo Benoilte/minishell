@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:56:12 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/10 15:56:27 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:47:06 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ void	start_interactive_minishell(t_bash *bash)
 	while (1)
 	{
 		bash->sequence = readline("minishell> ");
+		if (!bash->sequence)
+		{
+			printf("exit");
+			clear_bash_and_exit(&bash, EXIT_FAILURE);
+		}
 		if (ft_strlen(bash->sequence) > 0)
 			add_history(bash->sequence);
 		if (lexing(bash, bash->sequence) == RETURN_SUCCESS)
