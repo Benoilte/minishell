@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:54:31 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/24 16:55:11 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:13:46 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	parsing(t_bash *bash)
 	t_instruction	*instruction;
 
 	instruction = bash->instruction;
+	if (sequence_is_empty(instruction) == SEQUENCE_EMPTY)
+		return (SEQUENCE_EMPTY);
 	while (instruction)
 	{
 		if (check_instruction(instruction) == PARSING_ERROR)
@@ -28,6 +30,21 @@ int	parsing(t_bash *bash)
 		instruction = instruction->next;
 	}
 	return (PARSING_OK);
+}
+
+int	sequence_is_empty(t_instruction *instruction)
+{
+	t_token			*red;
+	t_token			*cmd;
+	t_instruction	*next;
+
+	red = instruction->red;
+	cmd = instruction->cmd;
+	next = instruction->next;
+	if ((size_instruction(instruction) == 1) && !cmd && !red && !next)
+		return (SEQUENCE_EMPTY);
+	else
+		return (SEQUENCE_IS_FILLED);
 }
 
 int	check_instruction(t_instruction *instruction)

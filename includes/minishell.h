@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/06/12 14:36:42 by tmartin2         ###   ########.fr       */
+=======
+/*   Updated: 2024/06/10 16:20:11 by bebrandt         ###   ########.fr       */
+>>>>>>> 70c573884fac4784705ef80df1aecba5784049bb
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +39,23 @@
 
 // main/minishell.c
 
+void	print_how_to_use_minishell(void);
+
+// main/interactive_minishell.c
+
+void	start_interactive_minishell(t_bash *bash);
+
+// main/non_interactive_minishell.c
+
+void	start_non_interactive_minishell(t_bash *bash, char *file);
+char	*get_sequence(int fd);
+
+// main/minishell_utils.c
+
+int		type_equal_to(int flag, int type);
+
 // main/prompt.c
 
-void	prompt(void);
 
 //lexer/lexer.c
 
@@ -49,7 +67,11 @@ int		parsing(t_bash *bash);
 
 // builtins/builtins.c
 
+<<<<<<< HEAD
 void builtins(t_instruction *instruction, t_env *env, t_bash *bash);
+=======
+void	builtins(t_instruction *instruction, t_env *env);
+>>>>>>> 70c573884fac4784705ef80df1aecba5784049bb
 
 // exec/exec.c
 

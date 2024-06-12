@@ -6,7 +6,7 @@
 /*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:48:16 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/24 16:36:37 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:21:46 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,15 @@
 
 # include "minishell.h"
 
+enum
+{
+	SEQUENCE_IS_FILLED,
+	SEQUENCE_EMPTY
+};
+
 // parser/parser.c
 
+int		sequence_is_empty(t_instruction *instruction);
 int		check_instruction(t_instruction *instruction);
 int		update_instruction(t_bash *bash, t_instruction *instruction);
 
@@ -37,7 +44,6 @@ int		unexpected_cmd_token(char c);
 
 // parser/parser_check_utils.c
 
-int		type_equal_to(int flag, int type);
 int		check_closed_quotes(char *data);
 int		check_text_out_of_quotes(char *data, int (*is_unexpected_token)(char));
 int		print_parsing_error_msg(char *msg, char *token_str, char token_c);
