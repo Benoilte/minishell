@@ -6,7 +6,7 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/27 14:20:40 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:36:42 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ int		parsing(t_bash *bash);
 
 // builtins/builtins.c
 
-void builtins(t_instruction *instruction, t_env *env);
+void builtins(t_instruction *instruction, t_env *env, t_bash *bash);
 
 // exec/exec.c
 
-void	exec(t_instruction *instruction, t_env *env, char **envp);
+void	exec(t_instruction *instruction, t_bash *bash, char **envp);
 
 // test/test.c
 
