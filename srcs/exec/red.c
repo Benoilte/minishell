@@ -6,22 +6,22 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 13:16:17 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/11 13:47:43 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:02:37 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-int open_file(char *red, int i)
+int open_file(char *red, t_token *token)
 {
     int file;
 
     file = -1;
-    if (i == OUTPUT_TRUNCATE)
+    if (type_equal_to(OUTPUT_TRUNCATE, token->data_type))
         file = open(red,  O_WRONLY | O_CREAT | O_TRUNC, 0777);
-    if (i == OUTPUT_APPEND)
+    if (type_equal_to(OUTPUT_APPEND, token->data_type))
         file = open(red,  O_WRONLY | O_CREAT | O_APPEND, 0777);
-    if (i == INPUT)
+    if (type_equal_to(INPUT, token->data_type))
         file = open(red, O_RDONLY);
     if (file < 0)
         perror("Error open file\n");
@@ -65,19 +65,19 @@ void red(t_instruction *instruction)
     red = instruction->red->option;
     if (i == OUTPUT_TRUNCATE)
     {
-        file = open_file(red, OUTPUT_TRUNCATE);
+        file = open_file(red, instruction->red);
         dup2(file, STDOUT_FILENO);
         close(file);
     }
     if (i == OUTPUT_APPEND)
     {
-        file = open_file(red, OUTPUT_APPEND);
+        file = open_file(red, instruction->red);
         dup2(file, STDOUT_FILENO);
         close(file);        
     }
     if (i == INPUT)
     {
-        file = open_file(red, INPUT);
+        file = open_file(red, instruction->red);
         dup2(file, STDIN_FILENO);
         close(file);
     }

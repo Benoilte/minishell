@@ -6,13 +6,13 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/05/31 17:24:25 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/06/12 10:41:34 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-void exec(t_instruction *instruction, t_env *env, char **envp)
+void exec(t_instruction *instruction, t_bash *bash, char **envp)
 {
     t_instruction *current;
     int prev_fd[2] = {-1, -1};
@@ -30,7 +30,7 @@ void exec(t_instruction *instruction, t_env *env, char **envp)
             current->fd[0] = -1;
             current->fd[1] = -1;
         }
-        child_process(current, env, envp, prev_fd);
+        child_process(current, bash, envp, prev_fd);
         if (prev_fd[0] != -1)
             close(prev_fd[0]);
         if (prev_fd[1] != -1)
