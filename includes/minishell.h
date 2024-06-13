@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/11 21:33:16 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/13 12:33:18 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ int		parsing(t_bash *bash);
 
 // builtins/builtins.c
 
-void	builtins(t_instruction *instruction, t_env *env);
+void builtins(t_instruction *instruction, t_env *env, t_bash *bash);
 
 // exec/exec.c
 
-void	exec(t_instruction *instruction, t_env *env, char **envp);
+void	exec(t_instruction *instruction, t_bash *bash, char **envp);
 
 // test/test.c
 

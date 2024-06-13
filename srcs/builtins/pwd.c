@@ -6,7 +6,7 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:00:59 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/11 14:31:38 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:29:40 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void pwd(t_instruction *instruction)
 {
-    (void)instruction;
     char *cwd;
 
         cwd = getcwd(NULL, 0);
@@ -26,9 +25,9 @@ void pwd(t_instruction *instruction)
         if (instruction->red != NULL)
         {
             ft_putendl_fd(cwd, STDOUT_FILENO);
-            exit(EXIT_SUCCESS);
         }
-        else    
+        else
             printf("%s\n", cwd);
         free(cwd);
+        exit(EXIT_SUCCESS);
 }

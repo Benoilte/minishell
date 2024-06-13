@@ -6,7 +6,7 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:29:38 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/31 17:02:24 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:46:39 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int argc, char *argv[], char *envp[])
 				if (parsing(bash) == 0)
 				{
 					test_print_instruction(bash->instruction);
-					exec(bash->instruction, bash->env, envp);
+					exec(bash->instruction, bash, envp);
 				}
 				//test_print_instruction(bash->instruction);
 				clear_instruction(&(bash)->instruction);
