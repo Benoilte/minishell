@@ -6,13 +6,13 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:56:12 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/11 22:45:14 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:04:23 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	start_interactive_minishell(t_bash *bash)
+void	start_interactive_minishell(t_bash *bash, int debug)
 {
 	set_signal_action();
 	while (1)
@@ -29,7 +29,9 @@ void	start_interactive_minishell(t_bash *bash)
 		{
 			if (parsing(bash) == PARSING_OK)
 			{
-				test_print_instruction(bash->instruction);
+				if (debug)
+					test_print_instruction(bash->instruction);
+				exec(bash->instruction, bash, bash->envp);
 			}
 		}
 		clear_instruction(&(bash)->instruction);
