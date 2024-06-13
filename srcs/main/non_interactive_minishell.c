@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   non_interactive_minishell.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:56:33 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/10 16:32:35 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:07:19 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-
-void	start_non_interactive_minishell(t_bash *bash, char *file)
+void	start_non_interactive_minishell(t_bash *bash, char *file, int debug)
 {
 	int		fd;
 
@@ -31,7 +30,9 @@ void	start_non_interactive_minishell(t_bash *bash, char *file)
 			{
 				if (parsing(bash) == PARSING_OK)
 				{
-					test_print_instruction(bash->instruction);
+					if (debug)
+						test_print_instruction(bash->instruction);
+					exec(bash->instruction, bash, bash->envp);
 				}
 			}
 			clear_instruction(&(bash)->instruction);
