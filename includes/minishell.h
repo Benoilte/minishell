@@ -6,10 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/13 12:47:24 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/13 12:52:48 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -32,6 +31,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <errno.h>
+# include <signal.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 // main/minishell.c
 
@@ -40,6 +42,8 @@ void	print_how_to_use_minishell(void);
 // main/interactive_minishell.c
 
 void	start_interactive_minishell(t_bash *bash);
+void	set_signal_action(void);
+void	signal_handler(int signum);
 
 // main/non_interactive_minishell.c
 
