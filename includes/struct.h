@@ -7,6 +7,10 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:12:23 by bebrandt          #+#    #+#             */
 /*   Updated: 2024/06/14 11:42:13 by tmartin2         ###   ########.fr       */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/14 17:12:23 by bebrandt          #+#    #+#             */
+/*   Updated: 2024/06/13 12:45:59 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +22,7 @@ typedef struct s_bash
 	char					*working_directory;
 	char					*sequence;
 	int						exit_code;
-	char					*buffer;
+	char					**envp;
 	struct s_env			*env;
 	struct s_instruction	*instruction;
 }							t_bash;

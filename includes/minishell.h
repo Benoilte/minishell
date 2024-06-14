@@ -7,9 +7,12 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
 /*   Updated: 2024/06/14 13:00:15 by tmartin2         ###   ########.fr       */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
+/*   Updated: 2024/06/13 13:05:39 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -32,6 +35,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <errno.h>
+# include <signal.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 // main/minishell.c
 
@@ -39,19 +45,18 @@ void	print_how_to_use_minishell(void);
 
 // main/interactive_minishell.c
 
-void	start_interactive_minishell(t_bash *bash);
+void	start_interactive_minishell(t_bash *bash, int debug);
+void	set_signal_action(void);
+void	signal_handler(int signum);
 
 // main/non_interactive_minishell.c
 
-void	start_non_interactive_minishell(t_bash *bash, char *file);
+void	start_non_interactive_minishell(t_bash *bash, char *file, int debug);
 char	*get_sequence(int fd);
 
 // main/minishell_utils.c
 
 int		type_equal_to(int flag, int type);
-
-// main/prompt.c
-
 
 //lexer/lexer.c
 
@@ -64,6 +69,7 @@ int		parsing(t_bash *bash);
 // builtins/builtins.c
 
 void builtins(t_instruction *instruction, t_env *env);
+void builtins(t_instruction *instruction, t_env *env, t_bash *bash);
 
 // exec/exec.c
 
