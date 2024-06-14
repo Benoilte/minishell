@@ -23,7 +23,7 @@ void	start_interactive_minishell(t_bash *bash, int debug)
 		if (!bash->sequence)
 		{
 			ft_printf("exit\n");
-			clear_bash_and_exit(&bash, EXIT_FAILURE);
+			clear_bash_and_exit(&bash, bash->exit_code);
 		}
 		if (ft_strlen(bash->sequence) > 0)
 			add_history(bash->sequence);
