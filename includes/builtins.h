@@ -6,7 +6,7 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:38:16 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/12 15:43:54 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/06/14 12:59:16 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define BUILTINS_H
 
 # include "minishell.h"
-# include "exec.h"
+
 // builtins/pwd.c
 
 void	pwd(t_instruction *instruction);

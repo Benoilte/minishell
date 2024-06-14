@@ -6,18 +6,15 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:54:12 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/12 15:52:00 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/06/14 12:58:57 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/builtins.h"
 
 // TODO : structure bash en attande pour recupe le builtins
-void builtins(t_instruction *instruction, t_env *env, t_bash *bash)
+void builtins(t_instruction *instruction, t_env *env)
 {
-	int exit_status;
-	(void)bash;
-	exit_status = 0;
 	if (ft_strcmp(instruction->cmd->data, "pwd") == 0)
 		pwd(instruction);
 	if (ft_strcmp(instruction->cmd->data, "cd") == 0)
@@ -30,11 +27,4 @@ void builtins(t_instruction *instruction, t_env *env, t_bash *bash)
 		ft_unset(&env, instruction);
 	if (ft_strcmp(instruction->cmd->data, "env") == 0)
 		print_env(env, instruction);
-	if (ft_strcmp(instruction->cmd->data, "exit") == 0)
-	{
-		printf("teste\n");
-		exit_status = ft_exit(instruction);
-		if (exit_status != 0)
-	 		exit(EXIT_SUCCESS);
-	}
 }

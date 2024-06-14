@@ -3,6 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/14 17:12:23 by bebrandt          #+#    #+#             */
+/*   Updated: 2024/06/14 11:42:13 by tmartin2         ###   ########.fr       */
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:12:23 by bebrandt          #+#    #+#             */
@@ -36,6 +40,7 @@ typedef struct s_instruction
 	struct s_token			*cmd;
 	int						fd[2];
 	char					**cmd_array;
+	struct s_instruction	*prev;
 	struct s_instruction	*next;
 }							t_instruction;
 
