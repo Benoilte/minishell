@@ -15,6 +15,7 @@
 void	start_non_interactive_minishell(t_bash *bash, char *file, int debug)
 {
 	int		fd;
+	int		exit_status;
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
@@ -28,12 +29,14 @@ void	start_non_interactive_minishell(t_bash *bash, char *file, int debug)
 				break ;
 			if (lexing(bash, bash->sequence) == RETURN_SUCCESS)
 			{
-				if (parsing(bash) == PARSING_OK)
+				exit_status = parsing(bash);
+				if (exit_status == PARSING_OK)
 				{
 					if (debug)
 						test_print_instruction(bash->instruction);
 					exec(bash->instruction, bash, bash->envp);
 				}
+				bash->exit_code = exit_status;
 			}
 			clear_instruction(&(bash)->instruction);
 			free(bash->sequence);

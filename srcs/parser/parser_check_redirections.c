@@ -14,8 +14,8 @@
 
 int	check_redirections(t_token *red)
 {
-	if (check_data_redirection(red->data, red->data_type) == PARSING_ERROR)
-		return (PARSING_ERROR);
+	if (check_data_redirection(red->data, red->data_type) == ERROR_REDIRECTION)
+		return (ERROR_REDIRECTION);
 	if (check_opt_redirection(red->option, red->option_type) == PARSING_ERROR)
 		return (PARSING_ERROR);
 	return (PARSING_OK);
@@ -34,7 +34,7 @@ int	check_data_redirection(char *data, int type)
 			print_parsing_error_msg(UNEXPECTED_TOKEN, "<<", 0);
 		if (len >= 6)
 			print_parsing_error_msg(UNEXPECTED_TOKEN, "<<<", 0);
-		return (PARSING_ERROR);
+		return (ERROR_REDIRECTION);
 	}
 	if (type_equal_to(OUTPUT_APPEND, type) && len > 2)
 	{
@@ -42,7 +42,7 @@ int	check_data_redirection(char *data, int type)
 			print_parsing_error_msg(UNEXPECTED_TOKEN, ">", 0);
 		if (len >= 4)
 			print_parsing_error_msg(UNEXPECTED_TOKEN, ">>", 0);
-		return (PARSING_ERROR);
+		return (ERROR_REDIRECTION);
 	}
 	if (type_equal_to(HERESTRING, type))
 		return (print_parsing_error_msg(HERESTRING_NOT_IMPLEMENTED, NULL, 0));

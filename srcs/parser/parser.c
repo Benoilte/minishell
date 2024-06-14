@@ -15,14 +15,16 @@
 int	parsing(t_bash *bash)
 {
 	t_instruction	*instruction;
+	int				exit_status;
 
 	instruction = bash->instruction;
 	if (sequence_is_empty(instruction) == SEQUENCE_EMPTY)
 		return (SEQUENCE_EMPTY);
 	while (instruction)
 	{
-		if (check_instruction(instruction) == PARSING_ERROR)
-			return (PARSING_ERROR);
+		exit_status = check_instruction(instruction);
+		if (exit_status > 0)
+			return (exit_status);
 		if (update_instruction(bash, instruction) == RETURN_FAILURE)
 			return (RETURN_FAILURE);
 		if (fill_cmd_array(instruction) == RETURN_FAILURE)
@@ -58,8 +60,8 @@ int	check_instruction(t_instruction *instruction)
 		return (print_parsing_error_msg(INSTRUCTION_EMPTY, NULL, 0));
 	while (red)
 	{
-		if (check_redirections(red) == PARSING_ERROR)
-			return (PARSING_ERROR);
+		if (check_redirections(red) == ERROR_REDIRECTION)
+			return (ERROR_REDIRECTION);
 		red = red->next;
 	}
 	while (cmd)

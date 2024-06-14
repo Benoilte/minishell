@@ -23,6 +23,11 @@ enum
 	SEQUENCE_EMPTY
 };
 
+enum
+{
+	ERROR_REDIRECTION = 2,
+};
+
 // parser/parser.c
 
 int		sequence_is_empty(t_instruction *instruction);
