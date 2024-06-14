@@ -6,47 +6,37 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:51:22 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/12 17:40:49 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/06/14 13:00:14 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-void child_process(t_instruction *instruction, t_bash *bash, char **envp, int prev_fd[2])
+void child_process(t_instruction *instruction, t_bash *bash, char **envp)
 {
-    pid_t pid;
-
-    pid = fork();
-    if (pid == -1)
-        perror("fork");
-    else if (pid == 0)
+    if (instruction->prev != NULL)
     {
-        if (instruction->next != NULL)
+        //printf("Redirection de stdin vers fd : %d\n", instruction->prev->fd[0]);
+        if (dup2(instruction->prev->fd[0], STDIN_FILENO) == -1)
         {
-            close(instruction->fd[0]);
-            dup2(instruction->fd[1], STDOUT_FILENO);
-            close(instruction->fd[1]);
+            perror("dup2");
+            exit(EXIT_FAILURE);
         }
-        if (prev_fd[0] != -1)
-        {
-            close(prev_fd[1]);
-            dup2(prev_fd[0], STDIN_FILENO);
-            close(prev_fd[0]);
-        }
-        if(instruction->red != NULL)
-            sort_red(instruction);
-        if (instruction->cmd != NULL)
-            sort_cmd_builtin(instruction, bash, envp);
+        close(instruction->prev->fd[0]);
     }
-    else
+    if (instruction->next != NULL)
     {
-        if (prev_fd[0] != -1)
+        //printf("Redirection de stdout vers fd : %d\n", instruction->fd[1]);
+        if (dup2(instruction->fd[1], STDOUT_FILENO) == -1)
         {
-            close(prev_fd[0]);
-            close(prev_fd[1]);
+            perror("dup2");
+            exit(EXIT_FAILURE);
         }
-        if (instruction->next != NULL)
-            close(instruction->fd[1]);
-        waitpid(pid, NULL, 0);
+       close(instruction->fd[1]);
     }
+    if (instruction->red != NULL)
+        sort_red(instruction);
+    if (instruction->cmd != NULL)
+        sort_cmd_builtin(instruction, bash, envp);
+    exit(EXIT_SUCCESS);
 }

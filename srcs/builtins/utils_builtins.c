@@ -6,25 +6,12 @@
 /*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:06:47 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/11 10:40:09 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/06/14 12:50:40 by tmartin2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/builtins.h"
 
-int	ft_strcmp(char *s1, char *s2)
-{
-	while ((*s1 != '\0') || (*s2 != '\0'))
-	{
-		if (*s1 != *s2)
-		{
-			return (*s1 - *s2);
-		}
-		s1++;
-		s2++;
-	}
-	return (0);
-}
 char	*ft_strcat(char *dest, char *src)
 {
 	char	*original_dest;
