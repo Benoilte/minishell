@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:56:12 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/13 13:04:23 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:28:40 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	start_interactive_minishell(t_bash *bash, int debug)
 {
-	int	exit_status;
-
 	set_signal_action();
 	while (1)
 	{
@@ -27,17 +25,7 @@ void	start_interactive_minishell(t_bash *bash, int debug)
 		}
 		if (ft_strlen(bash->sequence) > 0)
 			add_history(bash->sequence);
-		if (lexing(bash, bash->sequence) == RETURN_SUCCESS)
-		{
-			exit_status = parsing(bash);
-			if (exit_status == PARSING_OK)
-			{
-				if (debug)
-					test_print_instruction(bash->instruction);
-				exec(bash->instruction, bash, bash->envp);
-			}
-			bash->exit_code = exit_status;
-		}
+		check_sequence_and_execution(bash, debug);
 		clear_instruction(&(bash)->instruction);
 		free(bash->sequence);
 		bash->sequence = NULL;

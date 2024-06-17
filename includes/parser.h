@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:48:16 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/10 17:21:46 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:10:00 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@
 
 enum
 {
-	SEQUENCE_IS_FILLED,
-	SEQUENCE_EMPTY
+	SEQUENCE_EMPTY,
+	SEQUENCE_IS_FILLED
 };
 
 enum
 {
 	ERROR_REDIRECTION = 2,
+	ERROR_EMPTY_SEQUENCE_BETWEEN_PIPE = 2,
 };
 
 // parser/parser.c
 
-int		sequence_is_empty(t_instruction *instruction);
 int		check_instruction(t_instruction *instruction);
 int		update_instruction(t_bash *bash, t_instruction *instruction);
 

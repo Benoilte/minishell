@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:54:31 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/10 17:13:46 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:45:33 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,24 @@
 int	parsing(t_bash *bash)
 {
 	t_instruction	*instruction;
-	int				exit_status;
+	// int				exit_status;
 
 	instruction = bash->instruction;
-	if (sequence_is_empty(instruction) == SEQUENCE_EMPTY)
-		return (SEQUENCE_EMPTY);
 	while (instruction)
 	{
-		exit_status = check_instruction(instruction);
-		if (exit_status > 0)
-			return (exit_status);
+		// exit_status = check_instruction(instruction);
+		if (check_instruction(instruction) == SYNTAX_ERROR)
+			return (SYNTAX_ERROR);
 		if (update_instruction(bash, instruction) == RETURN_FAILURE)
 			return (RETURN_FAILURE);
 		if (fill_cmd_array(instruction) == RETURN_FAILURE)
 			return (RETURN_FAILURE);
 		instruction = instruction->next;
 	}
-	return (PARSING_OK);
+	return (SYNTAX_OK);
 }
 
-int	sequence_is_empty(t_instruction *instruction)
+int	sequence_is_filled(t_instruction *instruction)
 {
 	t_token			*red;
 	t_token			*cmd;
@@ -57,20 +55,23 @@ int	check_instruction(t_instruction *instruction)
 	red = instruction->red;
 	cmd = instruction->cmd;
 	if (!cmd && !red)
-		return (print_parsing_error_msg(INSTRUCTION_EMPTY, NULL, 0));
+	{
+		print_parsing_error_msg(UNEXPECTED_TOKEN, "|", 0);
+		return (SYNTAX_ERROR);
+	}
 	while (red)
 	{
-		if (check_redirections(red) == ERROR_REDIRECTION)
-			return (ERROR_REDIRECTION);
+		if (check_redirections(red) == SYNTAX_ERROR)
+			return (SYNTAX_ERROR);
 		red = red->next;
 	}
 	while (cmd)
 	{
-		if (check_cmd(cmd) == PARSING_ERROR)
-			return (PARSING_ERROR);
+		if (check_cmd(cmd) == SYNTAX_ERROR)
+			return (SYNTAX_ERROR);
 		cmd = cmd->next;
 	}
-	return (PARSING_OK);
+	return (SYNTAX_OK);
 }
 
 int	update_instruction(t_bash *bash, t_instruction *instruction)

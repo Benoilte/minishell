@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 13:49:57 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/10 16:54:57 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:47:56 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	print_parsing_error_msg(char *msg, char *token_str, char token_c)
 		ft_printf("minishell: %s `%c' \n", msg, token_c);
 	else
 		ft_printf("minishell: %s\n", msg);
-	return (PARSING_ERROR);
+	return (SYNTAX_ERROR);
 }
 
 int	check_closed_quotes(char *data)
@@ -37,12 +37,12 @@ int	check_closed_quotes(char *data)
 			if (!data)
 			{
 				print_parsing_error_msg(UNCLOSED_QUOTES, NULL, 0);
-				return (PARSING_ERROR);
+				return (SYNTAX_ERROR);
 			}
 		}
 		i++;
 	}
-	return (PARSING_OK);
+	return (SYNTAX_OK);
 }
 
 int	check_text_out_of_quotes(char *data, int (*is_unexpected_token)(char))
@@ -60,9 +60,9 @@ int	check_text_out_of_quotes(char *data, int (*is_unexpected_token)(char))
 		if (is_unexpected_token(data[i]))
 		{
 			print_parsing_error_msg(UNEXPECTED_TOKEN, NULL, data[i]);
-			return (PARSING_ERROR);
+			return (SYNTAX_ERROR);
 		}
 		i++;
 	}
-	return (PARSING_OK);
+	return (SYNTAX_OK);
 }
