@@ -8,7 +8,7 @@ echo $?
 # print command no found
 echo 'hello (command not found) exit_status 127'
 hello
-echo "       	"
+"       	"
 echo $?
 
 # print space
