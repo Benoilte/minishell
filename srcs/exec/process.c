@@ -38,5 +38,5 @@ void child_process(t_instruction *instruction, t_bash *bash, char **envp)
         sort_red(instruction);
     if (instruction->cmd != NULL)
         sort_cmd_builtin(instruction, bash, envp);
-    exit(EXIT_SUCCESS);
+
 }

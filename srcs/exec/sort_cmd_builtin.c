@@ -19,9 +19,9 @@ void	sort_cmd_builtin(t_instruction *instruction, t_bash *bash, char **envp)
 	current_cmd_token = instruction->cmd;
 	while (current_cmd_token != NULL)
 	{
-		if (current_cmd_token->data_type == BUILTIN)
+		if (type_equal_to(BUILTIN, current_cmd_token->data_type))
 			builtins(instruction, bash->env);
-		else if (current_cmd_token->data_type == CMD)
+		else if (type_equal_to(CMD, current_cmd_token->data_type))
 			ft_cmd(instruction, bash->env, envp);
 		current_cmd_token = current_cmd_token->next;
 	}

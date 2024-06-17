@@ -14,18 +14,16 @@
 
 void	sort_red(t_instruction *instruction)
 {
-	int		i;
 	t_token	*current_red_token;
-	i = 0;
 	current_red_token = instruction->red;
 	// Afficher les informations de redirection
 	while (current_red_token != NULL)
 	{
-		if (current_red_token->data_type == OUTPUT_TRUNCATE
-			|| current_red_token->data_type == OUTPUT_APPEND
-			|| current_red_token->data_type == INPUT)
+		if (type_equal_to(OUTPUT_TRUNCATE, current_red_token->data_type)
+			|| type_equal_to(OUTPUT_APPEND, current_red_token->data_type)
+			|| type_equal_to(INPUT, current_red_token->data_type))
 			red(instruction);
-		else if (current_red_token->data_type == HEREDOC)
+		else if (type_equal_to(HEREDOC, current_red_token->data_type))
 			here_doc(instruction);
 		current_red_token = current_red_token->next;
 	}

@@ -69,7 +69,7 @@ int		parsing(t_bash *bash);
 // builtins/builtins.c
 
 void builtins(t_instruction *instruction, t_env *env);
-void builtins(t_instruction *instruction, t_env *env, t_bash *bash);
+
 
 // exec/exec.c
 
