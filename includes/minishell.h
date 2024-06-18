@@ -77,7 +77,6 @@ int		sequence_is_filled(t_instruction *instruction);
 // builtins/builtins.c
 
 void builtins(t_instruction *instruction, t_env *env);
-void builtins(t_instruction *instruction, t_env *env, t_bash *bash);
 
 // exec/exec.c
 

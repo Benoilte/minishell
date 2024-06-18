@@ -6,12 +6,11 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/18 14:42:57 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:55:32 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "../../includes/exec.h"
-
 int	ft_strcmp(char *s1, char *s2)
 {
 	while ((*s1 != '\0') || (*s2 != '\0'))
@@ -27,18 +26,28 @@ int	ft_strcmp(char *s1, char *s2)
 }
 void exec(t_instruction *instruction, t_bash *bash, char **envp)
 {
+    t_env *env;
     t_instruction *current;
     pid_t pid;
+    t_token *current_red;
     int status;
 
+    env = bash->env;
     // Initialisation de prev pour la première instruction
     instruction->prev = NULL;
     current = instruction;
-    if (ft_strcmp(current->cmd->data, "exit") == 0 && current->next == NULL)
+    if (instruction->cmd != NULL && instruction->cmd->data != NULL && strcmp(instruction->cmd->data, "exit") == 0) 
     {
+        current_red = instruction->red;
+        while (current_red != NULL) 
+        {
+            // Exécutez la redirection
+            instruction->red = current_red;  // Mettez à jour la redirection courante dans l'instruction
+            red(instruction);
+            current_red = current_red->next;
+        }
         printf("exit\n");
         clear_bash_and_exit(&bash, 0);
-
     }
     while (current != NULL)
     {
@@ -80,6 +89,8 @@ void exec(t_instruction *instruction, t_bash *bash, char **envp)
                 //printf("Parent ferme current->fd[1]: %d\n", current->fd[1]);
                 close(current->fd[1]);  // Le parent n'a plus besoin du côté écriture du pipe actuel
         }
+        if (instruction->next == NULL && instruction->red == NULL && type_equal_to(BUILTIN, instruction->cmd->data_type))
+            builtins(instruction, env);
         // Mise à jour du pointeur prev pour la prochaine instruction
         if (current->next != NULL)
             current->next->prev = current;
