@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>          +#+  +:+       +#+       */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/19 13:48:16 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/17 16:10:00 by bebrandt         ###   ########.fr       */
+/*   Created: 2024/06/18 14:28:14 by bebrandt          #+#    #+#             */
+/*   Updated: 2024/06/18 14:28:33 by bebrandt         ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ enum
 enum
 {
 	ERROR_REDIRECTION = 2,
-	ERROR_EMPTY_SEQUENCE_BETWEEN_PIPE = 2,
+	ERROR_EMPTY_SEQUENCE_BETWEEN_PIPE = 2
 };
 
 // parser/parser.c

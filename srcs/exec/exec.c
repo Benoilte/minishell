@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/18 14:56:58 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/06/18 19:32:35 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ void exec(t_instruction *instruction, t_bash *bash, char **envp)
     // Initialisation de prev pour la première instruction
     instruction->prev = NULL;
     current = instruction;
-    if (instruction->cmd != NULL && instruction->cmd->data != NULL && strcmp(instruction->cmd->data, "exit") == 0) 
+    if (instruction->cmd != NULL && instruction->cmd->data != NULL && strcmp(instruction->cmd->data, "exit") == 0)
     {
         current_red = instruction->red;
-        while (current_red != NULL) 
+        while (current_red != NULL)
         {
             // Exécutez la redirection
             instruction->red = current_red;  // Mettez à jour la redirection courante dans l'instruction
@@ -73,6 +73,7 @@ void exec(t_instruction *instruction, t_bash *bash, char **envp)
         }
         else if (pid == 0)
         {
+			set_sig_int(DEFAULT);
             // Processus enfant
             if (current->prev != NULL)
                 close(current->prev->fd[1]);  // L'enfant ne lit pas du côté écriture du pipe précédent
@@ -103,4 +104,3 @@ void exec(t_instruction *instruction, t_bash *bash, char **envp)
         current = current->next;
     }
 }
-
