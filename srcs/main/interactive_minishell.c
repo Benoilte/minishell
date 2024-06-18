@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:56:12 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/18 15:57:30 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:52:55 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -14,7 +14,10 @@
 
 void	start_interactive_minishell(t_bash *bash, int debug)
 {
-	set_signal_action(PARENT);
+	g_signal_code = 0;
+	set_terminal();
+	set_sig_int(PARENT);
+	set_sig_quit(PARENT);
 	while (1)
 	{
 		bash->sequence = readline("minishell> ");

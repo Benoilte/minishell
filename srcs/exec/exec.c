@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/18 15:55:32 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:12:15 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -73,7 +73,7 @@ void exec(t_instruction *instruction, t_bash *bash, char **envp)
         }
         else if (pid == 0)
         {
-			set_signal_action(CHILD);
+			set_sig_int(CHILD);
             // Processus enfant
             if (current->prev != NULL)
                 close(current->prev->fd[1]);  // L'enfant ne lit pas du côté écriture du pipe précédent

@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:30:23 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/18 14:59:47 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/06/18 17:11:57 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/exec.h"
 
@@ -74,8 +74,9 @@ static char	*find_path(char *cmd, t_env *env)
 }
 int given_path(t_instruction *instruction, char **envp) 
 {
-    if (ft_strchr(instruction->cmd_array[0], '/') != NULL) 
+    if (ft_strchr(instruction->cmd_array[0], '/') != NULL)
     {
+		set_sig_quit(CHILD);
         if (execve(instruction->cmd_array[0], instruction->cmd_array, envp) < 0) 
         {
             printf("zsh: command not found: %s\n", instruction->cmd_array[0]);
@@ -95,6 +96,7 @@ void ft_cmd(t_instruction *instruction, t_env *env, char **envp)
     given = given_path(instruction, envp);
     if (given == 0) 
     {
+		set_sig_quit(CHILD);
         path = find_path(cmd, env);
         if (!path)
         {
