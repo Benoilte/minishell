@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/14 13:00:15 by tmartin2         ###   ########.fr       */
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
+/*   Updated: 2024/06/17 18:53:26 by bebrandt         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 /*   Updated: 2024/06/13 13:05:39 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -57,6 +57,7 @@ char	*get_sequence(int fd);
 // main/minishell_utils.c
 
 int		type_equal_to(int flag, int type);
+void	check_sequence_and_execution(t_bash *bash, int debug);
 
 //lexer/lexer.c
 
@@ -65,11 +66,12 @@ int		lexing(t_bash *bash, char *sequence);
 // parser/parser.c
 
 int		parsing(t_bash *bash);
+int		sequence_is_filled(t_instruction *instruction);
 
 // builtins/builtins.c
 
 void builtins(t_instruction *instruction, t_env *env);
-void builtins(t_instruction *instruction, t_env *env, t_bash *bash);
+void builtins(t_instruction *instruction, t_env *env, t_bash *bash);	
 
 // exec/exec.c
 
