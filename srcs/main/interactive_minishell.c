@@ -7,6 +7,7 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:56:12 by bebrandt          #+#    #+#             */
 /*   Updated: 2024/06/17 17:07:07 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/06/17 16:28:40 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +22,11 @@ void	start_interactive_minishell(t_bash *bash, int debug)
 		if (!bash->sequence)
 		{
 			ft_printf("exit\n");
-			clear_bash_and_exit(&bash, EXIT_FAILURE);
+			clear_bash_and_exit(&bash, bash->exit_code);
 		}
 		if (ft_strlen(bash->sequence) > 0)
 			add_history(bash->sequence);
-		if (lexing(bash, bash->sequence) == RETURN_SUCCESS)
-		{
-			if (parsing(bash) == PARSING_OK)
-			{
-				if (debug)
-					test_print_instruction(bash->instruction);
-				exec(bash->instruction, bash, bash->envp);
-			}
-		}
+		check_sequence_and_execution(bash, debug);
 		clear_instruction(&(bash)->instruction);
 		free(bash->sequence);
 		bash->sequence = NULL;
