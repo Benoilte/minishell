@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_tom.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:29:38 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/14 12:20:30 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:18:58 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(int argc, char *argv[], char *envp[])
 			free(bash->sequence);
 			//bash->sequence = NULL;		
 		}
-		rl_clear_history();
+		clear_history();
 		clear_bash(&bash);
 	}
 	return (EXIT_SUCCESS);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interactive_minishell.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:56:12 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/13 13:04:23 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:07:07 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	start_interactive_minishell(t_bash *bash, int debug)
 		free(bash->sequence);
 		bash->sequence = NULL;
 	}
-	rl_clear_history();
+	clear_history();// rl_clear_history pour mon mac
 }
 
 void	set_signal_action(void)
@@ -58,7 +58,7 @@ void	signal_handler(int signum)
 	{
 		printf("\n");
 		rl_on_new_line();
-		rl_replace_line("", 0);
+		//rl_replace_line("", 0);
 		rl_redisplay();
 	}
 }

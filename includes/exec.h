@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:50 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/14 11:47:07 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/06/18 13:47:11 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	sort_red(t_instruction *instruction);
 // exec/ft_cmd.c
 
 void ft_cmd(t_instruction *instruction, t_env *env, char **envp);
+int given_path(t_instruction *instruction, char **envp);
 
 // exec/process.c
 
