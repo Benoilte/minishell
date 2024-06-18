@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   interactive_minishell.c                            :+:      :+:    :+:   */
@@ -6,15 +6,15 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:56:12 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/17 16:28:40 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/18 14:45:42 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/minishell.h"
 
 void	start_interactive_minishell(t_bash *bash, int debug)
 {
-	set_signal_action();
+	set_signal_action(PARENT);
 	while (1)
 	{
 		bash->sequence = readline("minishell> ");
@@ -31,26 +31,4 @@ void	start_interactive_minishell(t_bash *bash, int debug)
 		bash->sequence = NULL;
 	}
 	rl_clear_history();
-}
-
-void	set_signal_action(void)
-{
-	struct sigaction	new_action;
-
-	signal(SIGQUIT, SIG_IGN);
-	new_action.sa_handler = &signal_handler;
-	sigemptyset(&new_action.sa_mask);
-	new_action.sa_flags = 0;
-	sigaction(SIGINT, &new_action, NULL);
-}
-
-void	signal_handler(int signum)
-{
-	if (signum == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
 }

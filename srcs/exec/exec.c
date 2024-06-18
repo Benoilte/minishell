@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/14 12:50:14 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/06/18 14:42:57 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/exec.h"
 
@@ -64,6 +64,7 @@ void exec(t_instruction *instruction, t_bash *bash, char **envp)
         }
         else if (pid == 0)
         {
+			set_signal_action(CHILD);
             // Processus enfant
             if (current->prev != NULL)
                 close(current->prev->fd[1]);  // L'enfant ne lit pas du côté écriture du pipe précédent

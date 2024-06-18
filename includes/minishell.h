@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/17 18:53:26 by bebrandt         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/*   Updated: 2024/06/13 13:05:39 by bebrandt         ###   ########.fr       */
+/*   Created: 2024/06/18 14:29:25 by bebrandt          #+#    #+#             */
+/*   Updated: 2024/06/18 14:29:25 by bebrandt         ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +35,25 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
+enum
+{
+	PARENT,
+	CHILD
+};
+
 // main/minishell.c
 
 void	print_how_to_use_minishell(void);
 
+// main/signal.c
+
+void	set_signal_action(int process);
+void	parent_signal_handler(int signum);
+void	child_signal_handler(int signum);
+
 // main/interactive_minishell.c
 
 void	start_interactive_minishell(t_bash *bash, int debug);
-void	set_signal_action(void);
-void	signal_handler(int signum);
 
 // main/non_interactive_minishell.c
 
@@ -71,7 +77,7 @@ int		sequence_is_filled(t_instruction *instruction);
 // builtins/builtins.c
 
 void builtins(t_instruction *instruction, t_env *env);
-void builtins(t_instruction *instruction, t_env *env, t_bash *bash);	
+void builtins(t_instruction *instruction, t_env *env, t_bash *bash);
 
 // exec/exec.c
 

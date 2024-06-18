@@ -37,7 +37,7 @@ else
 endif
 
 MAIN_SRCS			+=	$(addprefix $(MAIN_DIR), $(addsuffix .c, interactive_minishell \
-						non_interactive_minishell minishell_utils))
+						non_interactive_minishell minishell_utils signal))
 
 # lexer ressources
 
