@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:42:09 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/11 14:46:45 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/06/18 12:03:34 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,5 @@ void print_env(t_env *env, t_instruction *instruction)
 			ft_printf("%s=%s\n", tmp->name, tmp->value);
 		tmp = tmp->next;
 	}
-	exit(EXIT_SUCCESS);
 }
 

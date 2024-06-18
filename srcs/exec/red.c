@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   red.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 13:16:17 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/12 15:02:37 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:17:57 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void red(t_instruction *instruction)
     {
         file = open_file(red, instruction->red);
         dup2(file, STDOUT_FILENO);
-        close(file);        
+        close(file);      
     }
     if (i == INPUT)
     {

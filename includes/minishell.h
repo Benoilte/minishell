@@ -3,6 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
+/*   Updated: 2024/06/18 11:59:51 by tommartinel      ###   ########.fr       */
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
@@ -71,6 +75,7 @@ int		sequence_is_filled(t_instruction *instruction);
 // builtins/builtins.c
 
 void builtins(t_instruction *instruction, t_env *env);
+
 void builtins(t_instruction *instruction, t_env *env, t_bash *bash);	
 
 // exec/exec.c

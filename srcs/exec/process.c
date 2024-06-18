@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:51:22 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/14 13:00:14 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/06/18 14:22:11 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,11 @@ void child_process(t_instruction *instruction, t_bash *bash, char **envp)
         }
        close(instruction->fd[1]);
     }
-    if (instruction->red != NULL)
+    while (instruction->red != NULL)
+    {
         sort_red(instruction);
+       instruction->red =instruction->red->next;
+    }
     if (instruction->cmd != NULL)
         sort_cmd_builtin(instruction, bash, envp);
     exit(EXIT_SUCCESS);
