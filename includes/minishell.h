@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
@@ -6,13 +6,12 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:29:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/18 17:35:54 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:31:19 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
 
 // PERSONNAL LIB
 
@@ -32,34 +31,11 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <errno.h>
-# include <signal.h>
-# include <sys/types.h>
-# include <sys/wait.h>
-# include <termios.h>
-
-# ifndef STDIN_FILENO
-#  define STDIN_FILENO 0
-# endif
-
-extern int	g_signal_code;
-
-enum
-{
-	PARENT,
-	CHILD
-};
+# include <ms_signal.h>
 
 // main/minishell.c
 
 void	print_how_to_use_minishell(void);
-
-// main/signal.c
-
-void	set_terminal(void);
-void	set_sig_int(int process);
-void	set_sig_quit(int process);
-void	parent_signal_handler(int signum);
-void	child_signal_handler(int signum);
 
 // main/interactive_minishell.c
 
