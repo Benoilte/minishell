@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/18 19:32:35 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:06:24 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ void exec(t_instruction *instruction, t_bash *bash, char **envp)
 {
     t_env *env;
     t_instruction *current;
-    pid_t pid;
     t_token *current_red;
-    int status;
 
     env = bash->env;
     // Initialisation de prev pour la première instruction
@@ -65,13 +63,13 @@ void exec(t_instruction *instruction, t_bash *bash, char **envp)
             current->fd[0] = -1;
             current->fd[1] = -1;
         }
-        pid = fork();
-        if (pid == -1)
+        current->pid = fork();
+        if (current->pid == -1)
         {
             perror("fork");
             exit(EXIT_FAILURE);
         }
-        else if (pid == 0)
+        else if (current->pid == 0)
         {
 			set_sig_int(DEFAULT);
             // Processus enfant
@@ -100,7 +98,7 @@ void exec(t_instruction *instruction, t_bash *bash, char **envp)
     current = instruction;
     while (current != NULL)
     {
-        waitpid(pid, &status, 0);
+            waitpid(current->pid, NULL, 0);
         current = current->next;
     }
 }

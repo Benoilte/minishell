@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interactive_minishell.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:56:12 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/19 10:57:33 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/19 14:39:44 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ void	start_interactive_minishell(t_bash *bash, int debug)
 		free(bash->sequence);
 		bash->sequence = NULL;
 	}
-	rl_clear_history();
+	clear_history();
 }
