@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:54:13 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/12 15:36:19 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:13:04 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,5 @@ void echo(t_instruction *instruction)
         if (new_line)
             printf("\n");
     }
-    exit(EXIT_SUCCESS);
+    //exit(EXIT_SUCCESS);
 }
