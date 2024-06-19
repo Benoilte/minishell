@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 22:30:56 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/20 14:56:21 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/19 12:12:25 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ t_instruction	*new_instruction(void)
 	instruction->red = NULL;
 	instruction->cmd = NULL;
 	instruction->cmd_array = NULL;
+	instruction->fd[0] = -1;
+	instruction->fd[1] = -1;
+	instruction->prev = NULL;
 	instruction->next = NULL;
 	return (instruction);
 }
