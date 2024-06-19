@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_back.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 22:31:19 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/18 10:19:33 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/19 12:14:12 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ void	add_back_instruction(t_instruction **inst, t_instruction *new)
 	if (!*inst)
 		*inst = new;
 	else
+	{
 		last->next = new;
+		new->prev = last;
+	}
 }
 
 void	add_back_token(t_token **token, t_token *new)

@@ -6,25 +6,19 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:29:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/18 19:31:19 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/19 12:20:33 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-// PERSONNAL LIB
-
-# include "struct.h"
-# include "error.h"
-# include "../libft/includes/libft.h"
-
 // readline lib
 
 # include <readline/readline.h>
 # include <readline/history.h>
 
-// other lib
+// extern lib
 
 # include <stdio.h>
 # include <string.h>
@@ -32,6 +26,13 @@
 # include <unistd.h>
 # include <errno.h>
 # include <ms_signal.h>
+
+// PERSONNAL LIB
+
+# include "ms_signal.h"
+# include "struct.h"
+# include "error.h"
+# include "../libft/includes/libft.h"
 
 // main/minishell.c
 
