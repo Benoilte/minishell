@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:54:57 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 18:30:21 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/19 12:28:48 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	test_print_instruction(t_instruction *instruction)
 	while (tmp)
 	{
 		ft_printf("\n- INST : %d -------------------\n", i);
+		ft_printf("\n inst->prev = %p ---- inst = %p\n\n", tmp->prev, tmp);
 		test_print_cmd_array(tmp->cmd_array);
 		test_print_red_token(tmp->red);
 		test_print_cmd_token(tmp->cmd);

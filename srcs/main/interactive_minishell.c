@@ -3,62 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   interactive_minishell.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:56:12 by bebrandt          #+#    #+#             */
 /*   Updated: 2024/06/18 15:34:53 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/06/19 10:57:33 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+int	g_signal_code = 0;
+
 void	start_interactive_minishell(t_bash *bash, int debug)
 {
-	set_signal_action();
+	g_signal_code = 0;
+	set_sig_quit(IGNORE);
 	while (1)
 	{
+		set_terminal(UNSET);
+		set_sig_int(READLINE);
 		bash->sequence = readline("minishell> ");
+		set_sig_int(IGNORE);
 		if (!bash->sequence)
 		{
 			ft_printf("exit\n");
-			clear_bash_and_exit(&bash, EXIT_FAILURE);
+			clear_bash_and_exit(&bash, bash->exit_code);
 		}
 		if (ft_strlen(bash->sequence) > 0)
 			add_history(bash->sequence);
-		if (lexing(bash, bash->sequence) == RETURN_SUCCESS)
-		{
-			if (parsing(bash) == PARSING_OK)
-			{
-				if (debug)
-					test_print_instruction(bash->instruction);
-				exec(bash->instruction, bash, bash->envp);
-			}
-		}
+		check_sequence_and_execution(bash, debug);
 		clear_instruction(&(bash)->instruction);
 		free(bash->sequence);
 		bash->sequence = NULL;
 	}
-	clear_history();// rl_clear_history pour mon mac
-}
-
-void	set_signal_action(void)
-{
-	struct sigaction	new_action;
-
-	signal(SIGQUIT, SIG_IGN);
-	new_action.sa_handler = &signal_handler;
-	sigemptyset(&new_action.sa_mask);
-	new_action.sa_flags = 0;
-	sigaction(SIGINT, &new_action, NULL);
-}
-
-void	signal_handler(int signum)
-{
-	if (signum == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		//rl_replace_line("", 0);
-		rl_redisplay();
-	}
+	rl_clear_history();
 }

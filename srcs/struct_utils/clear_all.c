@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear_all.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 00:25:27 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/18 10:56:52 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/06/18 18:57:53 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	*clear_bash_and_exit(t_bash **bash, int exit_code)
 {
+	set_terminal(RESET);
 	clear_bash(bash);
 	exit(exit_code);
 }

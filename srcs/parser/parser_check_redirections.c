@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_check_redirections.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:39:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/21 16:33:47 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:49:54 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int	check_redirections(t_token *red)
 {
-	if (check_data_redirection(red->data, red->data_type) == PARSING_ERROR)
-		return (PARSING_ERROR);
-	if (check_opt_redirection(red->option, red->option_type) == PARSING_ERROR)
-		return (PARSING_ERROR);
-	return (PARSING_OK);
+	if (check_data_redirection(red->data, red->data_type) == SYNTAX_ERROR)
+		return (SYNTAX_ERROR);
+	if (check_opt_redirection(red->option, red->option_type) == SYNTAX_ERROR)
+		return (SYNTAX_ERROR);
+	return (SYNTAX_OK);
 }
 
 int	check_data_redirection(char *data, int type)
@@ -34,7 +34,7 @@ int	check_data_redirection(char *data, int type)
 			print_parsing_error_msg(UNEXPECTED_TOKEN, "<<", 0);
 		if (len >= 6)
 			print_parsing_error_msg(UNEXPECTED_TOKEN, "<<<", 0);
-		return (PARSING_ERROR);
+		return (SYNTAX_ERROR);
 	}
 	if (type_equal_to(OUTPUT_APPEND, type) && len > 2)
 	{
@@ -42,11 +42,11 @@ int	check_data_redirection(char *data, int type)
 			print_parsing_error_msg(UNEXPECTED_TOKEN, ">", 0);
 		if (len >= 4)
 			print_parsing_error_msg(UNEXPECTED_TOKEN, ">>", 0);
-		return (PARSING_ERROR);
+		return (SYNTAX_ERROR);
 	}
 	if (type_equal_to(HERESTRING, type))
 		return (print_parsing_error_msg(HERESTRING_NOT_IMPLEMENTED, NULL, 0));
-	return (PARSING_OK);
+	return (SYNTAX_OK);
 }
 
 int	check_opt_redirection(char *option, int type)
@@ -58,16 +58,16 @@ int	check_opt_redirection(char *option, int type)
 		return (print_parsing_error_msg(UNEXPECTED_TOKEN, "newline", 0));
 	if (option[i] == '#')
 		return (print_parsing_error_msg(UNEXPECTED_TOKEN, "newline", 0));
-	if (unexpected_red_token(option[i]))
+	if (unexpected_red_token(option[i]) == SYNTAX_ERROR)
 		return (print_parsing_error_msg(UNEXPECTED_TOKEN, NULL, option[i]));
 	if (type_equal_to(D_QUOTES, type) || type_equal_to(S_QUOTES, type))
 	{
-		if (check_closed_quotes(option) == PARSING_ERROR)
-			return (PARSING_ERROR);
+		if (check_closed_quotes(option) == SYNTAX_ERROR)
+			return (SYNTAX_ERROR);
 	}
-	if (check_text_out_of_quotes(option, unexpected_red_token) == PARSING_ERROR)
-		return (PARSING_ERROR);
-	return (PARSING_OK);
+	if (check_text_out_of_quotes(option, unexpected_red_token) == SYNTAX_ERROR)
+		return (SYNTAX_ERROR);
+	return (SYNTAX_OK);
 }
 
 int	unexpected_red_token(char c)
@@ -80,8 +80,8 @@ int	unexpected_red_token(char c)
 	while (tokens[i])
 	{
 		if (tokens[i] == c)
-			return (PARSING_ERROR);
+			return (SYNTAX_ERROR);
 		i++;
 	}
-	return (PARSING_OK);
+	return (SYNTAX_OK);
 }

@@ -3,10 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:30:23 by tmartin2          #+#    #+#             */
 /*   Updated: 2024/06/19 13:30:28 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/06/18 19:40:40 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +41,12 @@ static char	*find_path(char *cmd, char **envp)
 	free(paths);
 	return (0);
 }
-int given_path(t_instruction *instruction, char **envp) 
+int given_path(t_instruction *instruction, char **envp)
 {
-    if (ft_strchr(instruction->cmd_array[0], '/') != NULL) 
+    if (ft_strchr(instruction->cmd_array[0], '/') != NULL)
     {
-        if (execve(instruction->cmd_array[0], instruction->cmd_array, envp) < 0) 
+		set_sig_quit(DEFAULT);
+        if (execve(instruction->cmd_array[0], instruction->cmd_array, envp) < 0)
         {
             printf("zsh: command not found: %s\n", instruction->cmd_array[0]);
             exit(EXIT_FAILURE);
@@ -54,7 +56,7 @@ int given_path(t_instruction *instruction, char **envp)
     return 0;
 }
 
-void ft_cmd(t_instruction *instruction, t_env *env, char **envp) 
+void ft_cmd(t_instruction *instruction, t_env *env, char **envp)
 {
     (void)env;
     char *cmd = instruction->cmd_array[0];
@@ -62,15 +64,18 @@ void ft_cmd(t_instruction *instruction, t_env *env, char **envp)
     int given;
 
     given = given_path(instruction, envp);
-    if (given == 0) 
+    if (given == 0)
     {
+
         path = find_path(cmd, envp);
+		set_sig_quit(DEFAULT);
+        path = find_path(cmd, env);
         if (!path)
         {
             printf("zsh: command not found: %s\n", instruction->cmd_array[0]);
             exit(EXIT_FAILURE); // Quitter si le chemin n'est pas trouvé
         }
-        if (execve(path, instruction->cmd_array, envp) < 0) 
+        if (execve(path, instruction->cmd_array, envp) < 0)
         {
             perror("execve");
             free(path);

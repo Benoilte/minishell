@@ -3,41 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/14 11:16:35 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/18 11:59:51 by tommartinel      ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/*   Updated: 2024/06/13 13:05:39 by bebrandt         ###   ########.fr       */
+/*   Created: 2024/06/18 14:29:25 by bebrandt          #+#    #+#             */
+/*   Updated: 2024/06/19 12:20:33 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-// PERSONNAL LIB
-
-# include "struct.h"
-# include "error.h"
-# include "../libft/includes/libft.h"
-
 // readline lib
 
 # include <readline/readline.h>
 # include <readline/history.h>
 
-// other lib
+// extern lib
 
 # include <stdio.h>
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <errno.h>
-# include <signal.h>
-# include <sys/types.h>
-# include <sys/wait.h>
+# include <ms_signal.h>
+
+// PERSONNAL LIB
+
+# include "ms_signal.h"
+# include "struct.h"
+# include "error.h"
+# include "../libft/includes/libft.h"
 
 // main/minishell.c
 
@@ -46,8 +41,6 @@ void	print_how_to_use_minishell(void);
 // main/interactive_minishell.c
 
 void	start_interactive_minishell(t_bash *bash, int debug);
-void	set_signal_action(void);
-void	signal_handler(int signum);
 
 // main/non_interactive_minishell.c
 
@@ -57,6 +50,7 @@ char	*get_sequence(int fd);
 // main/minishell_utils.c
 
 int		type_equal_to(int flag, int type);
+void	check_sequence_and_execution(t_bash *bash, int debug);
 
 //lexer/lexer.c
 
@@ -65,11 +59,11 @@ int		lexing(t_bash *bash, char *sequence);
 // parser/parser.c
 
 int		parsing(t_bash *bash);
+int		sequence_is_filled(t_instruction *instruction);
 
 // builtins/builtins.c
 
 void builtins(t_instruction *instruction, t_env *env);
-
 
 // exec/exec.c
 

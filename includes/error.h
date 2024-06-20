@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 11:29:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/10 17:21:55 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:39:45 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ enum
 
 enum
 {
-	PARSING_OK,
-	PARSING_ERROR
+	SYNTAX_OK,
+	SYNTAX_ERROR = 2
 };
 
 # define M_ALLOC "Error: Memory allocation"
 
-# define INSTRUCTION_EMPTY "syntax error command is empty after a pipe"
+// # define INSTRUCTION_EMPTY "syntax error command is empty after a pipe"
 
 // Parsing redirection error
 
