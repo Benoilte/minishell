@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:38:16 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/18 12:00:31 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/06/20 15:09:35 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,6 @@ void	pwd(t_instruction *instruction);
 // builtins/cd.c
 
 void	cd(t_instruction *instruction);
-
-//builtins/exit.c
-
-int		ft_exit(t_instruction *instruction);
-void	trim(t_instruction *instruction);
 
 //builtins/env.c
 

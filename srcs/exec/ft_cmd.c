@@ -3,28 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:30:23 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/18 19:40:40 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:26:42 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-static int	ft_strcmp(char *s1, char *s2)
-{
-	while ((*s1 != '\0') || (*s2 != '\0'))
-	{
-		if (*s1 != *s2)
-		{
-			return (*s1 - *s2);
-		}
-		s1++;
-		s2++;
-	}
-	return (0);
-}
 static char	*find_path(char *cmd, t_env *env)
 {
 	char	**paths;

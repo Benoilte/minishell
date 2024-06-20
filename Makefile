@@ -3,13 +3,13 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+         #
+#    By: tom <tom@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/06/11 10:41:59 by tmartin2         ###   ########.fr        #
-#    Updated: 2024/06/10 15:54:44 by bebrandt         ###   ########.fr        #
+#    Updated: 2024/06/20 15:09:30 by tom              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 
 NAME				=	minishell
@@ -60,7 +60,7 @@ endif
 
 ifeq ($(BUILTINS), set)
 	BUILTINS_DIR		=	$(SRCS_DIR)builtins/
-	BUILTINS_SRCS		=	$(addprefix $(BUILTINS_DIR), $(addsuffix .c, builtins pwd utils_builtins cd exit env echo export unset))
+	BUILTINS_SRCS		=	$(addprefix $(BUILTINS_DIR), $(addsuffix .c, builtins pwd utils_builtins cd env echo export unset))
 endif
 
 # exec ressources

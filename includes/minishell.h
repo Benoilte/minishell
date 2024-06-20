@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:29:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/19 12:20:33 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/20 16:04:48 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ void builtins(t_instruction *instruction, t_env *env);
 // exec/exec.c
 
 void	exec(t_instruction *instruction, t_bash *bash, char **envp);
+void setup_pipe(t_instruction *current);
+void handle_process(t_instruction *current, t_bash *bash, char **envp);
+
 
 // test/test.c
 
