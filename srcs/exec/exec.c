@@ -6,13 +6,13 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2024/06/20 16:07:03 by tom              ###   ########.fr       */
-=======
 /*   Updated: 2024/06/18 15:21:06 by tommartinel      ###   ########.fr       */
 /*   Updated: 2024/06/18 19:32:35 by bebrandt         ###   ########.fr       */
->>>>>>> refs/remotes/origin/master
 /*                                                                            */
+/*   Updated: 2024/06/20 16:07:03 by tom              ###   ########.fr       */
+/*   Updated: 2024/06/18 15:21:06 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/06/18 19:32:35 by bebrandt         ###   ########.fr       */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"

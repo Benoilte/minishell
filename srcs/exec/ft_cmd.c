@@ -7,12 +7,16 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:30:23 by tmartin2          #+#    #+#             */
 /*   Updated: 2024/06/20 18:19:51 by tom              ###   ########.fr       */
+/*   Updated: 2024/06/20 15:26:42 by tom              ###   ########.fr       */
+/*   Updated: 2024/06/19 13:30:28 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/06/18 19:40:40 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
 static char	*find_path(char *cmd, char **envp)
+
 {
 	char	**paths;
 	char	*path;
