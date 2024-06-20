@@ -6,7 +6,7 @@
 /*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 13:16:17 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/18 10:17:57 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/06/18 15:12:43 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,38 @@ int open_file(char *red, t_token *token)
         perror("Error open file\n");
     return (file);
 }
-void here_doc(t_instruction *instruction)
+void here_doc(t_instruction *instruction) 
 {
     char *limiter;
     pid_t reader;
     char *line;
 
     limiter = instruction->red->option;
-    if (pipe(instruction->fd) == -1)
+    if (pipe(instruction->fd) == -1) 
+    {
         perror("pipe");
+        exit(EXIT_FAILURE);
+    }
     reader = fork();
-    if (reader == 0)
+    if (reader == 0) 
     {
         close(instruction->fd[0]);
-        while(write(1, "> ", 2) && ft_get_next_line(&line))
+        while (1) 
         {
-            if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
+            line = readline("> ");
+            if (!line) 
                 exit(EXIT_SUCCESS);
-            write(instruction->fd[1], line, ft_strlen(line));
+            if (strncmp(line, limiter, strlen(limiter)) == 0 && line[strlen(limiter)] == '\0') 
+            {
+                free(line);
+                exit(EXIT_SUCCESS);
+            }
+            write(instruction->fd[1], line, strlen(line));
+            write(instruction->fd[1], "\n", 1);
+            free(line);
         }
-    }
-    else
+    } 
+    else 
     {
         close(instruction->fd[1]);
         dup2(instruction->fd[0], STDIN_FILENO);

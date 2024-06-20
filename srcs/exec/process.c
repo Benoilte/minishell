@@ -7,6 +7,7 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:51:22 by tmartin2          #+#    #+#             */
 /*   Updated: 2024/06/20 18:01:13 by tom              ###   ########.fr       */
+/*   Updated: 2024/06/19 11:10:39 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +26,27 @@ void child_process(t_instruction *instruction, t_bash *bash, char **envp)
 {
     if (instruction->prev != NULL)
     {
-        //printf("Redirection de stdin vers fd : %d\n", instruction->prev->fd[0]);
+     //printf("Redirection de stdin vers fd : %d\n", instruction->prev->fd[0]);
         dup2(instruction->prev->fd[0], STDIN_FILENO);
+        if (dup2(instruction->prev->fd[0], STDIN_FILENO) == -1)
+        {
+            perror("dup2");
+            exit(EXIT_FAILURE);
+        }
         close(instruction->prev->fd[0]);
     }
     if (instruction->next != NULL)
     {
+
         //printf("Redirection de stdout vers fd : %d\n", instruction->fd[1]);
         dup2(instruction->fd[1], STDOUT_FILENO);
         close(instruction->fd[1]);
+        if (dup2(instruction->fd[1], STDOUT_FILENO) == -1)
+        {
+            perror("dup2");
+            exit(EXIT_FAILURE);
+        }
+       close(instruction->fd[1]);
     }
         // Fermer les descripteurs de fichiers inutilisés
     if (instruction->fd[0] != -1)
@@ -45,7 +58,7 @@ void child_process(t_instruction *instruction, t_bash *bash, char **envp)
         sort_red(instruction);
        instruction->red =instruction->red->next;
     }
-    if (instruction->cmd != NULL)
+    if (instruction->cmd != NULL || instruction->prev != NULL)
         sort_cmd_builtin(instruction, bash, envp);
     exit(EXIT_SUCCESS);
 }
