@@ -6,10 +6,7 @@
 /*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:30:23 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/20 18:19:51 by tom              ###   ########.fr       */
-/*   Updated: 2024/06/20 15:26:42 by tom              ###   ########.fr       */
-/*   Updated: 2024/06/19 13:30:28 by tommartinel      ###   ########.fr       */
-/*   Updated: 2024/06/18 19:40:40 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:50:55 by tom              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +66,8 @@ void ft_cmd(t_instruction *instruction, t_env *env, char **envp)
     given = given_path(instruction, envp);
     if (given == 0)
     {
-
-        path = find_path(cmd, envp);
 		set_sig_quit(DEFAULT);
-        path = find_path(cmd, env);
+        path = find_path(cmd, envp);
         if (!path)
         {
             printf("zsh: command not found: %s\n", instruction->cmd_array[0]);
