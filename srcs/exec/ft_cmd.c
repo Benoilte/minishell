@@ -6,71 +6,40 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:30:23 by tmartin2          #+#    #+#             */
+/*   Updated: 2024/06/19 13:30:28 by tommartinel      ###   ########.fr       */
 /*   Updated: 2024/06/18 19:40:40 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-static int	ft_strcmp(char *s1, char *s2)
-{
-	while ((*s1 != '\0') || (*s2 != '\0'))
-	{
-		if (*s1 != *s2)
-		{
-			return (*s1 - *s2);
-		}
-		s1++;
-		s2++;
-	}
-	return (0);
-}
-static char	*find_path(char *cmd, t_env *env)
+static char	*find_path(char *cmd, char **envp)
 {
 	char	**paths;
 	char	*path;
 	int		i;
-    int     j;
 	char	*part_path;
-    char    *env_path_value;
 
-    env_path_value = NULL;
-    while(env)
-    {
-        if (ft_strcmp(env->name, "PATH") == 0)
-        {
-            env_path_value = env->value;
-            break;
-        }
-        env = env->next;
-    }
-    if (!env_path_value)
-        return (NULL);
-    paths = ft_split(env_path_value, ':');
-    if (!paths)
-        return (NULL);
-    i = 0;
-    while(paths[i])
-    {
-        part_path = ft_strjoin(paths[i], "/");
-        path = ft_strjoin(part_path, cmd);
-        free(part_path);
-        if (access(path, F_OK) == 0)
-        {
-            j = 0;
-            while(paths[j])
-                free(paths[j++]);
-            free(paths);
-            return(path);
-        }
-        free(path);
-        i++;
-    }
-    i = 0;
-    while(paths[i])
-        free(paths[i++]);
-    free(paths);
-    return (NULL);
+	i = 0;
+	while (ft_strnstr(envp[i], "PATH", 4) == 0)
+		i++;
+	paths = ft_split(envp[i] + 5, ':');
+	i = 0;
+	while (paths[i])
+	{
+		part_path = ft_strjoin(paths[i], "/");
+		path = ft_strjoin(part_path, cmd);
+		free(part_path);
+		if (access(path, F_OK) == 0)
+			return (path);
+		free(path);
+		i++;
+	}
+	i = -1;
+	while (paths[++i])
+		free(paths[i]);
+	free(paths);
+	return (0);
 }
 int given_path(t_instruction *instruction, char **envp)
 {
@@ -89,6 +58,7 @@ int given_path(t_instruction *instruction, char **envp)
 
 void ft_cmd(t_instruction *instruction, t_env *env, char **envp)
 {
+    (void)env;
     char *cmd = instruction->cmd_array[0];
     char *path;
     int given;
@@ -96,6 +66,8 @@ void ft_cmd(t_instruction *instruction, t_env *env, char **envp)
     given = given_path(instruction, envp);
     if (given == 0)
     {
+
+        path = find_path(cmd, envp);
 		set_sig_quit(DEFAULT);
         path = find_path(cmd, env);
         if (!path)
