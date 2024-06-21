@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   new.c                                              :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 22:30:56 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/19 12:12:25 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:03:06 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/minishell.h"
 
@@ -54,6 +54,8 @@ t_instruction	*new_instruction(void)
 	instruction->cmd_array = NULL;
 	instruction->fd[0] = -1;
 	instruction->fd[1] = -1;
+	instruction->pid = 0;
+	instruction->exit_status = 0;
 	instruction->prev = NULL;
 	instruction->next = NULL;
 	return (instruction);

@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/20 18:51:51 by tom              ###   ########.fr       */
+/*   Updated: 2024/06/21 16:33:55 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/exec.h"
 
@@ -26,7 +26,7 @@ void ft_exit(t_instruction *instruction, t_bash *bash)
             current_red = current_red->next;
         }
         printf("exit\n");
-        clear_bash_and_exit(&bash, 0);
+        clear_bash_and_exit(&bash, bash->exit_code);
     }
 }
 void setup_pipe(t_instruction *current)
@@ -67,10 +67,9 @@ void exec(t_instruction *instruction, t_bash *bash, char **envp)
 {
     t_env *env;
     t_instruction *current;
-    int status;
 
     env = bash->env;
-    instruction->prev = NULL;
+    // instruction->prev = NULL;
     current = instruction;
     ft_exit(instruction, bash);
     while (current != NULL)
@@ -86,7 +85,19 @@ void exec(t_instruction *instruction, t_bash *bash, char **envp)
     current = instruction;
     while (current != NULL)
     {
-        waitpid(current->pid, &status, 0);
+        waitpid(current->pid, &current->exit_status, 0);
         current = current->next;
     }
+	set_exit_code(bash);
+}
+
+void	set_exit_code(t_bash *bash)
+{
+	t_instruction	*last_inst;
+
+	last_inst = last_instruction(bash->instruction);
+	if (WIFSIGNALED(last_inst->exit_status))
+		bash->exit_code = 128 + WTERMSIG(last_inst->exit_status);
+	if (WIFEXITED(last_inst->exit_status))
+		bash->exit_code = WEXITSTATUS(last_inst->exit_status);
 }

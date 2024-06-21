@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:30:23 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/20 18:50:55 by tom              ###   ########.fr       */
+/*   Updated: 2024/06/21 16:29:15 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/exec.h"
 
@@ -49,7 +49,7 @@ int given_path(t_instruction *instruction, char **envp)
         if (execve(instruction->cmd_array[0], instruction->cmd_array, envp) < 0)
         {
             printf("zsh: command not found: %s\n", instruction->cmd_array[0]);
-            exit(EXIT_FAILURE);
+            exit(CMD_NOT_EXEC);
         }
         return 1;
     }
@@ -70,14 +70,14 @@ void ft_cmd(t_instruction *instruction, t_env *env, char **envp)
         path = find_path(cmd, envp);
         if (!path)
         {
-            printf("zsh: command not found: %s\n", instruction->cmd_array[0]);
-            exit(EXIT_FAILURE); // Quitter si le chemin n'est pas trouvé
+            printf("minishell: command not found: %s\n", instruction->cmd_array[0]);
+            exit(CMD_NOT_FOUND); // Quitter si le chemin n'est pas trouvé
         }
         if (execve(path, instruction->cmd_array, envp) < 0)
         {
             perror("execve");
             free(path);
-            exit(EXIT_FAILURE);  // Utiliser exit pour terminer le processus en cas d'erreur
+            exit(CMD_NOT_EXEC);  // Utiliser exit pour terminer le processus en cas d'erreur
         }
         free(path);
     }
