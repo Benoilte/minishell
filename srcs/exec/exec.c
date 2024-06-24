@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/21 16:33:55 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/24 11:11:30 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
@@ -69,7 +69,7 @@ void exec(t_instruction *instruction, t_bash *bash, char **envp)
     t_instruction *current;
 
     env = bash->env;
-    // instruction->prev = NULL;
+    instruction->prev = NULL;
     current = instruction;
     ft_exit(instruction, bash);
     while (current != NULL)
