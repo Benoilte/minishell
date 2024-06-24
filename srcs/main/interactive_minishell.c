@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   interactive_minishell.c                            :+:      :+:    :+:   */
@@ -6,14 +6,14 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:56:12 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/18 15:34:53 by tommartinel      ###   ########.fr       */
-/*   Updated: 2024/06/19 10:57:33 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:54:49 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
+
 
 #include "../../includes/minishell.h"
 
-int	g_signal_code = 0;
+int	g_signal_code;
 
 void	start_interactive_minishell(t_bash *bash, int debug)
 {
@@ -27,6 +27,8 @@ void	start_interactive_minishell(t_bash *bash, int debug)
 		set_sig_int(IGNORE);
 		if (!bash->sequence)
 		{
+			if (g_signal_code)
+				bash->exit_code = 128 + g_signal_code;
 			ft_printf("exit\n");
 			clear_bash_and_exit(&bash, bash->exit_code);
 		}
