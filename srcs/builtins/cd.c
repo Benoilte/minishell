@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:15:42 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/25 22:33:22 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/26 00:12:47 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ void	cd_move_dir(t_instruction *inst, char *dir, t_env *env, char *oldcwd)
 	char	*cwd;
 
 	if (chdir(dir) != 0)
+	{
 		ft_chdir_error(dir, STDERR_FILENO);
+		inst->exit_status = 1;
+	}
 	else
 	{
 		cwd = getcwd(NULL, 0);

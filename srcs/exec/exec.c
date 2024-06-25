@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/24 11:11:30 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/26 00:09:58 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,10 @@ void exec(t_instruction *instruction, t_bash *bash, char **envp)
     current = instruction;
     while (current != NULL)
     {
-        waitpid(current->pid, &current->exit_status, 0);
+		if (size_instruction(bash->instruction) > 1)
+        	waitpid(current->pid, &current->exit_status, 0);
+		else
+			waitpid(current->pid, NULL, 0);
         current = current->next;
     }
 	set_exit_code(bash);
@@ -95,9 +98,15 @@ void	set_exit_code(t_bash *bash)
 {
 	t_instruction	*last_inst;
 
-	last_inst = last_instruction(bash->instruction);
-	if (WIFSIGNALED(last_inst->exit_status))
-		bash->exit_code = 128 + WTERMSIG(last_inst->exit_status);
-	if (WIFEXITED(last_inst->exit_status))
-		bash->exit_code = WEXITSTATUS(last_inst->exit_status);
+	if (size_instruction(bash->instruction) == 1
+		&& type_equal_to(BUILTIN, bash->instruction->cmd->data_type))
+		bash->exit_code = bash->instruction->exit_status;
+	else
+	{
+		last_inst = last_instruction(bash->instruction);
+		if (WIFSIGNALED(last_inst->exit_status))
+			bash->exit_code = 128 + WTERMSIG(last_inst->exit_status);
+		if (WIFEXITED(last_inst->exit_status))
+			bash->exit_code = WEXITSTATUS(last_inst->exit_status);
+	}
 }
