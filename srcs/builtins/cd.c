@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:15:42 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/25 20:10:07 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/25 22:33:22 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	cd(t_instruction *instruction, t_env *env)
 {
-	char	*directory;
+	char	*oldcwd;
 
 	if (size_token(instruction->cmd) > 2)
 	{
@@ -22,56 +22,87 @@ void	cd(t_instruction *instruction, t_env *env)
 		instruction->exit_status = 1;
 		return ;
 	}
-	if (instruction->cmd->next != NULL)
-		directory = ft_strdup(instruction->cmd->next->data);
-	else
+	oldcwd = getcwd(NULL, 0);
+	if (!oldcwd)
 	{
-		directory = get_value(env, "HOME");
-		if (directory == NULL)
-		{
-			ft_putendl_fd(CD_HOME_NOT_SET, STDERR_FILENO);
-			return ;
-		}
-	}
-	if (chdir(directory) != 0)
-	{
-		ft_putstr_fd("cd: ", STDERR_FILENO);
-		ft_putstr_fd(directory, STDERR_FILENO);
-		ft_putstr_fd(": ", STDERR_FILENO);
-		ft_putendl_fd(strerror(errno), STDERR_FILENO);
-		free(directory);
-	}
-	else
-		set_pwd(env);
-	free(directory);
-}
-
-void	set_pwd(t_env *env)
-{
-	char	*wd;
-
-	wd = getcwd(NULL, 0);
-	if (!wd)
-	{
-		perror("getcwd");
+		perror("getcwd() memory allocation");
+		instruction->exit_status = 1;
 		return ;
 	}
-	if (name_exist(env, "PWD"))
-		update_value(env, "PWD", wd);
+	if (instruction->cmd->next == NULL)
+		cd_go_home(instruction, env, oldcwd);
+	else
+		cd_move_dir(instruction, instruction->cmd->next->data, env, oldcwd);
 }
 
-void	ft_chdir_error(char *directory)
+void	cd_go_home(t_instruction *instruction, t_env *env, char *oldcwd)
 {
-	ft_putstr_fd("cd: ", STDERR_FILENO);
-	ft_putstr_fd(directory, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putendl_fd(strerror(errno), STDERR_FILENO);
+	char	*home;
+
+	if (name_exist(env, "HOME"))
+	{
+		home = get_value(env, "HOME");
+		if (!home)
+		{
+			perror("get_value() memory aloccation");
+			instruction->exit_status = 1;
+		}
+	}
+	else
+	{
+		ft_putendl_fd(CD_HOME_NOT_SET, STDERR_FILENO);
+		instruction->exit_status = 1;
+		return ;
+	}
+	cd_move_dir(instruction, home, env, oldcwd);
+	free(home);
 }
 
-void	ft_dir_error(char *dir, char *error_msg, int fd)
+void	cd_move_dir(t_instruction *inst, char *dir, t_env *env, char *oldcwd)
 {
-	ft_putstr_fd("minishell: cd: /bin/ls: ", fd);
-	ft_putstr_fd(dir, fd);
+	char	*cwd;
+
+	if (chdir(dir) != 0)
+		ft_chdir_error(dir, STDERR_FILENO);
+	else
+	{
+		cwd = getcwd(NULL, 0);
+		if (!cwd)
+		{
+			perror("getcwd() memory allocation");
+			inst->exit_status = 1;
+			return ;
+		}
+		set_cwd_env(inst, env, "OLDPWD", oldcwd);
+		set_cwd_env(inst, env, "PWD", cwd);
+	}
+}
+
+void	set_cwd_env(t_instruction *inst, t_env *env, char *name, char *value)
+{
+	char	*name_to_value;
+
+	if (name_exist(env, name))
+		update_value(env, name, value);
+	else
+	{
+		name_to_value = get_name_to_value(name, value);
+		free(value);
+		if (!name_to_value)
+		{
+			perror("get_name_to_value() memory allocation");
+			inst->exit_status = 1;
+			return ;
+		}
+		add_back_env(&env, new_env(name_to_value));
+	}
+
+}
+
+void	ft_chdir_error(char *directory, int fd)
+{
+	ft_putstr_fd("cd: ", fd);
+	ft_putstr_fd(directory, fd);
 	ft_putstr_fd(": ", fd);
-	ft_putendl_fd(error_msg, fd);
+	ft_putendl_fd(strerror(errno), fd);
 }

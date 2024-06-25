@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:38:16 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/25 20:10:18 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/25 22:32:09 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ void	pwd(t_instruction *instruction);
 // builtins/cd.c
 
 void	cd(t_instruction *instruction, t_env *env);
-void	set_pwd(t_env *env);
-void	ft_chdir_error(char *directory);
-void	ft_dir_error(char *dir, char *error_msg, int fd);
+void	cd_go_home(t_instruction *instruction, t_env *env, char *oldpwd);
+void	cd_move_dir(t_instruction *inst, char *dir, t_env *env, char *oldcwd);
+void	set_cwd_env(t_instruction *inst, t_env *env, char *name, char *value);
+void	ft_chdir_error(char *directory, int fd);
 
 //builtins/env.c
 

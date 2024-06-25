@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 18:53:44 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/25 17:37:30 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/25 22:22:25 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
@@ -24,6 +24,31 @@ char	*get_value(t_env *env, char *name)
 		tmp = tmp->next;
 	}
 	return (ft_strdup(""));
+}
+
+char	*get_name_to_value(char *name, char *value)
+{
+	int		i;
+	int		j;
+	size_t	len;
+	char	*name_to_value;
+
+	len = ft_strlen(name);
+	len += ft_strlen(value);
+	len += 2;
+	name_to_value = (char *)ft_calloc(len, sizeof(char));
+	if (!name_to_value)
+		return (NULL);
+	i = -1;
+	while (name[++i])
+		name_to_value[i] = name[i];
+	name_to_value[i] = '=';
+	i++;
+	j = 0;
+	while (value[j])
+		name_to_value[i++] = value[j++];
+	name_to_value[i] = '\0';
+	return (name_to_value);
 }
 
 int	name_exist(t_env *env, char *name)
