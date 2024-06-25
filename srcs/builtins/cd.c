@@ -3,33 +3,106 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:15:42 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/11 15:21:50 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/06/25 22:33:22 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/builtins.h"
 
-void cd(t_instruction *instruction)
+void	cd(t_instruction *instruction, t_env *env)
 {
-    char *directory;
+	char	*oldcwd;
 
-    if (instruction->cmd_array[1] != NULL)
-        directory = instruction->cmd_array[1];
-    else
-    {
-        directory = getenv("HOME");
-        if (directory == NULL)
-        {
-            fprintf(stderr, "cd : HOME not set\n");
-            return ;
-        }
-    }
-    if (chdir(directory) != 0)
-    {
-        fprintf(stderr, "cd: %s: %s\n", directory, strerror(errno));  
-        EXIT_FAILURE;
-    }
+	if (size_token(instruction->cmd) > 2)
+	{
+		ft_putendl_fd(CD_TOO_MANY_ARGUMENT, STDERR_FILENO);
+		instruction->exit_status = 1;
+		return ;
+	}
+	oldcwd = getcwd(NULL, 0);
+	if (!oldcwd)
+	{
+		perror("getcwd() memory allocation");
+		instruction->exit_status = 1;
+		return ;
+	}
+	if (instruction->cmd->next == NULL)
+		cd_go_home(instruction, env, oldcwd);
+	else
+		cd_move_dir(instruction, instruction->cmd->next->data, env, oldcwd);
+}
+
+void	cd_go_home(t_instruction *instruction, t_env *env, char *oldcwd)
+{
+	char	*home;
+
+	if (name_exist(env, "HOME"))
+	{
+		home = get_value(env, "HOME");
+		if (!home)
+		{
+			perror("get_value() memory aloccation");
+			instruction->exit_status = 1;
+		}
+	}
+	else
+	{
+		ft_putendl_fd(CD_HOME_NOT_SET, STDERR_FILENO);
+		instruction->exit_status = 1;
+		return ;
+	}
+	cd_move_dir(instruction, home, env, oldcwd);
+	free(home);
+}
+
+void	cd_move_dir(t_instruction *inst, char *dir, t_env *env, char *oldcwd)
+{
+	char	*cwd;
+
+	if (chdir(dir) != 0)
+		ft_chdir_error(dir, STDERR_FILENO);
+	else
+	{
+		cwd = getcwd(NULL, 0);
+		if (!cwd)
+		{
+			perror("getcwd() memory allocation");
+			inst->exit_status = 1;
+			return ;
+		}
+		set_cwd_env(inst, env, "OLDPWD", oldcwd);
+		set_cwd_env(inst, env, "PWD", cwd);
+	}
+}
+
+void	set_cwd_env(t_instruction *inst, t_env *env, char *name, char *value)
+{
+	char	*name_to_value;
+
+	if (name_exist(env, name))
+		update_value(env, name, value);
+	else
+	{
+		name_to_value = get_name_to_value(name, value);
+		free(value);
+		if (!name_to_value)
+		{
+			perror("get_name_to_value() memory allocation");
+			inst->exit_status = 1;
+			return ;
+		}
+		add_back_env(&env, new_env(name_to_value));
+	}
+
+}
+
+void	ft_chdir_error(char *directory, int fd)
+{
+	ft_putstr_fd("cd: ", fd);
+	ft_putstr_fd(directory, fd);
+	ft_putstr_fd(": ", fd);
+	ft_putendl_fd(strerror(errno), fd);
 }

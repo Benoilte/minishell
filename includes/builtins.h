@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tom <tom@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:38:16 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/20 15:09:35 by tom              ###   ########.fr       */
+/*   Updated: 2024/06/25 22:32:09 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ void	pwd(t_instruction *instruction);
 
 // builtins/cd.c
 
-void	cd(t_instruction *instruction);
+void	cd(t_instruction *instruction, t_env *env);
+void	cd_go_home(t_instruction *instruction, t_env *env, char *oldpwd);
+void	cd_move_dir(t_instruction *inst, char *dir, t_env *env, char *oldcwd);
+void	set_cwd_env(t_instruction *inst, t_env *env, char *name, char *value);
+void	ft_chdir_error(char *directory, int fd);
 
 //builtins/env.c
 
