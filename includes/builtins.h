@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:38:16 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/25 18:34:38 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/25 20:10:18 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
@@ -22,7 +22,9 @@ void	pwd(t_instruction *instruction);
 // builtins/cd.c
 
 void	cd(t_instruction *instruction, t_env *env);
-void	set_pwd(t_env *env, char *directory);
+void	set_pwd(t_env *env);
+void	ft_chdir_error(char *directory);
+void	ft_dir_error(char *dir, char *error_msg, int fd);
 
 //builtins/env.c
 

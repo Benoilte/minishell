@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 11:29:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/21 16:17:53 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/25 20:06:19 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef ERROR_H
 # define ERROR_H
@@ -44,5 +44,15 @@ not implemented"
 // Parsing shared error
 
 # define UNCLOSED_QUOTES "syntax error unclosed quotes"
+
+// builtins cd
+
+# define CD_HOME_NOT_SET "minishell: cd: HOME not set"
+# define CD_TOO_MANY_ARGUMENT "minishell: cd: too many arguments"
+
+// dir or file
+
+# define IS_NOT_EXIST "No such file or directory"
+# define IS_NOT_DIR "Not a directory"
 
 #endif
