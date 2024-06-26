@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/26 00:09:58 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/26 10:10:54 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,7 @@ void exec(t_instruction *instruction, t_bash *bash, char **envp)
     current = instruction;
     while (current != NULL)
     {
-		if (size_instruction(bash->instruction) > 1)
-        	waitpid(current->pid, &current->exit_status, 0);
-		else
-			waitpid(current->pid, NULL, 0);
+        waitpid(current->pid, &current->exit_status, 0);
         current = current->next;
     }
 	set_exit_code(bash);
