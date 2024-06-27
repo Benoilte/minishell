@@ -3,32 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/24 11:11:30 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/26 17:04:01 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-void ft_exit(t_instruction *instruction, t_bash *bash)
-{
-    t_token *current_red;
-
-    if (instruction->cmd != NULL && instruction->cmd->data != NULL && strcmp(instruction->cmd->data, "exit") == 0)
-    {
-        current_red = instruction->red;
-        while (current_red != NULL)
-        {
-            instruction->red = current_red;
-            red(instruction);
-            current_red = current_red->next;
-        }
-        printf("exit\n");
-        clear_bash_and_exit(&bash, bash->exit_code);
-    }
-}
 void setup_pipe(t_instruction *current)
 {
     if (current->next != NULL)
@@ -66,31 +49,20 @@ void handle_process(t_instruction *current, t_bash *bash, char **envp)
 void exec(t_instruction *instruction, t_bash *bash, char **envp)
 {
     t_env *env;
-    t_instruction *current;
-
+    
     env = bash->env;
-    instruction->prev = NULL;
-    current = instruction;
-    ft_exit(instruction, bash);
-    while (current != NULL)
+    if (instruction->next == NULL && instruction->red == NULL && type_equal_to(BUILTIN, instruction->cmd->data_type))
     {
-        setup_pipe(current);
-        handle_process(current, bash, envp);
-        if (instruction->next == NULL && instruction->red == NULL && type_equal_to(BUILTIN, instruction->cmd->data_type))
-            builtins(instruction, env);
-        if (current->next != NULL)
-            current->next->prev = current;
-        current = current->next;
+        printf("simple\n");
+        builtins(instruction, env, bash);
     }
-    current = instruction;
-    while (current != NULL)
+    else if (instruction->next != NULL || instruction->cmd != NULL || instruction->red != NULL)
     {
-        waitpid(current->pid, &current->exit_status, 0);
-        current = current->next;
+        printf("multi\n");
+        multi_exec(bash, instruction, envp);
     }
-	set_exit_code(bash);
+    set_exit_code(bash);
 }
-
 void	set_exit_code(t_bash *bash)
 {
 	t_instruction	*last_inst;

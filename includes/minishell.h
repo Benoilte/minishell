@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:29:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/21 14:52:23 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/26 15:22:51 by tommartinel      ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -63,7 +63,7 @@ int		sequence_is_filled(t_instruction *instruction);
 
 // builtins/builtins.c
 
-void builtins(t_instruction *instruction, t_env *env);
+void builtins(t_instruction *instruction, t_env *env, t_bash *bash);
 
 // exec/exec.c
 
