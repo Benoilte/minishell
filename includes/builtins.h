@@ -3,6 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/20 11:38:16 by tmartin2          #+#    #+#             */
+/*   Updated: 2024/06/26 15:29:29 by tommartinel      ###   ########.fr       */
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:38:16 by tmartin2          #+#    #+#             */
@@ -14,6 +18,10 @@
 # define BUILTINS_H
 
 # include "minishell.h"
+# include "exec.h"
+// builtins/ft_exit.c
+
+void ft_exit(t_instruction *instruction, t_bash *bash);
 
 // builtins/pwd.c
 
