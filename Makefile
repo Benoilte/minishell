@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tom <tom@student.42.fr>                    +#+  +:+       +#+         #
+#    By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/06/20 15:09:30 by tom              ###   ########.fr        #
+#    Updated: 2024/06/26 15:26:28 by tommartinel      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,14 +60,14 @@ endif
 
 ifeq ($(BUILTINS), set)
 	BUILTINS_DIR		=	$(SRCS_DIR)builtins/
-	BUILTINS_SRCS		=	$(addprefix $(BUILTINS_DIR), $(addsuffix .c, builtins pwd utils_builtins cd env echo export unset))
+	BUILTINS_SRCS		=	$(addprefix $(BUILTINS_DIR), $(addsuffix .c, builtins pwd utils_builtins cd env echo export unset exit))
 endif
 
 # exec ressources
 
 ifeq ($(EXEC), set)
 	EXEC_DIR			=	$(SRCS_DIR)exec/
-	EXEC_SRCS			=	$(addprefix $(EXEC_DIR), $(addsuffix .c, exec sort_red ft_cmd process red sort_cmd_builtin utils_exec))
+	EXEC_SRCS			=	$(addprefix $(EXEC_DIR), $(addsuffix .c, exec sort_red ft_cmd process red sort_cmd_builtin utils_exec multi_exec))
 endif
 
 # struct_utils ressources

@@ -6,6 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:54:12 by bebrandt          #+#    #+#             */
+/*   Updated: 2024/06/26 17:48:36 by tommartinel      ###   ########.fr       */
 /*   Updated: 2024/06/25 17:10:52 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
@@ -13,7 +14,7 @@
 #include "../../includes/builtins.h"
 
 // TODO : structure bash en attande pour recupe le builtins
-void builtins(t_instruction *instruction, t_env *env)
+void builtins(t_instruction *instruction, t_env *env, t_bash *bash)
 {
 	if (ft_strcmp(instruction->cmd->data, "pwd") == 0)
 		pwd(instruction);
@@ -27,4 +28,6 @@ void builtins(t_instruction *instruction, t_env *env)
 		ft_unset(&env, instruction);
 	if (ft_strcmp(instruction->cmd->data, "env") == 0)
 		print_env(env, instruction);
+	if (ft_strcmp(instruction->cmd->data, "exit") == 0)
+		ft_exit(instruction, bash);
 }
