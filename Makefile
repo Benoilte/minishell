@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+         #
+#    By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/06/26 15:26:28 by tommartinel      ###   ########.fr        #
+#    Updated: 2024/06/27 22:06:46 by bebrandt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,14 +75,14 @@ endif
 ifeq ($(STRUCT_UTILS), set)
 	STRUCT_UTILS_DIR	=	$(SRCS_DIR)struct_utils/
 	STRUCT_UTILS_SRCS	=	$(addprefix $(STRUCT_UTILS_DIR), $(addsuffix .c, init new add_back \
-							last size clear_one clear_all env_utils bash_utils))
+							last size clean_bash clear_all env_utils bash_utils))
 endif
 
 # test ressources
 
 ifeq ($(TEST), set)
 	TEST_DIR			=	$(SRCS_DIR)test/
-	TEST_SRCS			=	$(addprefix $(TEST_DIR), $(addsuffix .c, test))
+	TEST_SRCS			=	$(addprefix $(TEST_DIR), $(addsuffix .c, test test_utils))
 endif
 
 # sources and objects variables

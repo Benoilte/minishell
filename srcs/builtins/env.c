@@ -6,16 +6,16 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:42:09 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/26 23:10:15 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/27 13:12:37 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/builtins.h"
 
 /*
-Remplacer élément char **envp de la structure bash par char **ms_envp
+Remplacer élément char **envp de la structure bash par char **ms_env
 
-	- ms_envp sera une copie de la structure t_env au format [[n=v][n=v][NULL]]
+	- ms_env sera une copie de la structure t_env au format [[n=v][n=v][NULL]]
 
 	- celle ci devra être mise à jour chaque fois qu'on effectue
 	  une modification de la structure t_env avec export, unset, cd
@@ -41,7 +41,7 @@ Si argument, trouver le premier qui n'est pas au format name=value
 		- Une fois le process enfant terminé, correctement ou avec une erreur
 		  d'execution unset les paramètre précédemment exporter
 
-		- Reconfiguer la variable ms_envp
+		- Reconfiguer la variable ms_env
 
 sortir de la commande env() avec exit status correspondant
 */

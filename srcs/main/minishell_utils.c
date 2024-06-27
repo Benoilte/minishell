@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.c                                  :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:48:49 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/21 16:53:54 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/27 22:53:37 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
@@ -34,7 +34,7 @@ void	check_sequence_and_execution(t_bash *bash, int debug)
 		{
 			if (debug)
 				test_print_instruction(bash->instruction);
-			exec(bash->instruction, bash, bash->envp);
+			exec(bash->instruction, bash, bash->ms_env);
 		}
 		else
 			bash->exit_code = exit_status;

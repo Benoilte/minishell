@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 20:25:18 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/13 12:48:52 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/27 23:04:59 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	init_bash(t_bash **bash, char **envp)
 		(*bash)->working_directory = NULL;
 		(*bash)->sequence = NULL;
 		(*bash)->exit_code = 0;
-		(*bash)->envp = envp;
 		(*bash)->env = init_env(envp);
+		(*bash)->ms_env = init_ms_env((*bash)->env);
 		(*bash)->instruction = NULL;
 	}
 }
@@ -79,4 +79,30 @@ t_token	*init_token(void)
 		return (NULL);
 	}
 	return (new);
+}
+
+char	**init_ms_env(t_env *env)
+{
+	int		i;
+	char	**ms_env;
+	t_env	*tmp_env;
+
+	if (size_env(env) == 0)
+		return (NULL);
+	ms_env = (char **)ft_calloc(size_env(env) + 1, sizeof(char *));
+	if (!ms_env)
+		return (NULL);
+	tmp_env = env;
+	i = 0;
+	while (tmp_env)
+	{
+		ms_env[i++] = get_name_to_value(tmp_env->name, tmp_env->value);
+		if (!ms_env)
+		{
+			clear_ms_env(ms_env);
+			return (NULL);
+		}
+		tmp_env = tmp_env->next;
+	}
+	return (ms_env);
 }

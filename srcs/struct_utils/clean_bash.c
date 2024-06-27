@@ -1,13 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear_one.c                                        :+:      :+:    :+:   */
+/*   clean_bash.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 00:25:32 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/15 00:32:00 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/27 23:06:43 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	*clear_bash_and_exit(t_bash **bash, int exit_code)
+{
+	set_terminal(RESET);
+	clear_bash(bash);
+	exit(exit_code);
+}
+
+void	*clear_bash(t_bash **bash)
+{
+	if ((*bash)->working_directory)
+		free((*bash)->working_directory);
+	if ((*bash)->sequence)
+		free((*bash)->sequence);
+	if ((*bash)->instruction)
+		clear_instruction(&(*bash)->instruction);
+	if ((*bash)->env)
+		clear_env(&(*bash)->env);
+	if ((*bash)->ms_env)
+		clear_ms_env((*bash)->ms_env);
+	free(*bash);
+	return (NULL);
+}

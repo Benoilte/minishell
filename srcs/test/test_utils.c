@@ -1,58 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   size.c                                             :+:      :+:    :+:   */
+/*   test_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/21 16:29:37 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/27 23:05:58 by bebrandt         ###   ########.fr       */
+/*   Created: 2024/06/27 22:00:32 by bebrandt          #+#    #+#             */
+/*   Updated: 2024/06/27 22:03:22 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	size_env(t_env *env)
+void	test_print_ms_env(char **ms_env)
 {
-	int		i;
-	t_env	*tmp;
+	int	i;
 
 	i = 0;
-	tmp = env;
-	while (tmp)
+	while (ms_env[i])
 	{
-		tmp = tmp->next;
+		ft_putendl_fd(ms_env[i], STDOUT_FILENO);
 		i++;
 	}
-	return (i);
-}
-
-int	size_instruction(t_instruction *instruction)
-{
-	int				i;
-	t_instruction	*tmp;
-
-	i = 0;
-	tmp = instruction;
-	while (tmp)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (i);
-}
-
-int	size_token(t_token *token)
-{
-	int		i;
-	t_token	*tmp;
-
-	i = 0;
-	tmp = token;
-	while (tmp)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (i);
 }
