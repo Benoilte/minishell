@@ -6,7 +6,7 @@
 /*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/26 17:04:01 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/06/28 13:47:18 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void exec(t_instruction *instruction, t_bash *bash, char **envp)
     t_env *env;
     
     env = bash->env;
-    if (instruction->next == NULL && instruction->red == NULL && type_equal_to(BUILTIN, instruction->cmd->data_type))
+    if ((instruction->next == NULL && instruction->red != NULL) || type_equal_to(BUILTIN, instruction->cmd->data_type))
     {
         printf("simple\n");
         builtins(instruction, env, bash);
