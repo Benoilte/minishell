@@ -1,4 +1,4 @@
-# **************************************************************************** #
+#******************************************************************************#
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
@@ -6,9 +6,9 @@
 #    By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/06/27 22:06:46 by bebrandt         ###   ########.fr        #
+#    Updated: 2024/06/28 19:07:56 by bebrandt         ###   ########.fr        #
 #                                                                              #
-# **************************************************************************** #
+#******************************************************************************#
 
 
 
@@ -75,7 +75,7 @@ endif
 ifeq ($(STRUCT_UTILS), set)
 	STRUCT_UTILS_DIR	=	$(SRCS_DIR)struct_utils/
 	STRUCT_UTILS_SRCS	=	$(addprefix $(STRUCT_UTILS_DIR), $(addsuffix .c, init new add_back \
-							last size clean_bash clear_all env_utils bash_utils))
+							last size clean_bash clear_all env_utils ms_env_utils bash_utils))
 endif
 
 # test ressources
@@ -119,7 +119,7 @@ all: $(LIBFT_DIR)$(LIBFT_NAME) $(NAME)
 
 $(NAME): $(OBJS)
 	@printf "\n$(GREEN)minishell object created successfully$(NONE)\n"
-	@$(CC) $(HDRS) $(CFLAGS) -o $@ $^ $(LIBFT_FLAGS) $(RLFLAGS) -g
+	@$(CC) $(CFLAGS) $(HDRS) -o $@ $^ $(LIBFT_FLAGS) $(RLFLAGS)
 	@printf "$(GREEN)minishell program created successfully$(NONE)\n"
 
 $(LIBFT_DIR)$(LIBFT_NAME):
@@ -130,7 +130,7 @@ $(LIBFT_DIR)$(LIBFT_NAME):
 
 $(OBJ_DIR)%.o: %.c
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(HDRS) $(CFLAGS) -c $^ -o $@ -g
+	@$(CC) $(CFLAGS) $(HDRS) -c $^ -o $@
 	@printf "$(YELLOW).$(NONE)"
 
 clean:

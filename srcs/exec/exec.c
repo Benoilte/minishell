@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/28 15:43:24 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:47:02 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -54,12 +54,12 @@ void exec(t_instruction *instruction, t_bash *bash, char **envp)
     env = bash->env;
     if ((instruction->next == NULL && instruction->red != NULL) || type_equal_to(BUILTIN, instruction->cmd->data_type))
     {
-        // printf("simple\n");
+        printf("simple\n");
         builtins(instruction, env, bash);
     }
     else if (instruction->next != NULL || instruction->cmd != NULL || instruction->red != NULL)
     {
-        // printf("multi\n");
+        printf("multi\n");
         multi_exec(bash, instruction, envp);
     }
     set_exit_code(bash);

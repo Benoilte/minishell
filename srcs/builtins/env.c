@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:42:09 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/27 13:12:37 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:21:04 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/builtins.h"
 
@@ -46,22 +46,24 @@ Si argument, trouver le premier qui n'est pas au format name=value
 sortir de la commande env() avec exit status correspondant
 */
 
-void print_env(t_env *env, t_instruction *instruction)
+int	ft_env(t_bash *bash, t_instruction *instruction)
 {
-	t_env	*tmp;
+	if (instruction->cmd->next == NULL)
+		return (print_env(bash->ms_env));
+	return (0);
+}
 
-	tmp = env;
+int	print_env(char **ms_env)
+{
+	int	i;
 
-	while (tmp)
+	if (!ms_env)
+		return (0);
+	i = 0;
+	while (ms_env[i])
 	{
-		if (instruction->red != NULL)
-		{
-            ft_putstr_fd(tmp->name, STDOUT_FILENO);
-            ft_putstr_fd("=", STDOUT_FILENO);
-            ft_putendl_fd(tmp->value, STDOUT_FILENO);
-		}
-		else
-			ft_printf("%s=%s\n", tmp->name, tmp->value);
-		tmp = tmp->next;
+		ft_putendl_fd(ms_env[i], STDOUT_FILENO);
+		i++;
 	}
+	return (0);
 }

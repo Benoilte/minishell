@@ -1,15 +1,15 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/20 11:38:16 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/26 15:29:29 by tommartinel      ###   ########.fr       */
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:38:16 by tmartin2          #+#    #+#             */
+/*   Updated: 2024/06/28 16:07:27 by bebrandt         ###   ########.fr       */
+/*                                                                            */
+/******************************************************************************/
+
 /*   Updated: 2024/06/25 22:32:09 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -37,7 +37,8 @@ void	ft_chdir_error(char *directory, int fd);
 
 //builtins/env.c
 
-void	print_env(t_env *env, t_instruction *instruction);
+int		ft_env(t_bash *bash, t_instruction *instruction);
+int		print_env(char **ms_env);
 
 //builtins/echo.c
 

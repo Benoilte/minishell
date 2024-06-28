@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:12:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/28 15:43:52 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/28 16:11:00 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -123,6 +123,10 @@ char			*get_name_to_value(char *name, char *value);
 int				name_exist(t_env *env, char *name);
 int				names_are_the_same(char *name, char *name_to_check);
 void			update_value(t_env *env, char *name, char *value);
+
+// struct_utils/ms_env_utils.c
+
+void			update_ms_env(t_bash *bash);
 
 // struct_utils/bash_utils.c
 

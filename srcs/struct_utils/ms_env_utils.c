@@ -1,27 +1,19 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_utils.c                                       :+:      :+:    :+:   */
+/*   ms_env_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/27 22:00:32 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/28 18:23:44 by bebrandt         ###   ########.fr       */
+/*   Created: 2024/06/28 15:47:27 by bebrandt          #+#    #+#             */
+/*   Updated: 2024/06/28 17:19:59 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "../../includes/minishell.h"
 
-void	test_print_ms_env(char **ms_env)
+void	update_ms_env(t_bash *bash)
 {
-	int	i;
-
-	i = 0;
-	if (!ms_env)
-		return ;
-	while (ms_env[i])
-	{
-		ft_putendl_fd(ms_env[i], STDOUT_FILENO);
-		i++;
-	}
+	clear_ms_env(bash->ms_env);
+	init_ms_env(bash->env);
 }
