@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parser_update_data_utils.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 10:03:36 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/24 16:36:32 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/28 17:50:25 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/parser.h"
 
@@ -83,7 +83,7 @@ int	fill_cmd_array(t_instruction *instruction)
 	int		i;
 
 	len = size_token(instruction->cmd);
-	instruction->cmd_array = (char **)malloc((sizeof(char *) * len) + 1);
+	instruction->cmd_array = (char **)malloc((sizeof(char *) * (len + 1)));
 	if (!instruction->cmd_array)
 		return (RETURN_FAILURE);
 	i = 0;
