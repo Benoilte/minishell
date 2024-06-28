@@ -6,13 +6,13 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:15:42 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/28 18:50:44 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/28 20:07:34 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "../../includes/builtins.h"
 
-void	cd(t_instruction *instruction, t_env *env)
+void	cd(t_instruction *instruction, t_env **env)
 {
 	char	*oldcwd;
 
@@ -35,13 +35,13 @@ void	cd(t_instruction *instruction, t_env *env)
 		cd_move_dir(instruction, instruction->cmd->next->data, env, oldcwd);
 }
 
-void	cd_go_home(t_instruction *instruction, t_env *env, char *oldcwd)
+void	cd_go_home(t_instruction *instruction, t_env **env, char *oldcwd)
 {
 	char	*home;
 
-	if (name_exist(env, "HOME"))
+	if (name_exist(*env, "HOME"))
 	{
-		home = get_value(env, "HOME");
+		home = get_value(*env, "HOME");
 		if (!home)
 		{
 			perror("get_value() memory aloccation");
@@ -58,7 +58,7 @@ void	cd_go_home(t_instruction *instruction, t_env *env, char *oldcwd)
 	free(home);
 }
 
-void	cd_move_dir(t_instruction *inst, char *dir, t_env *env, char *oldcwd)
+void	cd_move_dir(t_instruction *inst, char *dir, t_env **env, char *oldcwd)
 {
 	char	*cwd;
 
@@ -81,12 +81,12 @@ void	cd_move_dir(t_instruction *inst, char *dir, t_env *env, char *oldcwd)
 	}
 }
 
-void	set_cwd_env(t_instruction *inst, t_env *env, char *name, char *value)
+void	set_cwd_env(t_instruction *inst, t_env **env, char *name, char *value)
 {
 	char	*name_to_value;
 
-	if (name_exist(env, name))
-		update_value(env, name, value);
+	if (name_exist(*env, name))
+		update_value(*env, name, value);
 	else
 	{
 		name_to_value = get_name_to_value(name, value);
@@ -97,7 +97,7 @@ void	set_cwd_env(t_instruction *inst, t_env *env, char *name, char *value)
 			inst->exit_status = 1;
 			return ;
 		}
-		add_back_env(&env, new_env(name_to_value));
+		add_back_env(env, new_env(name_to_value));
 	}
 
 }

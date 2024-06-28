@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 00:25:27 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/28 18:25:18 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/28 20:07:13 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -42,6 +42,7 @@ void	*clear_ms_env(char **ms_env)
 	while (ms_env[i])
 	{
 		free(ms_env[i]);
+		ms_env[i] = NULL;
 		i++;
 	}
 	free(ms_env);

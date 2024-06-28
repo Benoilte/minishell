@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:54:12 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/28 16:15:48 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/28 20:05:40 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -18,7 +18,7 @@ void	builtins(t_instruction *instruction, t_env *env, t_bash *bash)
 	if (ft_strcmp(instruction->cmd->data, "pwd") == 0)
 		pwd(instruction);
 	if (ft_strcmp(instruction->cmd->data, "cd") == 0)
-		cd(instruction, env);
+		cd(instruction, &bash->env);
 	if (ft_strcmp(instruction->cmd->data, "echo") == 0)
 		echo(instruction);
 	if (ft_strcmp(instruction->cmd->data, "export") == 0)

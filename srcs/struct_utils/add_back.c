@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 22:31:19 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/28 18:39:23 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/28 20:07:45 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -23,9 +23,6 @@ void	add_back_env(t_env **env, t_env *new)
 		*env = new;
 	else
 		last->next = new;
-	ft_putendl_fd(last_env(*env)->name, STDOUT_FILENO);
-	ft_putendl_fd(last_env(*env)->value, STDOUT_FILENO);
-	test_print_env(*env);
 }
 
 void	add_back_instruction(t_instruction **inst, t_instruction *new)
