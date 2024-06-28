@@ -6,7 +6,7 @@
 /*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:12:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/27 12:49:56 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/06/28 13:54:48 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,10 @@ void			*clear_token(t_token **token);
 // struct_utils/env_utils.c
 
 char			*get_value(t_env *env, char *name);
+char			*get_name_to_value(char *name, char *value);
+int				name_exist(t_env *env, char *name);
+int				names_are_the_same(char *name, char *name_to_check);
+void			update_value(t_env *env, char *name, char *value);
 
 // struct_utils/bash_utils.c
 

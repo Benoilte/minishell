@@ -6,7 +6,7 @@
 /*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/28 13:47:18 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/06/28 13:54:35 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,15 @@ void	set_exit_code(t_bash *bash)
 {
 	t_instruction	*last_inst;
 
-	last_inst = last_instruction(bash->instruction);
-	if (WIFSIGNALED(last_inst->exit_status))
-		bash->exit_code = 128 + WTERMSIG(last_inst->exit_status);
-	if (WIFEXITED(last_inst->exit_status))
-		bash->exit_code = WEXITSTATUS(last_inst->exit_status);
+	if (size_instruction(bash->instruction) == 1
+		&& type_equal_to(BUILTIN, bash->instruction->cmd->data_type))
+		bash->exit_code = bash->instruction->exit_status;
+	else
+	{
+		last_inst = last_instruction(bash->instruction);
+		if (WIFSIGNALED(last_inst->exit_status))
+			bash->exit_code = 128 + WTERMSIG(last_inst->exit_status);
+		if (WIFEXITED(last_inst->exit_status))
+			bash->exit_code = WEXITSTATUS(last_inst->exit_status);
+	}
 }
