@@ -1,4 +1,4 @@
-#******************************************************************************#
+# **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
@@ -6,9 +6,9 @@
 #    By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/06/28 19:07:56 by bebrandt         ###   ########.fr        #
+#    Updated: 2024/06/28 19:15:56 by bebrandt         ###   ########.fr        #
 #                                                                              #
-#******************************************************************************#
+# **************************************************************************** #
 
 
 
@@ -104,7 +104,7 @@ LIBFT_FLAGS			=	-L$(LIBFT_DIR) -lft
 
 CC					=	gcc
 HDRS				=	-Iincludes/.
-CFLAGS				=	-Wall -Wextra -Werror
+CFLAGS				=	-Wall -Wextra -Werror -g
 RLFLAGS				=	-L$(HOME)/.brew/opt/readline/lib -lreadline
 RM					=	rm -f
 
@@ -119,7 +119,7 @@ all: $(LIBFT_DIR)$(LIBFT_NAME) $(NAME)
 
 $(NAME): $(OBJS)
 	@printf "\n$(GREEN)minishell object created successfully$(NONE)\n"
-	@$(CC) $(CFLAGS) $(HDRS) -o $@ $^ $(LIBFT_FLAGS) $(RLFLAGS)
+	@$(CC) $(CFLAGS) $(HDRS) -o $@ $^ $(LIBFT_FLAGS) $(RLFLAGS) -g
 	@printf "$(GREEN)minishell program created successfully$(NONE)\n"
 
 $(LIBFT_DIR)$(LIBFT_NAME):
@@ -130,7 +130,7 @@ $(LIBFT_DIR)$(LIBFT_NAME):
 
 $(OBJ_DIR)%.o: %.c
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) $(HDRS) -c $^ -o $@
+	@$(CC) $(CFLAGS) $(HDRS) -c $^ -o $@ -g
 	@printf "$(YELLOW).$(NONE)"
 
 clean:
