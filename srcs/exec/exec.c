@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/27 13:09:04 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/28 15:43:24 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 
 #include "../../includes/exec.h"
@@ -52,7 +52,7 @@ void exec(t_instruction *instruction, t_bash *bash, char **envp)
     t_env *env;
 
     env = bash->env;
-    if (instruction->next == NULL && instruction->red == NULL && type_equal_to(BUILTIN, instruction->cmd->data_type))
+    if ((instruction->next == NULL && instruction->red != NULL) || type_equal_to(BUILTIN, instruction->cmd->data_type))
     {
         // printf("simple\n");
         builtins(instruction, env, bash);

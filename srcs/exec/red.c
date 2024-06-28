@@ -6,7 +6,7 @@
 /*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 13:16:17 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/26 17:59:24 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/06/28 13:34:37 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ int open_file(char *red, t_token *token)
         perror("Error open file\n");
     return (file);
 }
-void here_doc(t_instruction *instruction) 
+void here_doc(t_instruction *instruction, t_bash *bash) 
 {
+    (void)bash;
     char *limiter;
     pid_t reader;
     char *line;
@@ -39,6 +40,7 @@ void here_doc(t_instruction *instruction)
         perror("pipe");
         exit(EXIT_FAILURE);
     }
+    printf("test\n");
     reader = fork();
     if (reader == 0) 
     {
@@ -57,7 +59,7 @@ void here_doc(t_instruction *instruction)
             write(instruction->fd[1], "\n", 1);
             free(line);
         }
-    } 
+    }
     else 
     {
         close(instruction->fd[1]);
@@ -70,7 +72,7 @@ void red(t_instruction *instruction)
     char *red;
     int file;
     int i;
-    
+
     file = 0;
     i = instruction->red->data_type;
     red = instruction->red->option;
@@ -87,3 +89,4 @@ void red(t_instruction *instruction)
         close(file);
     }
 }
+
