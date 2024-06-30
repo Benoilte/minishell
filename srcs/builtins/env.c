@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:42:09 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/28 18:21:04 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/30 13:41:19 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/builtins.h"
 
@@ -50,6 +50,10 @@ int	ft_env(t_bash *bash, t_instruction *instruction)
 {
 	if (instruction->cmd->next == NULL)
 		return (print_env(bash->ms_env));
+	else if (env_has_cmd(instruction))
+		return (exec_env_with_cmd(bash, instruction));
+	else
+		return (exec_env_without_cmd(bash->ms_env, instruction));
 	return (0);
 }
 
@@ -64,6 +68,41 @@ int	print_env(char **ms_env)
 	{
 		ft_putendl_fd(ms_env[i], STDOUT_FILENO);
 		i++;
+	}
+	return (0);
+}
+
+int	env_has_cmd(t_instruction *instruction)
+{
+	t_token	*current_cmd;
+
+	current_cmd = instruction->cmd->next;
+	while (current_cmd)
+	{
+		if (ft_strchr(current_cmd->data, '=') == NULL)
+			return (FT_ENV_WITH_CMD);
+		current_cmd = current_cmd->next;
+	}
+	return (FT_ENV_WITHOUT_CMD);
+}
+
+int	exec_env_with_cmd(t_bash *bash, t_instruction *instruction)
+{
+	(void)bash;
+	(void)instruction;
+	return (0);
+}
+
+int	exec_env_without_cmd(char **ms_env, t_instruction *instruction)
+{
+	t_token	*current_cmd;
+
+	current_cmd = instruction->cmd->next;
+	print_env(ms_env);
+	while (current_cmd)
+	{
+		ft_putendl_fd(current_cmd->data, STDOUT_FILENO);
+		current_cmd = current_cmd->next;
 	}
 	return (0);
 }
