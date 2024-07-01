@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_update_data.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:54:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/24 16:55:02 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/01 15:24:12 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ int	filter_data(t_bash *bash, t_list **recast, char *src, char quote)
 	return_status = RETURN_SUCCESS;
 	while ((return_status == RETURN_SUCCESS) && src[i])
 	{
-		if (src[i] == '$')
+		if ((src[i] == '$') && (quote == 0) && (src[i + 1] == '\''))
+			i++;
+		else if (src[i] == '$')
 			return_status = filter_expansion(bash, recast, src, &i);
 		else if (quote != '\"' && ((src[i] == '\'') || (src[i] == '\"')))
 			return_status = get_text_in_quotes(bash, recast, src, &i);
