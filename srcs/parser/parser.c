@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:54:31 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/17 18:45:33 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/30 21:19:55 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,15 @@
 int	parsing(t_bash *bash)
 {
 	t_instruction	*instruction;
-	// int				exit_status;
 
 	instruction = bash->instruction;
 	while (instruction)
 	{
-		// exit_status = check_instruction(instruction);
 		if (check_instruction(instruction) == SYNTAX_ERROR)
 			return (SYNTAX_ERROR);
 		if (update_instruction(bash, instruction) == RETURN_FAILURE)
 			return (RETURN_FAILURE);
-		if (fill_cmd_array(instruction) == RETURN_FAILURE)
+		if (fill_cmd_array(instruction, instruction->cmd) == RETURN_FAILURE)
 			return (RETURN_FAILURE);
 		instruction = instruction->next;
 	}

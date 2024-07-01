@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_env_utils.c                                     :+:      :+:    :+:   */
+/*   ft_env_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/28 15:47:27 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/01 06:40:26 by bebrandt         ###   ########.fr       */
+/*   Created: 2024/06/30 21:35:23 by bebrandt          #+#    #+#             */
+/*   Updated: 2024/06/30 21:47:11 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/builtins.h"
 
-void	update_ms_env(t_bash *bash)
+void	add_arg_env(t_bash *bash, t_token *current_arg)
 {
-	bash->ms_env = clear_ms_env(bash->ms_env);
-	bash->ms_env = init_ms_env(bash->env);
+	while (ft_strchr(current_arg->data, '=') != NULL && current_arg)
+	{
+		add_back_env(&bash->env, new_env(current_arg->data));
+		current_arg = current_arg->next;
+	}
 }

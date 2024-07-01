@@ -6,7 +6,7 @@
 #    By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/06/28 19:15:56 by bebrandt         ###   ########.fr        #
+#    Updated: 2024/06/30 21:35:09 by bebrandt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,8 @@ endif
 
 ifeq ($(BUILTINS), set)
 	BUILTINS_DIR		=	$(SRCS_DIR)builtins/
-	BUILTINS_SRCS		=	$(addprefix $(BUILTINS_DIR), $(addsuffix .c, builtins pwd utils_builtins cd env echo export unset exit))
+	BUILTINS_SRCS		=	$(addprefix $(BUILTINS_DIR), $(addsuffix .c, builtins pwd utils_builtins \
+							cd env ft_env_utils echo export unset exit))
 endif
 
 # exec ressources

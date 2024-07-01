@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 10:40:23 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/27 10:54:08 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/07/01 00:38:48 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,20 @@ int handle_exit_error(int arg_count, t_token *current_red, t_instruction *instru
         printf("bash: exit: too many arguments\n");
         return (1);
     }
-    if (arg_count == 1 && current_red != NULL && is_digit_only(current_red->data) != 0)        
+    if (arg_count == 1 && current_red != NULL && is_digit_only(current_red->data) != 0)
 	{
         instruction->exit_status = 1;
         printf("exit\n");
         printf("bash: exit: too many arguments\n");
         return (1);
     }
-	return (0);	
+	return (0);
 }
 
+void	start_execve(char *sender, char *path, t_bash *bash, t_instruction *inst)
+{
+	(void)sender;
+	(void)path;
+	update_ms_env(bash);
+	ft_cmd(inst, bash->env, bash->ms_env);
+}

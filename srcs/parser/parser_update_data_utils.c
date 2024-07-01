@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parser_update_data_utils.c                         :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 10:03:36 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/28 17:50:25 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/30 21:18:51 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/parser.h"
 
@@ -76,18 +76,18 @@ char	*duplicate_data_updated(t_list *recast, int size)
 	return (data_updated);
 }
 
-int	fill_cmd_array(t_instruction *instruction)
+int	fill_cmd_array(t_instruction *instruction, t_token *cmd)
 {
 	t_token	*tmp;
 	int		len;
 	int		i;
 
-	len = size_token(instruction->cmd);
+	len = size_token(cmd);
 	instruction->cmd_array = (char **)malloc((sizeof(char *) * (len + 1)));
 	if (!instruction->cmd_array)
 		return (RETURN_FAILURE);
 	i = 0;
-	tmp = instruction->cmd;
+	tmp = cmd;
 	while (tmp)
 	{
 		instruction->cmd_array[i] = tmp->data;

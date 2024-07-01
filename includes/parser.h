@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>          +#+  +:+       +#+       */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:28:14 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/18 14:28:33 by bebrandt         ###   ########.ch       */
+/*   Updated: 2024/06/30 21:20:41 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	free_content(void *content);
 int		add_back_recast(t_list **recast, char *value);
 int		count_length_data_updated(t_list *recast);
 char	*duplicate_data_updated(t_list *recast, int size);
-int		fill_cmd_array(t_instruction *instruction);
+int		fill_cmd_array(t_instruction *instruction, t_token *cmd);
 
 // parser/parser_update_expansion.c
 

@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:42:09 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/30 13:41:19 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/01 06:45:02 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,35 @@ int	env_has_cmd(t_instruction *instruction)
 
 int	exec_env_with_cmd(t_bash *bash, t_instruction *instruction)
 {
-	(void)bash;
-	(void)instruction;
+	t_token			*current_arg;
+	t_token			*current_cmd;
+	t_instruction	*tmp_inst;
+
+	current_arg = instruction->cmd->next;
+	while (ft_strchr(current_arg->data, '='))
+		current_arg = current_arg->next;
+	current_cmd = current_arg;
+	free(instruction->cmd_array);
+	if (fill_cmd_array(instruction, current_cmd) == RETURN_FAILURE)
+		return (3);
+	instruction->pid = fork();
+	if (instruction->pid == 0)
+	{
+		set_sig_int(DEFAULT);
+		current_arg = instruction->cmd->next;
+		add_arg_env(bash, current_arg);
+		start_execve("env", current_cmd->data, bash, instruction);
+	}
+	else
+	{
+		tmp_inst = instruction;
+		while (tmp_inst != NULL)
+		{
+			waitpid(tmp_inst->pid, &tmp_inst->exit_status, 0);
+			tmp_inst = tmp_inst->next;
+		}
+		set_exit_code(bash);
+	}
 	return (0);
 }
 
