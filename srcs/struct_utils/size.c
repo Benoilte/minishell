@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   size.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:29:37 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/10 17:08:48 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/06/27 23:05:58 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	size_env(t_env *env)
+{
+	int		i;
+	t_env	*tmp;
+
+	i = 0;
+	tmp = env;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (i);
+}
 
 int	size_instruction(t_instruction *instruction)
 {

@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   utils_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 10:40:23 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/27 10:54:08 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/07/01 13:46:14 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/exec.h"
 
@@ -38,6 +38,7 @@ int	ft_get_next_line(char **line)
 	free(buffer);
 	return (r);
 }
+
 int	ft_strcmp(char *s1, char *s2)
 {
 	while ((*s1 != '\0') || (*s2 != '\0'))
@@ -51,6 +52,7 @@ int	ft_strcmp(char *s1, char *s2)
 	}
 	return (0);
 }
+
 int is_digit_only(char *str)
 {
 	size_t i;
@@ -66,6 +68,7 @@ int is_digit_only(char *str)
 	}
 	return (0);
 }
+
 int handle_exit_error(int arg_count, t_token *current_red, t_instruction *instruction)
 {
     if (arg_count > 1)
@@ -75,13 +78,25 @@ int handle_exit_error(int arg_count, t_token *current_red, t_instruction *instru
         printf("bash: exit: too many arguments\n");
         return (1);
     }
-    if (arg_count == 1 && current_red != NULL && is_digit_only(current_red->data) != 0)        
+    if (arg_count == 1 && current_red != NULL && is_digit_only(current_red->data) != 0)
 	{
         instruction->exit_status = 1;
         printf("exit\n");
         printf("bash: exit: too many arguments\n");
         return (1);
     }
-	return (0);	
+	return (0);
 }
 
+void	print_cmd_error(char *sender, char *cmd)
+{
+	ft_putstr_fd(sender, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	perror(cmd);
+}
+
+void	print_cmd_error_and_exit(char *sender, char *cmd, int status, t_bash *bash)
+{
+	print_cmd_error(sender, cmd);
+	clear_bash_and_exit(&bash, status);
+}

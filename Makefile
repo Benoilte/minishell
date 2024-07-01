@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+         #
+#    By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/06/26 15:26:28 by tommartinel      ###   ########.fr        #
+#    Updated: 2024/06/30 21:35:09 by bebrandt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,8 @@ endif
 
 ifeq ($(BUILTINS), set)
 	BUILTINS_DIR		=	$(SRCS_DIR)builtins/
-	BUILTINS_SRCS		=	$(addprefix $(BUILTINS_DIR), $(addsuffix .c, builtins pwd utils_builtins cd env echo export unset exit))
+	BUILTINS_SRCS		=	$(addprefix $(BUILTINS_DIR), $(addsuffix .c, builtins pwd utils_builtins \
+							cd env ft_env_utils echo export unset exit))
 endif
 
 # exec ressources
@@ -75,14 +76,14 @@ endif
 ifeq ($(STRUCT_UTILS), set)
 	STRUCT_UTILS_DIR	=	$(SRCS_DIR)struct_utils/
 	STRUCT_UTILS_SRCS	=	$(addprefix $(STRUCT_UTILS_DIR), $(addsuffix .c, init new add_back \
-							last size clear_one clear_all env_utils bash_utils))
+							last size clean_bash clear_all env_utils ms_env_utils bash_utils))
 endif
 
 # test ressources
 
 ifeq ($(TEST), set)
 	TEST_DIR			=	$(SRCS_DIR)test/
-	TEST_SRCS			=	$(addprefix $(TEST_DIR), $(addsuffix .c, test))
+	TEST_SRCS			=	$(addprefix $(TEST_DIR), $(addsuffix .c, test test_utils))
 endif
 
 # sources and objects variables
@@ -104,7 +105,7 @@ LIBFT_FLAGS			=	-L$(LIBFT_DIR) -lft
 
 CC					=	gcc
 HDRS				=	-Iincludes/.
-CFLAGS				=	-Wall -Wextra -Werror
+CFLAGS				=	-Wall -Wextra -Werror -g
 RLFLAGS				=	-L$(HOME)/.brew/opt/readline/lib -lreadline
 RM					=	rm -f
 
@@ -119,7 +120,7 @@ all: $(LIBFT_DIR)$(LIBFT_NAME) $(NAME)
 
 $(NAME): $(OBJS)
 	@printf "\n$(GREEN)minishell object created successfully$(NONE)\n"
-	@$(CC) $(HDRS) $(CFLAGS) -o $@ $^ $(LIBFT_FLAGS) $(RLFLAGS) -g
+	@$(CC) $(CFLAGS) $(HDRS) -o $@ $^ $(LIBFT_FLAGS) $(RLFLAGS) -g
 	@printf "$(GREEN)minishell program created successfully$(NONE)\n"
 
 $(LIBFT_DIR)$(LIBFT_NAME):
@@ -130,7 +131,7 @@ $(LIBFT_DIR)$(LIBFT_NAME):
 
 $(OBJ_DIR)%.o: %.c
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(HDRS) $(CFLAGS) -c $^ -o $@ -g
+	@$(CC) $(CFLAGS) $(HDRS) -c $^ -o $@ -g
 	@printf "$(YELLOW).$(NONE)"
 
 clean:

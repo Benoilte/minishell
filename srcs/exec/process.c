@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:51:22 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/28 13:21:33 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/07/01 10:02:48 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/exec.h"
 
@@ -42,4 +42,19 @@ void child_process(t_instruction *instruction, t_bash *bash, char **envp)
     }
     if (instruction->cmd != NULL || instruction->prev != NULL || ft_strcmp(instruction->cmd->data, "exit") == 0)
         sort_cmd_builtin(instruction, bash, envp);
+}
+
+int	wait_child_process(t_bash *bash, t_instruction *instruction)
+{
+	t_instruction	*current_inst;
+
+	current_inst = instruction;
+	while (current_inst != NULL)
+	{
+		if (waitpid(current_inst->pid, &current_inst->exit_status, 0) == -1)
+			return (-1);
+		current_inst = current_inst->next;
+	}
+	set_exit_code(bash);
+	return (0);
 }

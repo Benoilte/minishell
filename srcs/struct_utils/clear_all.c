@@ -1,37 +1,16 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   clear_all.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 00:25:27 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/27 15:35:45 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/06/28 20:07:13 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/minishell.h"
-
-void	*clear_bash_and_exit(t_bash **bash, int exit_code)
-{
-	set_terminal(RESET);
-	clear_bash(bash);
-	exit(exit_code);
-}
-
-void	*clear_bash(t_bash **bash)
-{
-	if ((*bash)->working_directory)
-		free((*bash)->working_directory);
-	if ((*bash)->sequence)
-		free((*bash)->sequence);
-	if ((*bash)->instruction)
-		clear_instruction(&(*bash)->instruction);
-	if ((*bash)->env)
-		clear_env(&(*bash)->env);
-	free(*bash);
-	return (NULL);
-}
 
 void	*clear_env(t_env **env)
 {
@@ -50,6 +29,24 @@ void	*clear_env(t_env **env)
 		free(clear);
 		clear = next;
 	}
+	return (NULL);
+}
+
+void	*clear_ms_env(char **ms_env)
+{
+	int	i;
+
+	i = 0;
+	if (!ms_env)
+		return (NULL);
+	while (ms_env[i])
+	{
+		free(ms_env[i]);
+		ms_env[i] = NULL;
+		i++;
+	}
+	free(ms_env);
+	ms_env = NULL;
 	return (NULL);
 }
 

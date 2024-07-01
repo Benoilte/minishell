@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interactive_minishell.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:56:12 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/25 12:54:16 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/06/27 22:05:44 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	start_interactive_minishell(t_bash *bash, int debug)
 {
 	g_signal_code = 0;
 	set_sig_quit(IGNORE);
+	if (debug)
+		test_print_ms_env(bash->ms_env);
 	while (1)
 	{
 		set_terminal(UNSET);

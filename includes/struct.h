@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:12:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/28 13:54:48 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/06/28 16:11:00 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 /*   Updated: 2024/06/13 12:45:59 by bebrandt         ###   ########.fr       */
 /*                                                                            */
@@ -22,7 +22,7 @@ typedef struct s_bash
 	char					*working_directory;
 	char					*sequence;
 	int						exit_code;
-	char					**envp;
+	char					**ms_env;
 	struct s_env			*env;
 	struct s_instruction	*instruction;
 }							t_bash;
@@ -76,6 +76,7 @@ enum
 
 void			init_bash(t_bash **bash, char **envp);
 t_env			*init_env(char **envp);
+char			**init_ms_env(t_env *env);
 t_instruction	*init_instruction(void);
 t_token			*init_token(void);
 
@@ -99,18 +100,21 @@ t_token			*last_token(t_token *token);
 
 // struct_utils/size.c
 
+int				size_env(t_env *env);
 int				size_instruction(t_instruction *instruction);
 int				size_token(t_token *token);
 
 // struct_utils/clear_all.c
 
-void			*clear_bash_and_exit(t_bash **bash, int exit_code);
-void			*clear_bash(t_bash **bash);
 void			*clear_env(t_env **env);
+void			*clear_ms_env(char **ms_env);
 void			*clear_instruction(t_instruction **instruction);
 void			*clear_token(t_token **token);
 
-// struct_utils/clear_one.c
+// struct_utils/clean_bash.c
+
+void			*clear_bash_and_exit(t_bash **bash, int exit_code);
+void			*clear_bash(t_bash **bash);
 
 // struct_utils/env_utils.c
 
@@ -119,6 +123,10 @@ char			*get_name_to_value(char *name, char *value);
 int				name_exist(t_env *env, char *name);
 int				names_are_the_same(char *name, char *name_to_check);
 void			update_value(t_env *env, char *name, char *value);
+
+// struct_utils/ms_env_utils.c
+
+void			update_ms_env(t_bash *bash);
 
 // struct_utils/bash_utils.c
 

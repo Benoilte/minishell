@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:29:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/26 15:22:51 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/07/01 14:04:19 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -26,6 +26,8 @@
 # include <unistd.h>
 # include <errno.h>
 # include <signal.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 
 // PERSONNAL LIB
 
@@ -79,5 +81,9 @@ void	test_print_instruction(t_instruction *instruction);
 void	test_print_cmd_token(t_token *token);
 void	test_print_red_token(t_token *token);
 void	test_print_cmd_array(char **cmd_array);
+
+// test/test_utils.c
+
+void	test_print_ms_env(char **ms_env);
 
 #endif

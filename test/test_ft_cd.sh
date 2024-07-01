@@ -19,6 +19,13 @@ echo PWD: $PWD
 echo OLDPWD: $OLDPWD
 echo
 
+echo "move to file objs if exist"
+cd objs/
+echo "Exit status : $?"
+echo PWD: $PWD
+echo OLDPWD: $OLDPWD
+echo
+
 echo "move to file 42_school if exist"
 cd 42_school/
 echo "Exit status : $?"
