@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:30:23 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/01 13:18:32 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/01 14:21:30 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -41,30 +41,38 @@ static char	*find_absolute_path(char *cmd, char **envp)
 	return (0);
 }
 
+char	*get_path(char *cmd, t_bash *bash)
+{
+	if (ft_strchr(cmd, '/') == NULL)
+		return (find_absolute_path(cmd, bash->ms_env));
+	else
+		return (ft_strdup(cmd));
+}
+
 void	ft_cmd(char *sender, char *cmd, char **argv, t_bash *bash)
 {
-	char	*path;
+	char		*path;
+	struct stat	statbuf;
 
-	if (ft_strchr(cmd, '/') == NULL)
-		path = find_absolute_path(cmd, bash->ms_env);
-	else
-		path = ft_strdup(cmd);
+	path = get_path(cmd, bash);
 	if (!path)
+		print_cmd_error_and_exit(sender, cmd, CMD_NOT_FOUND, bash);
+	if ((stat(path, &statbuf) == 0) && (statbuf.st_mode & __S_IFDIR))
 	{
-		print_cmd_error(sender, cmd);
-		clear_bash_and_exit(&bash, CMD_NOT_FOUND);
+		errno = EISDIR;
+		free(path);
+		print_cmd_error_and_exit(sender, cmd, CMD_NOT_EXEC, bash);
 	}
 	if (access(path, F_OK | X_OK))
 	{
-		print_cmd_error(sender, cmd);
-		clear_bash_and_exit(&bash, CMD_NOT_EXEC);
+		free(path);
+		print_cmd_error_and_exit(sender, cmd, CMD_NOT_EXEC, bash);
 	}
 	set_sig_quit(DEFAULT);
 	if (execve(path, argv, bash->ms_env) < 0)
 	{
-		print_cmd_error("execve", cmd);
 		free(path);
-		clear_bash_and_exit(&bash, CMD_NOT_EXEC);
+		print_cmd_error_and_exit("execve", cmd, CMD_NOT_EXEC, bash);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 10:40:23 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/01 13:11:00 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:46:14 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -93,4 +93,10 @@ void	print_cmd_error(char *sender, char *cmd)
 	ft_putstr_fd(sender, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	perror(cmd);
+}
+
+void	print_cmd_error_and_exit(char *sender, char *cmd, int status, t_bash *bash)
+{
+	print_cmd_error(sender, cmd);
+	clear_bash_and_exit(&bash, status);
 }

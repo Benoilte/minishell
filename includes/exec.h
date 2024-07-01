@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:50 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/01 13:13:08 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/01 14:23:20 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -22,7 +22,7 @@ void	sort_red(t_instruction *instruction, t_bash *bash);
 // exec/ft_cmd.c
 
 void	ft_cmd(char *sender, char *cmd, char **argv, t_bash *bash);
-// int given_path(t_instruction *instruction, char **envp);
+char	*get_path(char *cmd, t_bash *bash);
 
 // exec/process.c
 
@@ -47,6 +47,7 @@ int		ft_strcmp(char *s1, char *s2);
 int		is_digit_only(char *str);
 int		handle_exit_error(int arg_count, t_token *current_red, t_instruction *instruction);
 void	print_cmd_error(char *sender, char *cmd);
+void	print_cmd_error_and_exit(char *sender, char *cmd, int status, t_bash *bash);
 
 // exec/exec.c
 
