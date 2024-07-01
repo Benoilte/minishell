@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:38:16 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/01 11:28:18 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/01 16:59:56 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 /*   Updated: 2024/06/25 22:32:09 by bebrandt         ###   ########.fr       */
 /*                                                                            */
@@ -44,11 +44,11 @@ void	ft_chdir_error(char *directory, int fd);
 
 // builtins/env.c
 
-int		ft_env(t_bash *bash, t_instruction *instruction);
-int		print_env(char **ms_env);
+void	ft_env(t_bash *bash, t_instruction *instruction);
+void	print_env(char **ms_env);
 int		env_has_cmd(t_instruction *instruction);
-int		exec_env_with_cmd(t_bash *bash, t_instruction *instruction);
-int		exec_env_without_cmd(char **ms_env, t_instruction *instruction);
+void	exec_env_with_cmd(t_bash *bash, t_instruction *instruction);
+void	exec_env_without_cmd(char **ms_env, t_instruction *instruction);
 
 // builtins/ft_env.c
 

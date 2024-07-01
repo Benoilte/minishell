@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:54:12 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/01 06:42:32 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/01 16:56:25 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	builtins(t_instruction *instruction, t_env *env, t_bash *bash)
 	if (ft_strcmp(instruction->cmd->data, "pwd") == 0)
 		pwd(instruction);
 	if (ft_strcmp(instruction->cmd->data, "env") == 0)
-		instruction->exit_status = ft_env(bash, instruction);
+		ft_env(bash, instruction);
 	if (ft_strcmp(instruction->cmd->data, "exit") == 0)
 		ft_exit(instruction, bash);
 }
