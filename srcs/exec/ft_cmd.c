@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_cmd.c                                           :+:      :+:    :+:   */
@@ -6,14 +6,13 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:30:23 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/01 06:37:00 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:18:32 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/exec.h"
 
-static char	*find_path(char *cmd, char **envp)
-
+static char	*find_absolute_path(char *cmd, char **envp)
 {
 	char	**paths;
 	char	*path;
@@ -41,43 +40,71 @@ static char	*find_path(char *cmd, char **envp)
 	free(paths);
 	return (0);
 }
-int given_path(t_instruction *instruction, char **envp)
+
+void	ft_cmd(char *sender, char *cmd, char **argv, t_bash *bash)
 {
-    if (ft_strchr(instruction->cmd_array[0], '/') != 0)
-    {
-		set_sig_quit(DEFAULT);
-        if (execve(instruction->cmd_array[0], instruction->cmd_array, envp) < 0)
-        {
-            printf("zsh: command not found: %s\n", instruction->cmd_array[0]);
-            exit(CMD_NOT_EXEC);
-        }
-        return 1;
-    }
-    return 0;
+	char	*path;
+
+	if (ft_strchr(cmd, '/') == NULL)
+		path = find_absolute_path(cmd, bash->ms_env);
+	else
+		path = ft_strdup(cmd);
+	if (!path)
+	{
+		print_cmd_error(sender, cmd);
+		clear_bash_and_exit(&bash, CMD_NOT_FOUND);
+	}
+	if (access(path, F_OK | X_OK))
+	{
+		print_cmd_error(sender, cmd);
+		clear_bash_and_exit(&bash, CMD_NOT_EXEC);
+	}
+	set_sig_quit(DEFAULT);
+	if (execve(path, argv, bash->ms_env) < 0)
+	{
+		print_cmd_error("execve", cmd);
+		free(path);
+		clear_bash_and_exit(&bash, CMD_NOT_EXEC);
+	}
 }
 
-void ft_cmd(t_instruction *instruction, t_env *env, char **envp)
-{
-    (void)env;
-    char *cmd = instruction->cmd_array[0];
-    char *path;
-    int given;
+// int given_path(t_instruction *instruction, char **envp)
+// {
+//     if (ft_strchr(instruction->cmd_array[0], '/') != 0)
+//     {
+// 		set_sig_quit(DEFAULT);
+//         if (execve(instruction->cmd_array[0], instruction->cmd_array, envp) < 0)
+//         {
+//             printf("zsh: command not found: %s\n", instruction->cmd_array[0]);
+//             exit(CMD_NOT_EXEC);
+//         }
+//         return 1;
+//     }
+//     return 0;
+// }
 
-    given = given_path(instruction, envp);
-    if (given == 0)
-    {
-        path = find_path(cmd, envp);
-        if (!path)
-        {
-            printf("minishell: command not found: %s\n", instruction->cmd_array[0]);
-            exit(CMD_NOT_FOUND); // Quitter si le chemin n'est pas trouvé
-        }
-        if (execve(path, instruction->cmd_array, envp) < 0)
-        {
-            perror("execve");
-            free(path);
-            exit(CMD_NOT_EXEC);  // Utiliser exit pour terminer le processus en cas d'erreur
-        }
-        free(path);
-    }
-}
+// void ft_cmd(t_instruction *instruction, t_env *env, char **envp)
+// {
+//     (void)env;
+//     char *cmd = instruction->cmd_array[0];
+//     char *path;
+//     int given;
+
+//     given = given_path(instruction, envp);
+//     if (given == 0)
+//     {
+//         path = find_path(cmd, envp);
+//         if (!path)
+//         {
+//             printf("minishell: command not found: %s\n", instruction->cmd_array[0]);
+//             exit(CMD_NOT_FOUND); // Quitter si le chemin n'est pas trouvé
+//         }
+//         if (execve(path, instruction->cmd_array, envp) < 0)
+//         {
+//             perror("execve");
+//             free(path);
+//             exit(CMD_NOT_EXEC);  // Utiliser exit pour terminer le processus en cas d'erreur
+//         }
+//         free(path);
+//     }
+// }

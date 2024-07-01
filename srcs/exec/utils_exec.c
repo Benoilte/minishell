@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   utils_exec.c                                       :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 10:40:23 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/01 00:38:48 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:11:00 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/exec.h"
 
@@ -38,6 +38,7 @@ int	ft_get_next_line(char **line)
 	free(buffer);
 	return (r);
 }
+
 int	ft_strcmp(char *s1, char *s2)
 {
 	while ((*s1 != '\0') || (*s2 != '\0'))
@@ -51,6 +52,7 @@ int	ft_strcmp(char *s1, char *s2)
 	}
 	return (0);
 }
+
 int is_digit_only(char *str)
 {
 	size_t i;
@@ -66,6 +68,7 @@ int is_digit_only(char *str)
 	}
 	return (0);
 }
+
 int handle_exit_error(int arg_count, t_token *current_red, t_instruction *instruction)
 {
     if (arg_count > 1)
@@ -85,10 +88,9 @@ int handle_exit_error(int arg_count, t_token *current_red, t_instruction *instru
 	return (0);
 }
 
-void	start_execve(char *sender, char *path, t_bash *bash, t_instruction *inst)
+void	print_cmd_error(char *sender, char *cmd)
 {
-	(void)sender;
-	(void)path;
-	update_ms_env(bash);
-	ft_cmd(inst, bash->env, bash->ms_env);
+	ft_putstr_fd(sender, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	perror(cmd);
 }

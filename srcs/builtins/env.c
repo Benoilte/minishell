@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:42:09 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/01 06:45:02 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/01 12:01:21 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/builtins.h"
 
@@ -86,36 +86,28 @@ int	env_has_cmd(t_instruction *instruction)
 	return (FT_ENV_WITHOUT_CMD);
 }
 
-int	exec_env_with_cmd(t_bash *bash, t_instruction *instruction)
+int	exec_env_with_cmd(t_bash *bash, t_instruction *inst)
 {
-	t_token			*current_arg;
 	t_token			*current_cmd;
-	t_instruction	*tmp_inst;
 
-	current_arg = instruction->cmd->next;
-	while (ft_strchr(current_arg->data, '='))
-		current_arg = current_arg->next;
-	current_cmd = current_arg;
-	free(instruction->cmd_array);
-	if (fill_cmd_array(instruction, current_cmd) == RETURN_FAILURE)
-		return (3);
-	instruction->pid = fork();
-	if (instruction->pid == 0)
+	current_cmd = inst->cmd->next;
+	while (ft_strchr(current_cmd->data, '='))
+		current_cmd = current_cmd->next;
+	free(inst->cmd_array);
+	if (fill_cmd_array(inst, current_cmd) == RETURN_FAILURE)
+		return (1);
+	inst->pid = fork();
+	if (inst->pid == -1)
 	{
-		set_sig_int(DEFAULT);
-		current_arg = instruction->cmd->next;
-		add_arg_env(bash, current_arg);
-		start_execve("env", current_cmd->data, bash, instruction);
+		perror("fork");
+		return (1);
 	}
+	else if (inst->pid == 0)
+		exec_env_cmd(current_cmd->data, inst->cmd->next, inst->cmd_array, bash);
 	else
 	{
-		tmp_inst = instruction;
-		while (tmp_inst != NULL)
-		{
-			waitpid(tmp_inst->pid, &tmp_inst->exit_status, 0);
-			tmp_inst = tmp_inst->next;
-		}
-		set_exit_code(bash);
+		if (wait_child_process(bash, inst) == -1)
+			return (1);
 	}
 	return (0);
 }

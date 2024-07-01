@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:38:16 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/30 22:07:01 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/01 11:28:18 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 /*   Updated: 2024/06/25 22:32:09 by bebrandt         ###   ########.fr       */
 /*                                                                            */
@@ -52,7 +52,8 @@ int		exec_env_without_cmd(char **ms_env, t_instruction *instruction);
 
 // builtins/ft_env.c
 
-void	add_arg_env(t_bash *bash, t_token *current_arg);
+void	add_arg_env(t_bash *bash, t_token *arg);
+void	exec_env_cmd(char *cmd, t_token *arg_env, char **arg_cmd, t_bash *bash);
 
 //builtins/echo.c
 
