@@ -6,10 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/30 20:32:51 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/01 16:49:56 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../includes/exec.h"
 
@@ -29,6 +28,7 @@ void setup_pipe(t_instruction *current)
         current->fd[1] = -1;
     }
 }
+
 void handle_process(t_instruction *current, t_bash *bash, char **envp)
 {
     current->pid = fork();
@@ -47,6 +47,7 @@ void handle_process(t_instruction *current, t_bash *bash, char **envp)
     else
         parent_process(current);
 }
+
 void exec(t_instruction *instruction, t_bash *bash, char **envp)
 {
     t_env *env;
@@ -62,7 +63,7 @@ void exec(t_instruction *instruction, t_bash *bash, char **envp)
         // printf("multi\n");
         multi_exec(bash, instruction, envp);
     }
-    set_exit_code(bash);
+	set_exit_code(bash);
 }
 void	set_exit_code(t_bash *bash)
 {

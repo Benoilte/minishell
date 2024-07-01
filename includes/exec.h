@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:50 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/01 14:23:20 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/01 16:53:41 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
@@ -29,7 +29,7 @@ char	*get_path(char *cmd, t_bash *bash);
 void	ft_exit(t_instruction *instruction, t_bash *bash);
 void	child_process(t_instruction *instruction, t_bash *bash, char **envp);
 void	parent_process(t_instruction *instruction);
-int		wait_child_process(t_bash *bash, t_instruction *instruction);
+int		wait_child_process(t_instruction *instruction);
 
 // exec/red.c
 

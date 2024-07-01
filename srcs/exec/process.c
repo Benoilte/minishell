@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:51:22 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/01 10:02:48 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/01 16:53:26 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
@@ -17,7 +17,7 @@ void parent_process(t_instruction *instruction)
     if (instruction->prev != NULL)
         close(instruction->prev->fd[0]);
     if (instruction->next != NULL)
-        close(instruction->fd[1]);  
+        close(instruction->fd[1]);
 }
 void child_process(t_instruction *instruction, t_bash *bash, char **envp)
 {
@@ -44,7 +44,7 @@ void child_process(t_instruction *instruction, t_bash *bash, char **envp)
         sort_cmd_builtin(instruction, bash, envp);
 }
 
-int	wait_child_process(t_bash *bash, t_instruction *instruction)
+int	wait_child_process(t_instruction *instruction)
 {
 	t_instruction	*current_inst;
 
@@ -55,6 +55,5 @@ int	wait_child_process(t_bash *bash, t_instruction *instruction)
 			return (-1);
 		current_inst = current_inst->next;
 	}
-	set_exit_code(bash);
 	return (0);
 }
