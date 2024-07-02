@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/01 16:49:56 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/02 13:29:19 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,24 @@ void handle_process(t_instruction *current, t_bash *bash, char **envp)
 
 void exec(t_instruction *instruction, t_bash *bash, char **envp)
 {
-    t_env *env;
-
-    env = bash->env;
-    if ((instruction->next == NULL && instruction->red != NULL) || type_equal_to(BUILTIN, instruction->cmd->data_type))
-    {
-        // printf("simple\n");
-        builtins(instruction, env, bash);
-    }
-    else if (instruction->next != NULL || instruction->cmd != NULL || instruction->red != NULL)
-    {
-        // printf("multi\n");
-        multi_exec(bash, instruction, envp);
-    }
+	t_env *env;
+	t_token *current_red;
+	
+	env = bash->env;
+	instruction->save_stdout = -1;
+	if (instruction->next == NULL && instruction->cmd->data_type == 256)
+	{
+		current_red = instruction->red;
+        while (current_red != NULL)
+        {
+            instruction->red = current_red;
+            sort_red(instruction, bash);
+            current_red = current_red->next;
+        }
+		builtins(instruction, env, bash);
+	}
+	else if (instruction->next != NULL || instruction->cmd->data_type == 512)
+		multi_exec(bash, instruction, envp);
 	set_exit_code(bash);
 }
 void	set_exit_code(t_bash *bash)

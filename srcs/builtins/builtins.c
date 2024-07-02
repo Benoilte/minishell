@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:54:12 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/01 16:56:25 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/02 13:28:08 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,10 @@ void	builtins(t_instruction *instruction, t_env *env, t_bash *bash)
 		ft_env(bash, instruction);
 	if (ft_strcmp(instruction->cmd->data, "exit") == 0)
 		ft_exit(instruction, bash);
+	if (instruction->save_stdout != -1)
+	{
+		dup2(instruction->save_stdout, STDOUT_FILENO);
+		close(instruction->save_stdout);
+		instruction->save_stdout = -1;
+	}
 }
