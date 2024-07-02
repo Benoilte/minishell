@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:30:23 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/01 14:21:30 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/02 13:32:43 by tommartinel      ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
@@ -57,7 +57,7 @@ void	ft_cmd(char *sender, char *cmd, char **argv, t_bash *bash)
 	path = get_path(cmd, bash);
 	if (!path)
 		print_cmd_error_and_exit(sender, cmd, CMD_NOT_FOUND, bash);
-	if ((stat(path, &statbuf) == 0) && (statbuf.st_mode & __S_IFDIR))
+	if ((stat(path, &statbuf) == 0) && (statbuf.st_mode & S_IFDIR))
 	{
 		errno = EISDIR;
 		free(path);

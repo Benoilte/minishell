@@ -6,7 +6,7 @@
 /*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 13:16:17 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/28 13:34:37 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/07/02 13:29:48 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,15 @@ void red(t_instruction *instruction)
     file = 0;
     i = instruction->red->data_type;
     red = instruction->red->option;
+    if (instruction->save_stdout == -1 && (i == OUTPUT_TRUNCATE || i == OUTPUT_APPEND))
+    {
+        instruction->save_stdout = dup(STDOUT_FILENO);
+        if (instruction->save_stdout < 0)
+        {
+            perror("dup");
+            return;
+        }
+    }
     if (i == OUTPUT_TRUNCATE || i == OUTPUT_APPEND) 
     {
         file = open_file(red, instruction->red);

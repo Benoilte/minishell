@@ -6,7 +6,7 @@
 /*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:00:59 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/28 13:17:25 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/07/02 13:28:35 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ void pwd(t_instruction *instruction)
             return ;
         }
         if (instruction->red != NULL)
-        {
             ft_putendl_fd(cwd, STDOUT_FILENO);
-            exit(EXIT_SUCCESS);
-        }
         else
             printf("%s\n", cwd);
         free(cwd);
