@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:51:22 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/01 16:53:26 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/02 20:01:36 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/exec.h"
 
@@ -37,7 +37,8 @@ void child_process(t_instruction *instruction, t_bash *bash, char **envp)
         close(instruction->fd[1]);
     while (instruction->red != NULL && ft_strcmp(instruction->cmd->data, "exit") != 0)
     {
-        sort_red(instruction, bash);
+        if (sort_red(instruction, bash) < 0)
+			clear_bash_and_exit(&bash, EXIT_FAILURE);
         instruction->red = instruction->red->next;
     }
     if (instruction->cmd != NULL || instruction->prev != NULL || ft_strcmp(instruction->cmd->data, "exit") == 0)

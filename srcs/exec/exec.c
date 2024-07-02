@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/02 13:29:19 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/07/02 20:05:42 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/exec.h"
 
@@ -43,33 +43,29 @@ void handle_process(t_instruction *current, t_bash *bash, char **envp)
         if (current->prev != NULL)
             close(current->prev->fd[1]);
         child_process(current, bash, envp);
+		clear_bash_and_exit(&bash, current->exit_status);
     }
     else
         parent_process(current);
 }
 
-void exec(t_instruction *instruction, t_bash *bash, char **envp)
+void	exec(t_instruction *instruction, t_bash *bash, char **envp)
 {
-	t_env *env;
-	t_token *current_red;
-	
+	t_env	*env;
+
 	env = bash->env;
-	instruction->save_stdout = -1;
 	if (instruction->next == NULL && instruction->cmd->data_type == 256)
 	{
-		current_red = instruction->red;
-        while (current_red != NULL)
-        {
-            instruction->red = current_red;
-            sort_red(instruction, bash);
-            current_red = current_red->next;
-        }
-		builtins(instruction, env, bash);
+		if (sort_red(instruction, bash) < 0)
+			instruction->exit_status = 1;
+		else
+			builtins(instruction, env, bash);
 	}
 	else if (instruction->next != NULL || instruction->cmd->data_type == 512)
 		multi_exec(bash, instruction, envp);
 	set_exit_code(bash);
 }
+
 void	set_exit_code(t_bash *bash)
 {
 	t_instruction	*last_inst;
