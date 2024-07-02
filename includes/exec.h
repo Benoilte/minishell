@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:50 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/01 16:53:41 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:45:21 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef EXEC_H
 # define EXEC_H
@@ -17,7 +17,7 @@
 # include "parser.h"
 // exec/sort_array.c
 
-void	sort_red(t_instruction *instruction, t_bash *bash);
+int		sort_red(t_instruction *instruction, t_bash *bash);
 
 // exec/ft_cmd.c
 
@@ -33,7 +33,7 @@ int		wait_child_process(t_instruction *instruction);
 
 // exec/red.c
 
-void	red(t_instruction *instruction);
+int		red(t_instruction *instruction, t_token *current_red);
 int		open_file(char *red, t_token *token);
 void	here_doc(t_instruction *instruction, t_bash *bash);
 // exec/sort_cmd_builtin

@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:12:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/02 13:27:47 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/07/02 18:53:02 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 /*   Updated: 2024/06/13 12:45:59 by bebrandt         ###   ########.fr       */
 /*                                                                            */
@@ -42,7 +42,7 @@ typedef struct s_instruction
 	pid_t					pid;
 	int						exit_status;
 	char					**cmd_array;
-	int 					save_stdout;
+	int						save_stdout;
 	struct s_instruction	*prev;
 	struct s_instruction	*next;
 }							t_instruction;
