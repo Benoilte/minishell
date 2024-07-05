@@ -6,20 +6,20 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/02 20:05:42 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/05 10:36:26 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "../../includes/exec.h"
 
-void setup_pipe(t_instruction *current)
+int setup_pipe(t_instruction *current)
 {
     if (current->next != NULL)
     {
         if (pipe(current->fd) == -1)
         {
-            perror("pipe");
-            exit(EXIT_FAILURE);
+            print_cmd_error("setup_pipe", current->cmd->data);
+            return (-1);
         }
     }
     else
@@ -27,26 +27,29 @@ void setup_pipe(t_instruction *current)
         current->fd[0] = -1;
         current->fd[1] = -1;
     }
+	return (0);
 }
 
-void handle_process(t_instruction *current, t_bash *bash, char **envp)
+int handle_process(t_instruction *current, t_bash *bash, char **envp)
 {
     current->pid = fork();
     if (current->pid == -1)
     {
-        perror("fork");
-        exit(EXIT_FAILURE);
+        print_cmd_error("handle_process fork()", current->cmd->data);
+        return (-1);
     }
     else if (current->pid == 0)
     {
 		set_sig_int(DEFAULT);
-        if (current->prev != NULL)
-            close(current->prev->fd[1]);
         child_process(current, bash, envp);
 		clear_bash_and_exit(&bash, current->exit_status);
     }
     else
-        parent_process(current);
+	{
+        if (parent_process(current) < 0)
+			current->exit_status = 1;
+	}
+	return (0);
 }
 
 void	exec(t_instruction *instruction, t_bash *bash, char **envp)

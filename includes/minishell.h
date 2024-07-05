@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:29:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/01 14:04:19 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/05 10:38:50 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -70,8 +70,8 @@ void builtins(t_instruction *instruction, t_env *env, t_bash *bash);
 // exec/exec.c
 
 void	exec(t_instruction *instruction, t_bash *bash, char **envp);
-void setup_pipe(t_instruction *current);
-void handle_process(t_instruction *current, t_bash *bash, char **envp);
+int 	setup_pipe(t_instruction *current);
+int 	handle_process(t_instruction *current, t_bash *bash, char **envp);
 
 
 // test/test.c

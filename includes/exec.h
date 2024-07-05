@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:50 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/02 19:45:21 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/05 10:39:21 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -28,8 +28,10 @@ char	*get_path(char *cmd, t_bash *bash);
 
 void	ft_exit(t_instruction *instruction, t_bash *bash);
 void	child_process(t_instruction *instruction, t_bash *bash, char **envp);
-void	parent_process(t_instruction *instruction);
+int		parent_process(t_instruction *instruction);
 int		wait_child_process(t_instruction *instruction);
+int		close_and_reset_fd(t_instruction *curent_inst, int *fd);
+void	close_unused_fd(t_instruction *current_inst, t_bash *bash);
 
 // exec/red.c
 
