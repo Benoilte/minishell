@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:51:22 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/02 20:17:57 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/05 07:43:54 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
@@ -21,15 +21,49 @@ void parent_process(t_instruction *instruction)
 }
 void child_process(t_instruction *instruction, t_bash *bash, char **envp)
 {
+		ft_putstr_fd(instruction->cmd->data, STDERR_FILENO);
+		ft_putstr_fd(": fd[0]: ", STDERR_FILENO);
+		ft_putnbr_fd(instruction->fd[0], STDERR_FILENO);
+		ft_putstr_fd(" fd[1] ", STDERR_FILENO);
+		ft_putnbr_fd(instruction->fd[1], STDERR_FILENO);
+		ft_putendl_fd("", STDERR_FILENO);
     if (instruction->prev != NULL)
     {
-        dup2(instruction->prev->fd[0], STDIN_FILENO);
-        close(instruction->prev->fd[0]);
+		ft_putstr_fd(instruction->cmd->data, STDERR_FILENO);
+		ft_putstr_fd(": stdin: ", STDERR_FILENO);
+		ft_putnbr_fd(STDIN_FILENO, STDERR_FILENO);
+		ft_putstr_fd(" instruction->prev->fd[0] ", STDERR_FILENO);
+		ft_putnbr_fd(instruction->prev->fd[0], STDERR_FILENO);
+		ft_putendl_fd("", STDERR_FILENO);
+        if (dup2(instruction->prev->fd[0], STDIN_FILENO) < 0)
+		{
+			print_cmd_error("dup2_stdin", instruction->cmd->data);
+			clear_bash_and_exit(&bash, EXIT_FAILURE);
+		}
+        if (close(instruction->prev->fd[0]) < 0)
+		{
+			print_cmd_error("close", instruction->cmd->data);
+			clear_bash_and_exit(&bash, EXIT_FAILURE);
+		}
     }
     if (instruction->next != NULL)
     {
-        dup2(instruction->fd[1], STDOUT_FILENO);
-        close(instruction->fd[1]);
+		ft_putstr_fd(instruction->cmd->data, STDERR_FILENO);
+		ft_putstr_fd(": stdout: ", STDERR_FILENO);
+		ft_putnbr_fd(STDOUT_FILENO, STDERR_FILENO);
+		ft_putstr_fd(" instruction->fd[1] ", STDERR_FILENO);
+		ft_putnbr_fd(instruction->fd[1], STDERR_FILENO);
+		ft_putendl_fd("", STDERR_FILENO);
+        if (dup2(instruction->fd[1], STDOUT_FILENO) < 0)
+		{
+			print_cmd_error("dup2_stdout", instruction->cmd->data);
+			clear_bash_and_exit(&bash, EXIT_FAILURE);
+		}
+        if (close(instruction->fd[1]) < 0)
+		{
+			print_cmd_error("close", instruction->cmd->data);
+			clear_bash_and_exit(&bash, EXIT_FAILURE);
+		}
     }
     if (instruction->fd[0] != -1)
         close(instruction->fd[0]);
@@ -41,6 +75,12 @@ void child_process(t_instruction *instruction, t_bash *bash, char **envp)
 	// 		clear_bash_and_exit(&bash, EXIT_FAILURE);
     //     instruction->red = instruction->red->next;
     // }
+	// ft_putstr_fd(instruction->cmd->data, STDERR_FILENO);
+	// ft_putstr_fd(": stdin: ", STDERR_FILENO);
+	// ft_putnbr_fd(STDIN_FILENO, STDERR_FILENO);
+	// ft_putstr_fd(" stdout: ", STDERR_FILENO);
+	// ft_putnbr_fd(STDOUT_FILENO, STDERR_FILENO);
+	// ft_putendl_fd("", STDERR_FILENO);
 	if (sort_red(instruction, bash) < 0)
 		clear_bash_and_exit(&bash, EXIT_FAILURE);
     if (instruction->cmd != NULL || instruction->prev != NULL || ft_strcmp(instruction->cmd->data, "exit") == 0)

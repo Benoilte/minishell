@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/02 20:05:42 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/05 08:26:00 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
@@ -17,10 +17,10 @@ void setup_pipe(t_instruction *current)
     if (current->next != NULL)
     {
         if (pipe(current->fd) == -1)
-        {
-            perror("pipe");
-            exit(EXIT_FAILURE);
-        }
+		{
+			print_cmd_error("setup_pie", current->cmd->data);
+			current->exit_status = 1;
+		}
     }
     else
     {
@@ -54,7 +54,7 @@ void	exec(t_instruction *instruction, t_bash *bash, char **envp)
 	t_env	*env;
 
 	env = bash->env;
-	if (instruction->next == NULL && instruction->cmd->data_type == 256)
+	if (instruction->next == NULL && (instruction->cmd->data_type & BUILTIN))
 	{
 		if (sort_red(instruction, bash) < 0)
 			instruction->exit_status = 1;
