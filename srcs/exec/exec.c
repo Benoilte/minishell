@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/05 08:26:00 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/05 09:19:15 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/exec.h"
 
@@ -16,7 +16,7 @@ void setup_pipe(t_instruction *current)
 {
     if (current->next != NULL)
     {
-        if (pipe(current->fd) == -1)
+        if (pipe(current->fd) < 0)
 		{
 			print_cmd_error("setup_pie", current->cmd->data);
 			current->exit_status = 1;
@@ -40,8 +40,8 @@ void handle_process(t_instruction *current, t_bash *bash, char **envp)
     else if (current->pid == 0)
     {
 		set_sig_int(DEFAULT);
-        if (current->prev != NULL)
-            close(current->prev->fd[1]);
+        // if (current->prev != NULL)
+        //     close(current->prev->fd[1]);
         child_process(current, bash, envp);
 		clear_bash_and_exit(&bash, current->exit_status);
     }
