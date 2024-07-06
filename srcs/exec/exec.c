@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/06 13:04:25 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/06 14:41:19 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
@@ -80,9 +80,11 @@ void	set_exit_code(t_bash *bash)
 	else
 	{
 		last_inst = last_instruction(bash->instruction);
-		if (WIFSIGNALED(last_inst->exit_status))
+		if (last_inst->pid == -1)
+			bash->exit_code = last_inst->exit_status;
+		else if (WIFSIGNALED(last_inst->exit_status))
 			bash->exit_code = 128 + WTERMSIG(last_inst->exit_status);
-		if (WIFEXITED(last_inst->exit_status))
+		else if (WIFEXITED(last_inst->exit_status))
 			bash->exit_code = WEXITSTATUS(last_inst->exit_status);
 	}
 }
