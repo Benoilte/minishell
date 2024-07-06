@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   red.c                                              :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 13:16:17 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/06 11:44:47 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/06 16:52:50 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
@@ -27,7 +27,12 @@ int	open_file(char *red, t_token *token)
 		print_cmd_error("minishell", red);
 	return (file);
 }
-void here_doc(t_instruction *instruction, t_bash *bash) 
+
+/*
+have to use another fd than the one used for the pipe
+*/
+
+void here_doc(t_instruction *instruction, t_bash *bash)
 {
     (void)bash;
     char *limiter;
@@ -35,36 +40,35 @@ void here_doc(t_instruction *instruction, t_bash *bash)
     char *line;
 
     limiter = instruction->red->option;
-    if (pipe(instruction->fd) == -1) 
+    if (pipe(instruction->fd_heredoc) == -1)
     {
         perror("pipe");
         exit(EXIT_FAILURE);
     }
-    printf("test\n");
     reader = fork();
-    if (reader == 0) 
+    if (reader == 0)
     {
-        close(instruction->fd[0]);
-        while (1) 
+        close(instruction->fd_heredoc[0]);
+        while (1)
         {
             line = readline("> ");
-            if (!line) 
+            if (!line)
                 exit(EXIT_SUCCESS);
-            if (strncmp(line, limiter, strlen(limiter)) == 0 && line[strlen(limiter)] == '\0') 
+            if (strncmp(line, limiter, strlen(limiter)) == 0 && line[strlen(limiter)] == '\0')
             {
                 free(line);
                 exit(EXIT_SUCCESS);
             }
-            write(instruction->fd[1], line, strlen(line));
-            write(instruction->fd[1], "\n", 1);
+            write(instruction->fd_heredoc[1], line, strlen(line));
+            write(instruction->fd_heredoc[1], "\n", 1);
             free(line);
         }
     }
-    else 
+    else
     {
-        close(instruction->fd[1]);
-        dup2(instruction->fd[0], STDIN_FILENO);
-        wait(NULL);
+        close(instruction->fd_heredoc[1]);
+        dup2(instruction->fd_heredoc[0], STDIN_FILENO);
+		waitpid(reader, NULL, 0);
     }
 }
 
@@ -104,4 +108,3 @@ int	red(int fd_in, int fd_out, t_instruction *instruction, t_token *current_red)
 	}
 	return (0);
 }
-
