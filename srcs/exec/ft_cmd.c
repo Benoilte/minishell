@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_cmd.c                                           :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:30:23 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/06 12:12:04 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/06 14:25:46 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
@@ -56,7 +56,12 @@ void	ft_cmd(char *sender, char *cmd, char **argv, t_bash *bash)
 
 	path = get_path(cmd, bash);
 	if (!path)
-		print_cmd_error_and_exit(sender, cmd, CMD_NOT_FOUND, bash);
+	{
+		ft_putstr_fd("Minishell: ", STDERR_FILENO);
+		ft_putstr_fd(cmd, STDERR_FILENO);
+		ft_putendl_fd(": command not found", STDERR_FILENO);
+		clear_bash_and_exit(&bash, CMD_NOT_FOUND);
+	}
 	if ((stat(path, &statbuf) == 0) && (statbuf.st_mode & S_IFDIR))
 	{
 		errno = EISDIR;
