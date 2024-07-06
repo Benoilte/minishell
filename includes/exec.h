@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:50 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/05 10:39:21 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/06 13:08:26 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -15,9 +15,12 @@
 
 # include "minishell.h"
 # include "parser.h"
-// exec/sort_array.c
 
-int		sort_red(t_instruction *instruction, t_bash *bash);
+// exec/sort_red.c
+
+int		sort_red(int fd_in, int fd_out, t_instruction *instruction, t_bash *bash);
+int		inst_have_input_red(t_instruction *current_inst);
+int		inst_have_output_red(t_instruction *current_inst);
 
 // exec/ft_cmd.c
 
@@ -35,7 +38,7 @@ void	close_unused_fd(t_instruction *current_inst, t_bash *bash);
 
 // exec/red.c
 
-int		red(t_instruction *instruction, t_token *current_red);
+int		red(int fd_in, int fd_out, t_instruction *instruction, t_token *current_red);
 int		open_file(char *red, t_token *token);
 void	here_doc(t_instruction *instruction, t_bash *bash);
 // exec/sort_cmd_builtin
@@ -50,6 +53,7 @@ int		is_digit_only(char *str);
 int		handle_exit_error(int arg_count, t_token *current_red, t_instruction *instruction);
 void	print_cmd_error(char *sender, char *cmd);
 void	print_cmd_error_and_exit(char *sender, char *cmd, int status, t_bash *bash);
+void	reset_fd_std(t_instruction *inst);
 
 // exec/exec.c
 

@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:12:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/02 18:53:02 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/06 12:05:28 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -43,6 +43,7 @@ typedef struct s_instruction
 	int						exit_status;
 	char					**cmd_array;
 	int						save_stdout;
+	int						save_stdin;
 	struct s_instruction	*prev;
 	struct s_instruction	*next;
 }							t_instruction;

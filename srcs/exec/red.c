@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 13:16:17 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/02 20:06:23 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/06 11:44:47 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -68,7 +68,7 @@ void here_doc(t_instruction *instruction, t_bash *bash)
     }
 }
 
-int	red(t_instruction *instruction, t_token *current_red)
+int	red(int fd_in, int fd_out, t_instruction *instruction, t_token *current_red)
 {
 	char	*red;
 	int		file;
@@ -91,7 +91,7 @@ int	red(t_instruction *instruction, t_token *current_red)
 		file = open_file(red, current_red);
 		if (file < 0)
 			return (-1);
-		dup2(file, STDOUT_FILENO);
+		dup2(file, fd_out);
 		close(file);
 	}
 	if (i & INPUT)
@@ -99,7 +99,7 @@ int	red(t_instruction *instruction, t_token *current_red)
 		file = open_file(red, current_red);
 		if (file < 0)
 			return (-1);
-		dup2(file, STDIN_FILENO);
+		dup2(file, fd_in);
 		close(file);
 	}
 	return (0);
