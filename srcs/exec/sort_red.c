@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   sort_red.c                                         :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:11 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/06 13:08:21 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:57:15 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
@@ -25,10 +25,15 @@ int	sort_red(int fd_in, int fd_out, t_instruction *instruction, t_bash *bash)
 			if (red(fd_in, fd_out, instruction, current_red_token) < 0)
 				return (-1);
 		}
-		else if (type_equal_to(HEREDOC, current_red_token->data_type))
-			here_doc(instruction, bash);
+		else if (current_red_token->data_type & (HEREDOC))
+		{
+			if (here_doc(instruction, bash, current_red_token) < 0)
+				return (-1);
+		}
 		current_red_token = current_red_token->next;
 	}
+	if (instruction->cmd == NULL && instruction->next == NULL)
+		reset_stdout(instruction);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/06 14:41:19 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:56:34 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,17 @@ void	exec(t_instruction *instruction, t_bash *bash, char **envp)
 	t_env	*env;
 
 	env = bash->env;
-	if (instruction->next == NULL && (instruction->cmd->data_type & BUILTIN))
+	if (instruction->next == NULL && instruction->cmd == NULL && instruction->red != NULL)
+	{
+		if (sort_red(STDIN_FILENO, STDOUT_FILENO, instruction, bash) < 0)
+			instruction->exit_status = 1;
+	}
+	else if (instruction->next == NULL && (instruction->cmd->data_type & BUILTIN))
 	{
 		if (sort_red(STDIN_FILENO, STDOUT_FILENO, instruction, bash) < 0)
 			instruction->exit_status = 1;
 		else
 			builtins(instruction, env, bash);
-		reset_fd_std(instruction);
 	}
 	else if (instruction->next != NULL || (instruction->cmd->data_type & CMD))
 		multi_exec(bash, instruction, envp);
