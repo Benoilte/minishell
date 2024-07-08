@@ -50,6 +50,7 @@ void	start_interactive_minishell(t_bash *bash, int debug);
 // main/non_interactive_minishell.c
 
 void	start_non_interactive_minishell(t_bash *bash, char *file, int debug);
+int		is_wrong_file_format(char *file, int fd);
 char	*get_sequence(int fd);
 
 // main/minishell_utils.c

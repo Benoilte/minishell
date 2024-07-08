@@ -1,4 +1,4 @@
-#! /bin/bash
+#! minishell
 
 echo "print PWD env var"
 echo PWD: $PWD

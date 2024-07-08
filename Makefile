@@ -1,4 +1,4 @@
-# **************************************************************************** #
+#******************************************************************************#
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
@@ -6,11 +6,9 @@
 #    By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/06/30 21:35:09 by bebrandt         ###   ########.fr        #
+#    Updated: 2024/07/08 17:02:41 by bebrandt         ###   ########.fr        #
 #                                                                              #
-# **************************************************************************** #
-
-
+#******************************************************************************#
 
 NAME				=	minishell
 
@@ -28,10 +26,9 @@ OBJ_DIR				=	objs/
 
 MAIN_DIR			=	$(SRCS_DIR)main/
 
-ifeq ($(MAIN), ben)
-	MAIN_SRCS		+=	$(addprefix $(MAIN_DIR), $(addsuffix .c, main_ben))
-else ifeq ($(MAIN), tom)
-	MAIN_SRCS		+=	$(addprefix $(MAIN_DIR), $(addsuffix .c, main_tom))
+ifeq ($(MAIN), debug)
+	MAIN_SRCS		+=	$(addprefix $(MAIN_DIR), $(addsuffix .c, main_debug))
+	DEBUG_FLAG		= -g
 else
 	MAIN_SRCS		+=	$(addprefix $(MAIN_DIR), $(addsuffix .c, minishell))
 endif
@@ -105,7 +102,7 @@ LIBFT_FLAGS			=	-L$(LIBFT_DIR) -lft
 
 CC					=	gcc
 HDRS				=	-Iincludes/.
-CFLAGS				=	-Wall -Wextra -Werror -g
+CFLAGS				=	-Wall -Wextra -Werror $(DEBUG_FLAG)
 RLFLAGS				=	-L$(HOME)/.brew/opt/readline/lib -lreadline
 RM					=	rm -f
 
@@ -120,7 +117,7 @@ all: $(LIBFT_DIR)$(LIBFT_NAME) $(NAME)
 
 $(NAME): $(OBJS)
 	@printf "\n$(GREEN)minishell object created successfully$(NONE)\n"
-	@$(CC) $(CFLAGS) $(HDRS) -o $@ $^ $(LIBFT_FLAGS) $(RLFLAGS) -g
+	@$(CC) $(CFLAGS) $(HDRS) -o $@ $^ $(LIBFT_FLAGS) $(RLFLAGS) $(DEBUG_FLAG)
 	@printf "$(GREEN)minishell program created successfully$(NONE)\n"
 
 $(LIBFT_DIR)$(LIBFT_NAME):
@@ -131,7 +128,7 @@ $(LIBFT_DIR)$(LIBFT_NAME):
 
 $(OBJ_DIR)%.o: %.c
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) $(HDRS) -c $^ -o $@ -g
+	@$(CC) $(CFLAGS) $(HDRS) -c $^ -o $@ $(DEBUG_FLAG)
 	@printf "$(YELLOW).$(NONE)"
 
 clean:
@@ -145,13 +142,5 @@ fclean: clean
 	@echo "$(RED)##### Removed minishell executable #####$(NONE)"
 
 re: fclean all
-
-ifeq ($(MAIN), ben)
-	$(info compile with MAIN: $(MAIN))
-else ifeq ($(MAIN), tom)
-	$(info compile with MAIN: $(MAIN))
-else
-	$(info compile with MAIN: minishell)
-endif
 
 .PHONY: all clean fclean re

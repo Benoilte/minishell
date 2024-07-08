@@ -1,4 +1,4 @@
-#! /bin/bash
+#! minishell
 
 # syntax error near unexpected token `>'
 echo '>>>test1 (exit_status == 2)'
