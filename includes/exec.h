@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:50 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/08 11:52:48 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:22:11 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 // exec/sort_red.c
 
 int		sort_red(int fd_in, int fd_out, t_instruction *instruction, t_bash *bash);
-int		inst_have_input_red(t_instruction *current_inst);
-int		inst_have_output_red(t_instruction *current_inst);
+int		inst_have_input_red(t_token *current_red);
+int		inst_have_output_red(t_token *current_red);
 
 // exec/ft_cmd.c
 
@@ -54,7 +54,8 @@ int		is_digit_only(char *str);
 int		handle_exit_error(int arg_count, t_token *current_red, t_instruction *instruction);
 void	print_cmd_error(char *sender, char *cmd);
 void	print_cmd_error_and_exit(char *sender, char *cmd, int status, t_bash *bash);
-void	reset_fd_std(t_instruction *inst);
+void	reset_fd_stdout(t_instruction *inst);
+void	reset_fd_stdin(t_instruction *inst);
 
 // exec/exec.c
 

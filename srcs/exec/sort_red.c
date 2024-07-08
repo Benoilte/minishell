@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:11 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/08 11:58:52 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:21:32 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,30 +35,30 @@ int	sort_red(int fd_in, int fd_out, t_instruction *instruction, t_bash *bash)
 	return (0);
 }
 
-int	inst_have_input_red(t_instruction *current_inst)
+int	inst_have_input_red(t_token *current_red)
 {
-	t_token	*red;
+	t_token	*tmp_red;
 
-	red = current_inst->red;
-	while (red)
+	tmp_red = current_red;
+	while (tmp_red)
 	{
-		if (red->data_type & (INPUT | HEREDOC))
+		if (tmp_red->data_type & (INPUT | HEREDOC))
 			return (1);
-		red = red->next;
+		tmp_red = tmp_red->next;
 	}
 	return (0);
 }
 
-int	inst_have_output_red(t_instruction *current_inst)
+int	inst_have_output_red(t_token *current_red)
 {
-	t_token	*red;
+	t_token	*output_red;
 
-	red = current_inst->red;
-	while (red)
+	output_red = current_red;
+	while (output_red)
 	{
-		if (red->data_type & (OUTPUT_APPEND | OUTPUT_TRUNCATE))
+		if (output_red->data_type & (OUTPUT_APPEND | OUTPUT_TRUNCATE))
 			return (1);
-		red = red->next;
+		output_red = output_red->next;
 	}
 	return (0);
 }
