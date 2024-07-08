@@ -1,20 +1,21 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:50 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/05 10:39:21 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:11:10 by tommartinel      ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
 
 # include "minishell.h"
 # include "parser.h"
+# include "builtins.h"
 // exec/sort_array.c
 
 int		sort_red(t_instruction *instruction, t_bash *bash);
@@ -37,7 +38,7 @@ void	close_unused_fd(t_instruction *current_inst, t_bash *bash);
 
 int		red(t_instruction *instruction, t_token *current_red);
 int		open_file(char *red, t_token *token);
-void	here_doc(t_instruction *instruction, t_bash *bash);
+int     here_doc(t_instruction *instruction, t_bash *bash, t_token *current_red);
 // exec/sort_cmd_builtin
 
 void	sort_cmd_builtin(t_instruction *instruction, t_bash *bash, char **envp);
