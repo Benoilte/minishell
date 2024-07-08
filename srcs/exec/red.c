@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   red.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 13:16:17 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/02 20:06:23 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:41:09 by tommartinel      ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
@@ -27,20 +27,19 @@ int	open_file(char *red, t_token *token)
 		print_cmd_error("minishell", red);
 	return (file);
 }
-void here_doc(t_instruction *instruction, t_bash *bash) 
+int here_doc(t_instruction *instruction, t_bash *bash, t_token *current_red) 
 {
     (void)bash;
     char *limiter;
     pid_t reader;
     char *line;
 
-    limiter = instruction->red->option;
+    limiter = current_red->option;
     if (pipe(instruction->fd) == -1) 
     {
         perror("pipe");
-        exit(EXIT_FAILURE);
+        return (-1);
     }
-    printf("test\n");
     reader = fork();
     if (reader == 0) 
     {
@@ -49,11 +48,11 @@ void here_doc(t_instruction *instruction, t_bash *bash)
         {
             line = readline("> ");
             if (!line) 
-                exit(EXIT_SUCCESS);
+                return (0);
             if (strncmp(line, limiter, strlen(limiter)) == 0 && line[strlen(limiter)] == '\0') 
             {
                 free(line);
-                exit(EXIT_SUCCESS);
+                return (0);
             }
             write(instruction->fd[1], line, strlen(line));
             write(instruction->fd[1], "\n", 1);
@@ -66,6 +65,7 @@ void here_doc(t_instruction *instruction, t_bash *bash)
         dup2(instruction->fd[0], STDIN_FILENO);
         wait(NULL);
     }
+	return (0);
 }
 
 int	red(t_instruction *instruction, t_token *current_red)

@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/05 10:36:26 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:41:03 by tommartinel      ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
@@ -57,12 +57,16 @@ void	exec(t_instruction *instruction, t_bash *bash, char **envp)
 	t_env	*env;
 
 	env = bash->env;
-	if (instruction->next == NULL && instruction->cmd->data_type == 256)
+	if (instruction->next == NULL && instruction->cmd == NULL && instruction->red != NULL)
 	{
 		if (sort_red(instruction, bash) < 0)
 			instruction->exit_status = 1;
-		else
-			builtins(instruction, env, bash);
+	}
+	else if (instruction->next == NULL && instruction->cmd->data_type == 256)
+	{
+		if (sort_red(instruction, bash) < 0)
+			instruction->exit_status = 1;
+		builtins(instruction, env, bash);
 	}
 	else if (instruction->next != NULL || instruction->cmd->data_type == 512)
 		multi_exec(bash, instruction, envp);
