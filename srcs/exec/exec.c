@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/08 12:59:25 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:14:42 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ void	exec(t_instruction *instruction, t_bash *bash, char **envp)
 	env = bash->env;
 	if (instruction->next == NULL && instruction->cmd == NULL && instruction->red != NULL)
 	{
-		if (sort_red(STDIN_FILENO, STDOUT_FILENO, instruction, bash) < 0)
+		if (sort_red(instruction, bash) < 0)
 			instruction->exit_status = 1;
 		reset_fd_stdout(instruction);
 		reset_fd_stdin(instruction);
 	}
 	else if (instruction->next == NULL && (instruction->cmd->data_type & BUILTIN))
 	{
-		if (sort_red(STDIN_FILENO, STDOUT_FILENO, instruction, bash) < 0)
+		if (sort_red(instruction, bash) < 0)
 			instruction->exit_status = 1;
 		else
 			builtins(instruction, env, bash);

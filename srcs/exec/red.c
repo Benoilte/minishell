@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   red.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 13:16:17 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/08 13:10:11 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:29:25 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ int here_doc(t_instruction *instruction, t_bash *bash, t_token *current_red)
     char *line;
 
     limiter = current_red->option;
-    if (pipe(instruction->fd_heredoc) == -1)
+	if (inst_have_input_red(current_red->next) != 0)
+		return (display_here_doc(limiter));
+	if (pipe(instruction->fd_heredoc) == -1)
     {
         perror("pipe");
         return (-1);
@@ -67,9 +69,37 @@ int here_doc(t_instruction *instruction, t_bash *bash, t_token *current_red)
     }
 	return (0);
 }
-
-int	red(int fd_in, int fd_out, t_instruction *instruction, t_token *current_red)
+int display_here_doc(char *limiter)
 {
+	pid_t reader;
+	char *line;
+
+	reader = fork();
+    if (reader == 0)
+    {
+        while (1)
+        {
+            line = readline("> ");
+            if (!line)
+                exit(EXIT_SUCCESS);
+            if (strncmp(line, limiter, strlen(limiter)) == 0 && line[strlen(limiter)] == '\0')
+            {
+                free(line);
+                exit(EXIT_SUCCESS);
+            }
+            free(line);
+        }
+    }
+    else
+    {
+        waitpid(reader, NULL, 0);
+    }
+	return (0);
+}
+
+int	red(t_instruction *instruction, t_token *current_red)
+{
+	(void)instruction;
 	char	*red;
 	int		file;
 	int		i;
@@ -77,21 +107,12 @@ int	red(int fd_in, int fd_out, t_instruction *instruction, t_token *current_red)
 	file = 0;
 	i = current_red->data_type;
 	red = current_red->option;
-	if ((instruction->save_stdout < 0) && (i & (OUTPUT_TRUNCATE | OUTPUT_APPEND)))
-	{
-		instruction->save_stdout = dup(STDOUT_FILENO);
-		if (instruction->save_stdout < 0)
-		{
-			perror("dup");
-			return (-1);
-		}
-	}
 	if (i & (OUTPUT_TRUNCATE | OUTPUT_APPEND))
 	{
 		file = open_file(red, current_red);
 		if (file < 0)
 			return (-1);
-		dup2(file, fd_out);
+		dup2(file, STDOUT_FILENO);
 		close(file);
 	}
 	if (i & INPUT)
@@ -99,7 +120,7 @@ int	red(int fd_in, int fd_out, t_instruction *instruction, t_token *current_red)
 		file = open_file(red, current_red);
 		if (file < 0)
 			return (-1);
-		dup2(file, fd_in);
+		dup2(file, STDIN_FILENO);
 		close(file);
 	}
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multi_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:02:02 by tommartinel       #+#    #+#             */
-/*   Updated: 2024/07/08 12:59:45 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:11:09 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	multi_exec(t_bash *bash, t_instruction *instruction, char **envp)
 	while (current != NULL)
 	{
 		setup_pipe(current);
-		if (sort_red(STDIN_FILENO, STDOUT_FILENO, current, bash) < 0)
+		if (sort_red(current, bash) < 0)
 			current->exit_status = 1;
 		else
 			handle_process(current, bash, envp);
