@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmartin2 <tmartin2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:06:47 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/14 12:50:40 by tmartin2         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:55:07 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	*ft_strcat(char *dest, char *src)
 	*dest = '\0';
 	return (original_dest);
 }
+
 char	*ft_strcpy(char *dest, char *src)
 {
 	char	*original_dest;

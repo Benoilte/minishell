@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/20 13:15:42 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/06/28 20:07:34 by bebrandt         ###   ########.fr       */
+/*   Created: 2024/07/08 16:55:32 by tommartinel       #+#    #+#             */
+/*   Updated: 2024/07/08 16:55:53 by tommartinel      ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/builtins.h"
 
@@ -99,7 +99,6 @@ void	set_cwd_env(t_instruction *inst, t_env **env, char *name, char *value)
 		}
 		add_back_env(env, new_env(name_to_value));
 	}
-
 }
 
 void	ft_chdir_error(char *directory, int fd)
