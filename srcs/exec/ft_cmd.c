@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_cmd.c                                           :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:30:23 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/06 14:25:46 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/08 18:13:40 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/exec.h"
 
@@ -66,17 +66,17 @@ void	ft_cmd(char *sender, char *cmd, char **argv, t_bash *bash)
 	{
 		errno = EISDIR;
 		free(path);
-		print_cmd_error_and_exit(sender, cmd, CMD_NOT_EXEC, bash);
+		print_error_and_exit(sender, cmd, CMD_NOT_EXEC, bash);
 	}
 	if (access(path, F_OK | X_OK))
 	{
 		free(path);
-		print_cmd_error_and_exit(sender, cmd, CMD_NOT_EXEC, bash);
+		print_error_and_exit(sender, cmd, CMD_NOT_EXEC, bash);
 	}
 	set_sig_quit(DEFAULT);
 	if (execve(path, argv, bash->ms_env) < 0)
 	{
 		free(path);
-		print_cmd_error_and_exit("execve", cmd, CMD_NOT_EXEC, bash);
+		print_error_and_exit("execve", cmd, CMD_NOT_EXEC, bash);
 	}
 }

@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   utils_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 10:40:23 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/08 17:45:16 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/07/08 18:13:30 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/exec.h"
 
@@ -95,7 +95,7 @@ void	print_cmd_error(char *sender, char *cmd)
 	perror(cmd);
 }
 
-void	print_cmd_error_exit(char *sender, char *cmd, int status, t_bash *bash)
+void	print_error_and_exit(char *sender, char *cmd, int status, t_bash *bash)
 {
 	print_cmd_error(sender, cmd);
 	clear_bash_and_exit(&bash, status);

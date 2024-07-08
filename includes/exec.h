@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:50 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/08 17:45:22 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/07/08 18:13:59 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef EXEC_H
 # define EXEC_H
@@ -53,7 +53,7 @@ int		ft_strcmp(char *s1, char *s2);
 int		is_digit_only(char *str);
 int		handle_exit_error(int arg_count, t_token *red, t_instruction *instr);
 void	print_cmd_error(char *sender, char *cmd);
-void	print_cmd_error_exit(char *sender, char *cmd, int status, t_bash *bash);
+void	print_error_and_exit(char *sender, char *cmd, int status, t_bash *bash);
 void	reset_fd_stdout(t_instruction *inst);
 void	reset_fd_stdin(t_instruction *inst);
 
