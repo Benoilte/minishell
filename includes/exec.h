@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:50 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/08 14:07:49 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/07/08 15:08:26 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	close_unused_fd(t_instruction *current_inst, t_bash *bash);
 int		red(t_instruction *instruction, t_token *current_red);
 int		open_file(char *red, t_token *token);
 int     here_doc(t_instruction *instruction, t_bash *bash, t_token *current_red);
-int     display_here_doc(char *limiter);
+int     display_here_doc(char *limiter, t_instruction *instruction);
 
 // exec/sort_cmd_builtin
 
