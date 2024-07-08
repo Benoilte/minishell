@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:38:16 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/06 12:11:12 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:05:02 by tommartinel      ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 /*   Updated: 2024/06/25 22:32:09 by bebrandt         ###   ########.fr       */
 /*                                                                            */
@@ -62,6 +62,7 @@ void	exec_env_cmd(char *cmd, t_token *arg_env, char **arg_cmd, t_bash *bash);
 //builtins/echo.c
 
 void	echo(t_instruction *instruciton);
+int		check_echo_arg(char *arg);
 
 //builtins/export.c
 
