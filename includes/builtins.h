@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:38:16 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/02 18:54:43 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/06 12:11:12 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -28,7 +28,7 @@ enum
 
 // builtins/builtins.c
 
-void	reset_stdout(t_instruction *curr_inst);
+void	reset_fd_std(t_instruction *inst);
 
 // builtins/ft_exit.c
 

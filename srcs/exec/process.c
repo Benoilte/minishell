@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:51:22 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/05 10:26:56 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/06 12:37:28 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -29,7 +29,7 @@ int	parent_process(t_instruction *instruction)
 
 void	child_process(t_instruction *instruction, t_bash *bash, char **envp)
 {
-	if (instruction->prev != NULL)
+	if ((inst_have_input_red(instruction) == 0) && (instruction->prev != NULL))
 	{
 		if (dup2(instruction->prev->fd[0], STDIN_FILENO) < 0)
 		{
@@ -39,7 +39,7 @@ void	child_process(t_instruction *instruction, t_bash *bash, char **envp)
 		if (close_and_reset_fd(instruction, instruction->prev->fd) < 0)
 			clear_bash_and_exit(&bash, EXIT_FAILURE);
 	}
-	if (instruction->next != NULL)
+	if ((inst_have_output_red(instruction) == 0) && (instruction->next != NULL))
 	{
 		if (dup2(instruction->fd[1], STDOUT_FILENO) < 0)
 		{
@@ -50,8 +50,8 @@ void	child_process(t_instruction *instruction, t_bash *bash, char **envp)
 			clear_bash_and_exit(&bash, EXIT_FAILURE);
 	}
 	close_unused_fd(instruction, bash);
-	if (sort_red(instruction, bash) < 0)
-		clear_bash_and_exit(&bash, EXIT_FAILURE);
+	// if (sort_red(STDIN_FILENO, STDOUT_FILENO, instruction, bash) < 0)
+	// 	clear_bash_and_exit(&bash, EXIT_FAILURE);
 	if (instruction->cmd != NULL || instruction->prev != NULL || ft_strcmp(instruction->cmd->data, "exit") == 0)
 		sort_cmd_builtin(instruction, bash, envp);
 }

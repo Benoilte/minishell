@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   red.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 13:16:17 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/08 11:41:09 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/07/08 11:57:00 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	open_file(char *red, t_token *token)
 		print_cmd_error("minishell", red);
 	return (file);
 }
-int here_doc(t_instruction *instruction, t_bash *bash, t_token *current_red) 
+int here_doc(t_instruction *instruction, t_bash *bash, t_token *current_red)
 {
     (void)bash;
     char *limiter;
@@ -35,21 +35,21 @@ int here_doc(t_instruction *instruction, t_bash *bash, t_token *current_red)
     char *line;
 
     limiter = current_red->option;
-    if (pipe(instruction->fd) == -1) 
+    if (pipe(instruction->fd) == -1)
     {
         perror("pipe");
         return (-1);
     }
     reader = fork();
-    if (reader == 0) 
+    if (reader == 0)
     {
         close(instruction->fd[0]);
-        while (1) 
+        while (1)
         {
             line = readline("> ");
-            if (!line) 
+            if (!line)
                 return (0);
-            if (strncmp(line, limiter, strlen(limiter)) == 0 && line[strlen(limiter)] == '\0') 
+            if (strncmp(line, limiter, strlen(limiter)) == 0 && line[strlen(limiter)] == '\0')
             {
                 free(line);
                 return (0);
@@ -59,7 +59,7 @@ int here_doc(t_instruction *instruction, t_bash *bash, t_token *current_red)
             free(line);
         }
     }
-    else 
+    else
     {
         close(instruction->fd[1]);
         dup2(instruction->fd[0], STDIN_FILENO);
@@ -68,7 +68,7 @@ int here_doc(t_instruction *instruction, t_bash *bash, t_token *current_red)
 	return (0);
 }
 
-int	red(t_instruction *instruction, t_token *current_red)
+int	red(int fd_in, int fd_out, t_instruction *instruction, t_token *current_red)
 {
 	char	*red;
 	int		file;
@@ -91,7 +91,7 @@ int	red(t_instruction *instruction, t_token *current_red)
 		file = open_file(red, current_red);
 		if (file < 0)
 			return (-1);
-		dup2(file, STDOUT_FILENO);
+		dup2(file, fd_out);
 		close(file);
 	}
 	if (i & INPUT)
@@ -99,9 +99,8 @@ int	red(t_instruction *instruction, t_token *current_red)
 		file = open_file(red, current_red);
 		if (file < 0)
 			return (-1);
-		dup2(file, STDIN_FILENO);
+		dup2(file, fd_in);
 		close(file);
 	}
 	return (0);
 }
-
