@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   red.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 13:16:17 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/08 17:42:26 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/07/08 18:18:22 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/exec.h"
 
@@ -51,7 +51,7 @@ int here_doc(t_instruction *instr, t_bash *bash, t_token *current_red)
             line = readline("> ");
             if (!line)
                 exit(EXIT_SUCCESS);
-            if (strncmp(line, limiter, strlen(limiter)) == 0 && line[strlen(limiter)] == '\0')
+            if (strncmp(line, limiter, ft_strlen(limiter)) == 0 && line[strlen(limiter)] == '\0')
             {
                 free(line);
                 exit(EXIT_SUCCESS);
@@ -69,29 +69,30 @@ int here_doc(t_instruction *instr, t_bash *bash, t_token *current_red)
     }
 	return (0);
 }
-int display_here_doc(char *limiter)
+
+int	display_here_doc(char *limiter)
 {
-	pid_t reader;
-	char *line;
+	pid_t	reader;
+	char	*line;
 
 	reader = fork();
-    if (reader == 0)
-    {
-        while (1)
-        {
-            line = readline("> ");
-            if (!line)
-                exit(EXIT_SUCCESS);
-            if (strncmp(line, limiter, strlen(limiter)) == 0 && line[strlen(limiter)] == '\0')
-            {
-                free(line);
-                exit(EXIT_SUCCESS);
-            }
-            free(line);
-        }
-    }
-    else
-        waitpid(reader, NULL, 0);
+	if (reader == 0)
+	{
+		while (1)
+		{
+			line = readline("> ");
+			if (!line)
+				exit(EXIT_SUCCESS);
+			if (strncmp(line, limiter, strlen(limiter)) == 0 && line[strlen(limiter)] == '\0')
+			{
+				free(line);
+				exit(EXIT_SUCCESS);
+			}
+			free(line);
+		}
+	}
+	else
+		waitpid(reader, NULL, 0);
 	return (0);
 }
 
