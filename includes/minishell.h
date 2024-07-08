@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:29:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/05 10:38:50 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:38:39 by tommartinel      ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -35,6 +35,9 @@
 # include "struct.h"
 # include "error.h"
 # include "../libft/includes/libft.h"
+# include "exec.h"
+# include "builtins.h"
+# include "parser.h"
 
 // main/minishell.c
 
@@ -65,14 +68,13 @@ int		sequence_is_filled(t_instruction *instruction);
 
 // builtins/builtins.c
 
-void builtins(t_instruction *instruction, t_env *env, t_bash *bash);
+void	builtins(t_instruction *instruction, t_env *env, t_bash *bash);
 
 // exec/exec.c
 
 void	exec(t_instruction *instruction, t_bash *bash, char **envp);
-int 	setup_pipe(t_instruction *current);
-int 	handle_process(t_instruction *current, t_bash *bash, char **envp);
-
+int		setup_pipe(t_instruction *current);
+int		handle_process(t_instruction *current, t_bash *bash, char **envp);
 
 // test/test.c
 
