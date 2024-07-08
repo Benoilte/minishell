@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   red.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 13:16:17 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/08 14:29:25 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/07/08 15:08:46 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	open_file(char *red, t_token *token)
 		print_cmd_error("minishell", red);
 	return (file);
 }
+
 int here_doc(t_instruction *instruction, t_bash *bash, t_token *current_red)
 {
     (void)bash;
@@ -36,7 +37,7 @@ int here_doc(t_instruction *instruction, t_bash *bash, t_token *current_red)
 
     limiter = current_red->option;
 	if (inst_have_input_red(current_red->next) != 0)
-		return (display_here_doc(limiter));
+		return (display_here_doc(limiter, instruction));
 	if (pipe(instruction->fd_heredoc) == -1)
     {
         perror("pipe");
@@ -45,6 +46,7 @@ int here_doc(t_instruction *instruction, t_bash *bash, t_token *current_red)
     reader = fork();
     if (reader == 0)
     {
+		reset_fd_stdout(instruction);
         close(instruction->fd_heredoc[0]);
         while (1)
         {
@@ -69,7 +71,8 @@ int here_doc(t_instruction *instruction, t_bash *bash, t_token *current_red)
     }
 	return (0);
 }
-int display_here_doc(char *limiter)
+
+int display_here_doc(char *limiter, t_instruction *instruction)
 {
 	pid_t reader;
 	char *line;
@@ -77,6 +80,7 @@ int display_here_doc(char *limiter)
 	reader = fork();
     if (reader == 0)
     {
+		reset_fd_stdout(instruction);
         while (1)
         {
             line = readline("> ");
