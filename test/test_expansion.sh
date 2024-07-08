@@ -1,4 +1,4 @@
-#! /bin/bash
+#! minishell
 
 # print only a dollar sign
 echo 'echo $'

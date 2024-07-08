@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:29:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/05 10:38:50 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/08 18:04:09 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -47,6 +47,7 @@ void	start_interactive_minishell(t_bash *bash, int debug);
 // main/non_interactive_minishell.c
 
 void	start_non_interactive_minishell(t_bash *bash, char *file, int debug);
+int		is_wrong_file_format(char *file, int fd);
 char	*get_sequence(int fd);
 
 // main/minishell_utils.c
@@ -65,14 +66,13 @@ int		sequence_is_filled(t_instruction *instruction);
 
 // builtins/builtins.c
 
-void builtins(t_instruction *instruction, t_env *env, t_bash *bash);
+void	builtins(t_instruction *instruction, t_env *env, t_bash *bash);
 
 // exec/exec.c
 
 void	exec(t_instruction *instruction, t_bash *bash, char **envp);
-int 	setup_pipe(t_instruction *current);
-int 	handle_process(t_instruction *current, t_bash *bash, char **envp);
-
+int		setup_pipe(t_instruction *current);
+int		handle_process(t_instruction *current, t_bash *bash, char **envp);
 
 // test/test.c
 
