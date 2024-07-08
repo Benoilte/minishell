@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/08 12:08:59 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:59:25 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void	exec(t_instruction *instruction, t_bash *bash, char **envp)
 	{
 		if (sort_red(STDIN_FILENO, STDOUT_FILENO, instruction, bash) < 0)
 			instruction->exit_status = 1;
-		reset_fd_std(instruction);
+		reset_fd_stdout(instruction);
+		reset_fd_stdin(instruction);
 	}
 	else if (instruction->next == NULL && (instruction->cmd->data_type & BUILTIN))
 	{
@@ -69,7 +70,8 @@ void	exec(t_instruction *instruction, t_bash *bash, char **envp)
 			instruction->exit_status = 1;
 		else
 			builtins(instruction, env, bash);
-		reset_fd_std(instruction);
+		reset_fd_stdout(instruction);
+		reset_fd_stdin(instruction);
 	}
 	else if (instruction->next != NULL || (instruction->cmd->data_type & CMD))
 		multi_exec(bash, instruction, envp);
@@ -97,7 +99,7 @@ void	set_exit_code(t_bash *bash)
 	}
 }
 
-void	reset_fd_std(t_instruction *inst)
+void	reset_fd_stdout(t_instruction *inst)
 {
 	if (inst->pid != 0)
 	{
@@ -111,6 +113,13 @@ void	reset_fd_std(t_instruction *inst)
 			inst->exit_status = 1;
 			print_cmd_error("reset_stdout close", inst->cmd->data);
 		}
+	}
+}
+
+void	reset_fd_stdin(t_instruction *inst)
+{
+	if (inst->pid != 0)
+	{
 		if (dup2(inst->save_stdin, STDIN_FILENO) < 0)
 		{
 			inst->exit_status = 1;

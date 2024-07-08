@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 13:16:17 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/08 11:57:00 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:10:11 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int here_doc(t_instruction *instruction, t_bash *bash, t_token *current_red)
     char *line;
 
     limiter = current_red->option;
-    if (pipe(instruction->fd) == -1)
+    if (pipe(instruction->fd_heredoc) == -1)
     {
         perror("pipe");
         return (-1);
@@ -43,27 +43,27 @@ int here_doc(t_instruction *instruction, t_bash *bash, t_token *current_red)
     reader = fork();
     if (reader == 0)
     {
-        close(instruction->fd[0]);
+        close(instruction->fd_heredoc[0]);
         while (1)
         {
             line = readline("> ");
             if (!line)
-                return (0);
+                exit(EXIT_SUCCESS);
             if (strncmp(line, limiter, strlen(limiter)) == 0 && line[strlen(limiter)] == '\0')
             {
                 free(line);
-                return (0);
+                exit(EXIT_SUCCESS);
             }
-            write(instruction->fd[1], line, strlen(line));
-            write(instruction->fd[1], "\n", 1);
+            write(instruction->fd_heredoc[1], line, strlen(line));
+            write(instruction->fd_heredoc[1], "\n", 1);
             free(line);
         }
     }
     else
     {
-        close(instruction->fd[1]);
-        dup2(instruction->fd[0], STDIN_FILENO);
-        wait(NULL);
+        close(instruction->fd_heredoc[1]);
+        dup2(instruction->fd_heredoc[0], STDIN_FILENO);
+        waitpid(reader, NULL, 0);
     }
 	return (0);
 }
