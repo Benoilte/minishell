@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   new.c                                              :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 22:30:56 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/06 16:40:38 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/06 12:06:47 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/minishell.h"
 
@@ -54,8 +54,6 @@ t_instruction	*new_instruction(void)
 	instruction->cmd_array = NULL;
 	instruction->fd[0] = -1;
 	instruction->fd[1] = -1;
-	instruction->fd_heredoc[0] = -1;
-	instruction->fd_heredoc[1] = -1;
 	instruction->pid = -1;
 	instruction->save_stdout = dup(STDOUT_FILENO);
 	if (!instruction->save_stdout)
