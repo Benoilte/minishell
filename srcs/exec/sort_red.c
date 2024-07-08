@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sort_red.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:11 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/08 13:21:32 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:07:55 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-int	sort_red(int fd_in, int fd_out, t_instruction *instruction, t_bash *bash)
+int	sort_red(t_instruction *instruction, t_bash *bash)
 {
 	t_token	*current_red_token;
 
@@ -22,7 +22,7 @@ int	sort_red(int fd_in, int fd_out, t_instruction *instruction, t_bash *bash)
 		if (current_red_token->data_type
 			& (INPUT | OUTPUT_APPEND | OUTPUT_TRUNCATE))
 		{
-			if (red(fd_in, fd_out, instruction, current_red_token) < 0)
+			if (red(instruction, current_red_token) < 0)
 				return (-1);
 		}
 		else if (current_red_token->data_type & (HEREDOC))

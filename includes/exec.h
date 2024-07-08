@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:50 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/08 13:22:11 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:07:49 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 // exec/sort_red.c
 
-int		sort_red(int fd_in, int fd_out, t_instruction *instruction, t_bash *bash);
+int		sort_red(t_instruction *instruction, t_bash *bash);
 int		inst_have_input_red(t_token *current_red);
 int		inst_have_output_red(t_token *current_red);
 
@@ -39,9 +39,11 @@ void	close_unused_fd(t_instruction *current_inst, t_bash *bash);
 
 // exec/red.c
 
-int		red(int fd_in, int fd_out, t_instruction *instruction, t_token *current_red);
+int		red(t_instruction *instruction, t_token *current_red);
 int		open_file(char *red, t_token *token);
 int     here_doc(t_instruction *instruction, t_bash *bash, t_token *current_red);
+int     display_here_doc(char *limiter);
+
 // exec/sort_cmd_builtin
 
 void	sort_cmd_builtin(t_instruction *instruction, t_bash *bash, char **envp);
