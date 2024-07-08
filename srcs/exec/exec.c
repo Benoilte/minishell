@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/08 11:56:34 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:08:59 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	exec(t_instruction *instruction, t_bash *bash, char **envp)
 	{
 		if (sort_red(STDIN_FILENO, STDOUT_FILENO, instruction, bash) < 0)
 			instruction->exit_status = 1;
+		reset_fd_std(instruction);
 	}
 	else if (instruction->next == NULL && (instruction->cmd->data_type & BUILTIN))
 	{
@@ -68,6 +69,7 @@ void	exec(t_instruction *instruction, t_bash *bash, char **envp)
 			instruction->exit_status = 1;
 		else
 			builtins(instruction, env, bash);
+		reset_fd_std(instruction);
 	}
 	else if (instruction->next != NULL || (instruction->cmd->data_type & CMD))
 		multi_exec(bash, instruction, envp);
@@ -78,12 +80,14 @@ void	set_exit_code(t_bash *bash)
 {
 	t_instruction	*last_inst;
 
-	if (size_instruction(bash->instruction) == 1
+	last_inst = last_instruction(bash->instruction);
+	if (last_inst->cmd == NULL)
+		bash->exit_code = bash->instruction->exit_status;
+	else if (size_instruction(bash->instruction) == 1
 		&& type_equal_to(BUILTIN, bash->instruction->cmd->data_type))
 		bash->exit_code = bash->instruction->exit_status;
 	else
 	{
-		last_inst = last_instruction(bash->instruction);
 		if (last_inst->pid == -1)
 			bash->exit_code = last_inst->exit_status;
 		else if (WIFSIGNALED(last_inst->exit_status))

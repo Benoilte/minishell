@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:11 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/08 11:57:15 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:58:52 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ int	sort_red(int fd_in, int fd_out, t_instruction *instruction, t_bash *bash)
 		}
 		current_red_token = current_red_token->next;
 	}
-	if (instruction->cmd == NULL && instruction->next == NULL)
-		reset_stdout(instruction);
 	return (0);
 }
 
