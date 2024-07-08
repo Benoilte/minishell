@@ -6,7 +6,7 @@
 /*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:38:16 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/08 16:05:02 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/07/08 17:37:26 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # define BUILTINS_H
 
 # include "minishell.h"
-# include "exec.h"
 
 enum
 {
@@ -33,6 +32,7 @@ void	reset_fd_std(t_instruction *inst);
 // builtins/ft_exit.c
 
 void	ft_exit(t_instruction *instruction, t_bash *bash);
+void	finalize_exit(t_instruction *instruction, t_bash *bash, int arg_count);
 
 // builtins/pwd.c
 
@@ -63,11 +63,15 @@ void	exec_env_cmd(char *cmd, t_token *arg_env, char **arg_cmd, t_bash *bash);
 
 void	echo(t_instruction *instruciton);
 int		check_echo_arg(char *arg);
+int		handle_echo_options(t_instruction *instruction);
+void	print_echo_args(t_instruction *instruction, int start_index);
 
 //builtins/export.c
 
 void	ft_export(t_env *env, t_instruction *instruction);
 int		set_env_var_liste(t_env *env, char *envp);
+void	print_env_vars(t_env *env, t_instruction *instruction);
+void	handle_export_args(t_env *env, t_instruction *instruction);
 
 //builtins/unset.c
 

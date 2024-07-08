@@ -6,7 +6,7 @@
 /*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:11 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/08 14:07:55 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/07/08 17:40:45 by tommartinel      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	sort_red(t_instruction *instruction, t_bash *bash)
 		if (current_red_token->data_type
 			& (INPUT | OUTPUT_APPEND | OUTPUT_TRUNCATE))
 		{
-			if (red(instruction, current_red_token) < 0)
+			if (red(current_red_token) < 0)
 				return (-1);
 		}
 		else if (current_red_token->data_type & (HEREDOC))

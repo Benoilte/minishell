@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   utils_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
+/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 10:40:23 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/01 13:46:14 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:45:16 by tommartinel      ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
@@ -69,18 +69,18 @@ int is_digit_only(char *str)
 	return (0);
 }
 
-int handle_exit_error(int arg_count, t_token *current_red, t_instruction *instruction)
+int handle_exit_error(int arg_count, t_token *red, t_instruction *instr)
 {
     if (arg_count > 1)
     {
-        instruction->exit_status = 1;
+        instr->exit_status = 1;
 		printf("exit\n");
         printf("bash: exit: too many arguments\n");
         return (1);
     }
-    if (arg_count == 1 && current_red != NULL && is_digit_only(current_red->data) != 0)
+    if (arg_count == 1 && red != NULL && is_digit_only(red->data) != 0)
 	{
-        instruction->exit_status = 1;
+        instr->exit_status = 1;
         printf("exit\n");
         printf("bash: exit: too many arguments\n");
         return (1);
@@ -95,7 +95,7 @@ void	print_cmd_error(char *sender, char *cmd)
 	perror(cmd);
 }
 
-void	print_cmd_error_and_exit(char *sender, char *cmd, int status, t_bash *bash)
+void	print_cmd_error_exit(char *sender, char *cmd, int status, t_bash *bash)
 {
 	print_cmd_error(sender, cmd);
 	clear_bash_and_exit(&bash, status);
