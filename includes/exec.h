@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:50 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/09 12:24:53 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/09 21:03:36 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,23 @@ int		wait_child_process(t_instruction *instruction);
 
 int		red(t_token *current_red);
 int		open_file(char *red, t_token *token);
+int		dup_and_close(int fd, int fd2);
 
 // exec/red_here_doc.c
 
-int		setup_here_doc(t_instruction *inst, t_token *current_red);
-int		display_here_doc(char *limiter, t_instruction *inst);
-char	*here_doc_readline(char *limiter);
+int		setup_here_doc(t_instruction *inst, t_token *current_red, t_bash *bash);
+int		display_here_doc(char *limiter, t_instruction *inst, t_bash *bash);
+char	*here_doc_readline(char *limiter, t_bash *bash);
+
+// exec/red_here_doc_utils.c
+
+int		handle_here_doc_process(pid_t reader, t_instruction *inst,
+			t_token *current_red, t_bash *bash);
+void	child_here_doc_process(t_instruction *inst, t_token *current_red,
+			t_bash *bash);
+int		parent_here_doc_process(pid_t reader, t_instruction *inst,
+			t_token *current_red);
+
 
 // exec/sort_cmd_builtin
 

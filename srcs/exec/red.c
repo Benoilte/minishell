@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 13:16:17 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/09 12:23:26 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/09 21:04:42 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,25 @@ int	red(t_token *current_red)
 		file = open_file(red, current_red);
 		if (file < 0)
 			return (-1);
-		dup2(file, STDOUT_FILENO);
-		close(file);
+		if (dup_and_close(file, STDOUT_FILENO) < 0)
+			return (-1);
 	}
 	if (i & INPUT)
 	{
 		file = open_file(red, current_red);
 		if (file < 0)
 			return (-1);
-		dup2(file, STDIN_FILENO);
-		close(file);
+		if (dup_and_close(file, STDIN_FILENO) < 0)
+			return (-1);
 	}
+	return (0);
+}
+
+int	dup_and_close(int fd, int fd2)
+{
+	if (dup2(fd, fd2) < 0)
+		return (-1);
+	if (close(fd) < 0)
+		return (-1);
 	return (0);
 }

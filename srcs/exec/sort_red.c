@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:11 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/09 12:26:48 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/09 13:56:38 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	sort_red(t_instruction *instruction, t_bash *bash)
 {
 	t_token	*current_red_token;
 
-	(void)bash;
 	current_red_token = instruction->red;
 	while (current_red_token != NULL)
 	{
@@ -28,7 +27,7 @@ int	sort_red(t_instruction *instruction, t_bash *bash)
 		}
 		else if (current_red_token->data_type & (HEREDOC))
 		{
-			if (setup_here_doc(instruction, current_red_token) < 0)
+			if (setup_here_doc(instruction, current_red_token, bash) < 0)
 				return (-1);
 		}
 		current_red_token = current_red_token->next;
