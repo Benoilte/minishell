@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 10:40:23 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/09 08:35:27 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/09 11:49:40 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ int	ft_strcmp(char *s1, char *s2)
 	return (0);
 }
 
-int is_digit_only(char *str)
+int	is_digit_only(char *str)
 {
-	size_t i;
+	size_t	i;
 
 	if (ft_strlen(str) == 0)
 		return (1);
@@ -67,49 +67,4 @@ int is_digit_only(char *str)
 		i++;
 	}
 	return (0);
-}
-
-int handle_exit_error(int arg_count, t_token *red, t_instruction *instr)
-{
-    if (arg_count > 1)
-    {
-        instr->exit_status = 1;
-		printf("exit\n");
-        printf("bash: exit: too many arguments\n");
-        return (1);
-    }
-    if (arg_count == 1 && red != NULL && is_digit_only(red->data) != 0)
-	{
-        instr->exit_status = 1;
-        printf("exit\n");
-        printf("bash: exit: too many arguments\n");
-        return (1);
-    }
-	return (0);
-}
-
-void	print_red_error(char *sender, t_token *red)
-{
-	ft_putstr_fd(sender, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	if (red != NULL)
-		perror(red->option);
-	else
-		ft_putendl_fd(strerror(errno), STDERR_FILENO);
-}
-
-void	print_cmd_error(char *sender, t_token *cmd)
-{
-	ft_putstr_fd(sender, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	if (cmd != NULL)
-		perror(cmd->data);
-	else
-		ft_putendl_fd(strerror(errno), STDERR_FILENO);
-}
-
-void	print_error_and_exit(char *sender, t_token *cmd, int status, t_bash *bash)
-{
-	print_cmd_error(sender, cmd);
-	clear_bash_and_exit(&bash, status);
 }

@@ -6,73 +6,33 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/09 08:26:59 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/09 11:08:21 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-int setup_pipe(t_instruction *current)
-{
-    if (current->next != NULL)
-    {
-        if (pipe(current->fd) == -1)
-        {
-            print_cmd_error("setup_pipe", current->cmd);
-            return (-1);
-        }
-    }
-    else
-    {
-        current->fd[0] = -1;
-        current->fd[1] = -1;
-    }
-	return (0);
-}
-
-int handle_process(t_instruction *current, t_bash *bash, char **envp)
-{
-    current->pid = fork();
-    if (current->pid == -1)
-    {
-        print_cmd_error("handle_process fork()", current->cmd);
-        return (-1);
-    }
-    else if (current->pid == 0)
-    {
-		set_sig_int(DEFAULT);
-        child_process(current, bash, envp);
-		clear_bash_and_exit(&bash, current->exit_status);
-    }
-    else
-	{
-        if (parent_process(current) < 0)
-			current->exit_status = 1;
-	}
-	return (0);
-}
-
-void	exec(t_instruction *instruction, t_bash *bash, char **envp)
+void	exec(t_instruction *inst, t_bash *bash, char **envp)
 {
 	t_env	*env;
 
 	env = bash->env;
-	if (instruction->next == NULL && instruction->cmd == NULL && instruction->red != NULL)
+	if (inst->next == NULL && inst->cmd == NULL)
 	{
-		if (sort_red(instruction, bash) < 0)
-			instruction->exit_status = 1;
-		reset_fd_stdin_and_stdout(instruction);
+		if (sort_red(inst, bash) < 0)
+			inst->exit_status = 1;
+		reset_fd_stdin_and_stdout(inst);
 	}
-	else if (instruction->next == NULL && (instruction->cmd->data_type & BUILTIN))
+	else if (inst->next == NULL && (inst->cmd->data_type & BUILTIN))
 	{
-		if (sort_red(instruction, bash) < 0)
-			instruction->exit_status = 1;
+		if (sort_red(inst, bash) < 0)
+			inst->exit_status = 1;
 		else
-			builtins(instruction, env, bash);
-		reset_fd_stdin_and_stdout(instruction);
+			builtins(inst, env, bash);
+		reset_fd_stdin_and_stdout(inst);
 	}
-	else if (instruction->next != NULL || (instruction->cmd->data_type & CMD))
-		multi_exec(bash, instruction, envp);
+	else
+		exec_commands(bash, inst, envp);
 	set_exit_code(bash);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_red.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:11 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/08 17:40:45 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/07/09 13:56:38 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,23 @@ int	sort_red(t_instruction *instruction, t_bash *bash)
 		}
 		else if (current_red_token->data_type & (HEREDOC))
 		{
-			if (here_doc(instruction, bash, current_red_token) < 0)
+			if (setup_here_doc(instruction, current_red_token, bash) < 0)
 				return (-1);
 		}
 		current_red_token = current_red_token->next;
+	}
+	return (0);
+}
+
+int	setup_pipe(t_instruction *current)
+{
+	if (current->next != NULL)
+	{
+		if (pipe(current->fd) == -1)
+		{
+			print_cmd_error("setup_pipe", current->cmd);
+			return (-1);
+		}
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:30:23 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/09 08:31:38 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/09 11:36:08 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ char	*get_path(char *cmd, t_bash *bash)
 void	ft_cmd(char *sender, t_token *cmd, char **argv, t_bash *bash)
 {
 	char		*path;
-	struct stat	statbuf;
 
 	path = get_path(cmd->data, bash);
 	if (!path)
@@ -62,21 +61,33 @@ void	ft_cmd(char *sender, t_token *cmd, char **argv, t_bash *bash)
 		ft_putendl_fd(": command not found", STDERR_FILENO);
 		clear_bash_and_exit(&bash, CMD_NOT_FOUND);
 	}
+	if (is_path_reachable(path, sender, cmd, bash))
+	{
+		set_sig_quit(DEFAULT);
+		if (execve(path, argv, bash->ms_env) < 0)
+		{
+			free(path);
+			print_error_and_exit("execve", cmd, CMD_NOT_EXEC, bash);
+		}
+	}
+}
+
+int	is_path_reachable(char *path, char *sender, t_token *cmd, t_bash *bash)
+{
+	struct stat	statbuf;
+
 	if ((stat(path, &statbuf) == 0) && (statbuf.st_mode & S_IFDIR))
 	{
 		errno = EISDIR;
 		free(path);
 		print_error_and_exit(sender, cmd, CMD_NOT_EXEC, bash);
+		return (0);
 	}
 	if (access(path, F_OK | X_OK))
 	{
 		free(path);
 		print_error_and_exit(sender, cmd, CMD_NOT_EXEC, bash);
+		return (0);
 	}
-	set_sig_quit(DEFAULT);
-	if (execve(path, argv, bash->ms_env) < 0)
-	{
-		free(path);
-		print_error_and_exit("execve", cmd, CMD_NOT_EXEC, bash);
-	}
+	return (1);
 }
