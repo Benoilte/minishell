@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:50 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/09 11:35:12 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/09 11:48:37 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 // exec/exec.c
 
+void	set_exit_code(t_bash *bash);
 
 // exec/sort_red.c
 
@@ -54,13 +55,13 @@ void	sort_cmd_builtin(t_instruction *instruction, t_bash *bash, char **envp);
 int		ft_get_next_line(char **line);
 int		ft_strcmp(char *s1, char *s2);
 int		is_digit_only(char *str);
+
+// exec/handle_execution_error.c
+
 void	print_red_error(char *sender, t_token *red);
 void	print_cmd_error(char *sender, t_token *cmd);
-void	print_error_and_exit(char *sender, t_token *cmd, int status, t_bash *bash);
-
-// exec/exec.c
-
-void	set_exit_code(t_bash *bash);
+void	print_error_and_exit(char *sender, t_token *cmd,
+			int status, t_bash *bash);
 
 // exec/exec_commands.c
 
