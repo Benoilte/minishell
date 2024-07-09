@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:02:02 by tommartinel       #+#    #+#             */
-/*   Updated: 2024/07/09 11:14:40 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/09 11:41:48 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,5 @@ void	exec_commands(t_bash *bash, t_instruction *instr, char **envp)
 		reset_fd_stdin_and_stdout(current);
 		current = current->next;
 	}
-	current = instr;
-	while (current != NULL)
-	{
-		waitpid(current->pid, &current->exit_status, 0);
-		current = current->next;
-	}
+	wait_child_process(instr);
 }
