@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:38:16 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/08 17:37:26 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/07/09 08:49:52 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ enum
 };
 
 // builtins/builtins.c
-
-void	reset_fd_std(t_instruction *inst);
 
 // builtins/ft_exit.c
 
@@ -57,7 +55,7 @@ void	exec_env_without_cmd(char **ms_env, t_instruction *instruction);
 // builtins/ft_env.c
 
 void	add_arg_env(t_bash *bash, t_token *arg);
-void	exec_env_cmd(char *cmd, t_token *arg_env, char **arg_cmd, t_bash *bash);
+void	exec_env_cmd(t_token *cmd, t_token *arg_env, char **arg_cmd, t_bash *bash);
 
 //builtins/echo.c
 

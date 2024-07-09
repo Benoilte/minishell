@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:32:01 by tommartinel       #+#    #+#             */
-/*   Updated: 2024/07/08 16:32:05 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/07/09 08:38:54 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	add_arg_env(t_bash *bash, t_token *arg)
 	}
 }
 
-void	exec_env_cmd(char *cmd, t_token *arg_env, char **arg_cmd, t_bash *bash)
+void	exec_env_cmd(t_token *cmd, t_token *arg_env, char **arg_cmd, t_bash *bash)
 {
 	set_sig_int(DEFAULT);
 	add_arg_env(bash, arg_env);

@@ -6,45 +6,11 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:42:09 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/01 17:00:12 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/09 08:38:41 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/builtins.h"
-
-/*
-Remplacer élément char **envp de la structure bash par char **ms_env
-
-	- ms_env sera une copie de la structure t_env au format [[n=v][n=v][NULL]]
-
-	- celle ci devra être mise à jour chaque fois qu'on effectue
-	  une modification de la structure t_env avec export, unset, cd
-	  et sera utilisée à chaque fois qu'on execute la fonction execve()
-	  pour appeler les commande avec l'environnement du minishell
-
-Si aucun argument => imprimer les variables d'environnemnt sur le STDOUT
-
-Si argument, trouver le premier qui n'est pas au format name=value
-	- Contrôler si c'est un programme existant, avec la variable PATH
-
-	- Si inexistant retourner une erreur et sortir de la fonction
-	  avec exit_status correspondant
-
-	- Si commande existante
-		- Export paramètre précédent au format name=value
-
-		- Reconfigurer la cmd_array de la structure instruction
-
-		- Créer un process enfant et executer la commande avec execve en donnant
-		  en argument l'environement précédement modifié
-
-		- Une fois le process enfant terminé, correctement ou avec une erreur
-		  d'execution unset les paramètre précédemment exporter
-
-		- Reconfiguer la variable ms_env
-
-sortir de la commande env() avec exit status correspondant
-*/
 
 void	ft_env(t_bash *bash, t_instruction *instruction)
 {
@@ -101,7 +67,7 @@ void	exec_env_with_cmd(t_bash *bash, t_instruction *inst)
 		inst->exit_status = 1;
 	}
 	else if (inst->pid == 0)
-		exec_env_cmd(current_cmd->data, inst->cmd->next, inst->cmd_array, bash);
+		exec_env_cmd(current_cmd, inst->cmd->next, inst->cmd_array, bash);
 	else
 	{
 		inst->cmd->data_type ^= BUILTIN;

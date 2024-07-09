@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_cmd.c                                           :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:30:23 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/08 18:13:40 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/09 08:31:38 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
@@ -49,16 +49,16 @@ char	*get_path(char *cmd, t_bash *bash)
 		return (ft_strdup(cmd));
 }
 
-void	ft_cmd(char *sender, char *cmd, char **argv, t_bash *bash)
+void	ft_cmd(char *sender, t_token *cmd, char **argv, t_bash *bash)
 {
 	char		*path;
 	struct stat	statbuf;
 
-	path = get_path(cmd, bash);
+	path = get_path(cmd->data, bash);
 	if (!path)
 	{
 		ft_putstr_fd("Minishell: ", STDERR_FILENO);
-		ft_putstr_fd(cmd, STDERR_FILENO);
+		ft_putstr_fd(cmd->data, STDERR_FILENO);
 		ft_putendl_fd(": command not found", STDERR_FILENO);
 		clear_bash_and_exit(&bash, CMD_NOT_FOUND);
 	}
