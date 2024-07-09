@@ -1,4 +1,4 @@
-#******************************************************************************#
+# **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
@@ -6,9 +6,9 @@
 #    By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/07/08 17:02:41 by bebrandt         ###   ########.fr        #
+#    Updated: 2024/07/09 07:44:17 by bebrandt         ###   ########.fr        #
 #                                                                              #
-#******************************************************************************#
+# **************************************************************************** #
 
 NAME				=	minishell
 
@@ -65,7 +65,9 @@ endif
 
 ifeq ($(EXEC), set)
 	EXEC_DIR			=	$(SRCS_DIR)exec/
-	EXEC_SRCS			=	$(addprefix $(EXEC_DIR), $(addsuffix .c, exec sort_red ft_cmd process red sort_cmd_builtin utils_exec multi_exec))
+	EXEC_SRCS			=	$(addprefix $(EXEC_DIR), $(addsuffix .c, exec sort_red \
+							ft_cmd process red sort_cmd_builtin utils_exec multi_exec \
+							file_desriptors_utils))
 endif
 
 # struct_utils ressources

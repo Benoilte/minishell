@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multi_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:02:02 by tommartinel       #+#    #+#             */
-/*   Updated: 2024/07/08 17:44:19 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/07/09 08:52:12 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	multi_exec(t_bash *bash, t_instruction *instr, char **envp)
 {
 	t_instruction	*current;
 
-	instr->prev = NULL;
 	current = instr;
 	while (current != NULL)
 	{
@@ -25,8 +24,7 @@ void	multi_exec(t_bash *bash, t_instruction *instr, char **envp)
 			current->exit_status = 1;
 		else
 			handle_process(current, bash, envp);
-		reset_fd_stdin(current);
-		reset_fd_stdout(current);
+		reset_fd_stdin_and_stdout(current);
 		current = current->next;
 	}
 	current = instr;

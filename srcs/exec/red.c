@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   red.c                                              :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 13:16:17 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/08 18:18:22 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/09 08:36:14 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
@@ -24,10 +24,10 @@ int	open_file(char *red, t_token *token)
 	if (INPUT & token->data_type)
 		file = open(red, O_RDONLY);
 	if (file < 0)
-		print_cmd_error("minishell", red);
+		print_red_error("minishell", token);
 	return (file);
 }
-int here_doc(t_instruction *instr, t_bash *bash, t_token *current_red)
+int here_doc(t_instruction *inst, t_bash *bash, t_token *current_red)
 {
     (void)bash;
     char *limiter;
@@ -36,8 +36,8 @@ int here_doc(t_instruction *instr, t_bash *bash, t_token *current_red)
 
     limiter = current_red->option;
 	if (inst_have_input_red(current_red->next) != 0)
-		return (display_here_doc(limiter));
-	if (pipe(instr->fd_heredoc) == -1)
+		return (display_here_doc(limiter, inst));
+	if (pipe(inst->fd_heredoc) == -1)
     {
         perror("pipe");
         return (-1);
@@ -45,7 +45,8 @@ int here_doc(t_instruction *instr, t_bash *bash, t_token *current_red)
     reader = fork();
     if (reader == 0)
     {
-        close(instr->fd_heredoc[0]);
+		reset_fd_stdin_and_stdout(inst);
+        close(inst->fd_heredoc[0]);
         while (1)
         {
             line = readline("> ");
@@ -56,21 +57,21 @@ int here_doc(t_instruction *instr, t_bash *bash, t_token *current_red)
                 free(line);
                 exit(EXIT_SUCCESS);
             }
-            write(instr->fd_heredoc[1], line, strlen(line));
-            write(instr->fd_heredoc[1], "\n", 1);
+            write(inst->fd_heredoc[1], line, strlen(line));
+            write(inst->fd_heredoc[1], "\n", 1);
             free(line);
         }
     }
     else
     {
-        close(instr->fd_heredoc[1]);
-        dup2(instr->fd_heredoc[0], STDIN_FILENO);
+        close(inst->fd_heredoc[1]);
+        dup2(inst->fd_heredoc[0], STDIN_FILENO);
         waitpid(reader, NULL, 0);
     }
 	return (0);
 }
 
-int	display_here_doc(char *limiter)
+int	display_here_doc(char *limiter, t_instruction *inst)
 {
 	pid_t	reader;
 	char	*line;
@@ -78,6 +79,7 @@ int	display_here_doc(char *limiter)
 	reader = fork();
 	if (reader == 0)
 	{
+		reset_fd_stdin_and_stdout(inst);
 		while (1)
 		{
 			line = readline("> ");

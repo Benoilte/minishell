@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/08 14:14:42 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/07/09 08:26:59 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int setup_pipe(t_instruction *current)
     {
         if (pipe(current->fd) == -1)
         {
-            print_cmd_error("setup_pipe", current->cmd->data);
+            print_cmd_error("setup_pipe", current->cmd);
             return (-1);
         }
     }
@@ -35,7 +35,7 @@ int handle_process(t_instruction *current, t_bash *bash, char **envp)
     current->pid = fork();
     if (current->pid == -1)
     {
-        print_cmd_error("handle_process fork()", current->cmd->data);
+        print_cmd_error("handle_process fork()", current->cmd);
         return (-1);
     }
     else if (current->pid == 0)
@@ -61,8 +61,7 @@ void	exec(t_instruction *instruction, t_bash *bash, char **envp)
 	{
 		if (sort_red(instruction, bash) < 0)
 			instruction->exit_status = 1;
-		reset_fd_stdout(instruction);
-		reset_fd_stdin(instruction);
+		reset_fd_stdin_and_stdout(instruction);
 	}
 	else if (instruction->next == NULL && (instruction->cmd->data_type & BUILTIN))
 	{
@@ -70,8 +69,7 @@ void	exec(t_instruction *instruction, t_bash *bash, char **envp)
 			instruction->exit_status = 1;
 		else
 			builtins(instruction, env, bash);
-		reset_fd_stdout(instruction);
-		reset_fd_stdin(instruction);
+		reset_fd_stdin_and_stdout(instruction);
 	}
 	else if (instruction->next != NULL || (instruction->cmd->data_type & CMD))
 		multi_exec(bash, instruction, envp);
@@ -96,39 +94,5 @@ void	set_exit_code(t_bash *bash)
 			bash->exit_code = 128 + WTERMSIG(last_inst->exit_status);
 		else if (WIFEXITED(last_inst->exit_status))
 			bash->exit_code = WEXITSTATUS(last_inst->exit_status);
-	}
-}
-
-void	reset_fd_stdout(t_instruction *inst)
-{
-	if (inst->pid != 0)
-	{
-		if (dup2(inst->save_stdout, STDOUT_FILENO) < 0)
-		{
-			inst->exit_status = 1;
-			print_cmd_error("reset_stdout dup2", inst->cmd->data);
-		}
-		if (close(inst->save_stdout) < 0)
-		{
-			inst->exit_status = 1;
-			print_cmd_error("reset_stdout close", inst->cmd->data);
-		}
-	}
-}
-
-void	reset_fd_stdin(t_instruction *inst)
-{
-	if (inst->pid != 0)
-	{
-		if (dup2(inst->save_stdin, STDIN_FILENO) < 0)
-		{
-			inst->exit_status = 1;
-			print_cmd_error("reset_stdin dup2", inst->cmd->data);
-		}
-		if (close(inst->save_stdin) < 0)
-		{
-			inst->exit_status = 1;
-			print_cmd_error("reset_stdin close", inst->cmd->data);
-		}
 	}
 }
