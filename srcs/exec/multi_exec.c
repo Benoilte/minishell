@@ -6,13 +6,13 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:02:02 by tommartinel       #+#    #+#             */
-/*   Updated: 2024/07/09 08:52:12 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/09 10:50:32 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-void	multi_exec(t_bash *bash, t_instruction *instr, char **envp)
+void	exec_commands(t_bash *bash, t_instruction *instr, char **envp)
 {
 	t_instruction	*current;
 

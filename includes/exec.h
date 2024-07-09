@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:50 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/09 08:35:49 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/09 10:50:55 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	set_exit_code(t_bash *bash);
 
 // exec/multi_exec.c
 
-void	multi_exec(t_bash *bash, t_instruction *instr, char **envp);
+void	exec_commands(t_bash *bash, t_instruction *instr, char **envp);
 
 // exec/file_desriptors_utils.c
 
