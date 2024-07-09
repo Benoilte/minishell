@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:24:31 by tommartinel       #+#    #+#             */
-/*   Updated: 2024/07/09 22:09:11 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/09 22:15:31 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,10 @@ static int	count_arguments(t_token *cmd)
 
 void	finalize_exit(t_instruction *instruction, t_bash *bash, int arg_count)
 {
-	if (instruction->save_stdout != -1)
-	{
-		dup2(instruction->save_stdout, STDOUT_FILENO);
-		close(instruction->save_stdout);
-		instruction->save_stdout = -1;
-	}
+	reset_fd_stdin_and_stdout(instruction);
 	if (arg_count == 1)
 		bash->exit_code = ft_atoi(instruction->cmd->next->data);
-	printf("exit\n");
+	ft_putendl_fd("exit", STDOUT_FILENO);
 	clear_bash_and_exit(&bash, bash->exit_code);
 }
 
