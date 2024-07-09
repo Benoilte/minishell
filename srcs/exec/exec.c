@@ -6,46 +6,11 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/09 10:50:20 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/09 11:08:21 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
-
-int	setup_pipe(t_instruction *current)
-{
-	if (current->next != NULL)
-	{
-		if (pipe(current->fd) == -1)
-		{
-			print_cmd_error("setup_pipe", current->cmd);
-			return (-1);
-		}
-	}
-	return (0);
-}
-
-int	handle_process(t_instruction *current, t_bash *bash, char **envp)
-{
-	current->pid = fork();
-	if (current->pid == -1)
-	{
-		print_cmd_error("handle_process fork()", current->cmd);
-		return (-1);
-	}
-	else if (current->pid == 0)
-	{
-		set_sig_int(DEFAULT);
-		child_process(current, bash, envp);
-		clear_bash_and_exit(&bash, current->exit_status);
-	}
-	else
-	{
-		if (parent_process(current) < 0)
-			current->exit_status = 1;
-	}
-	return (0);
-}
 
 void	exec(t_instruction *inst, t_bash *bash, char **envp)
 {

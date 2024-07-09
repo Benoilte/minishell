@@ -6,11 +6,33 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:51:22 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/09 10:31:24 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/09 10:58:41 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
+
+int	handle_process(t_instruction *current, t_bash *bash, char **envp)
+{
+	current->pid = fork();
+	if (current->pid == -1)
+	{
+		print_cmd_error("handle_process fork()", current->cmd);
+		return (-1);
+	}
+	else if (current->pid == 0)
+	{
+		set_sig_int(DEFAULT);
+		child_process(current, bash, envp);
+		clear_bash_and_exit(&bash, current->exit_status);
+	}
+	else
+	{
+		if (parent_process(current) < 0)
+			current->exit_status = 1;
+	}
+	return (0);
+}
 
 int	parent_process(t_instruction *instruction)
 {

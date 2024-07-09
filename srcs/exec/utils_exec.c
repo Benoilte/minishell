@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 10:40:23 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/09 08:35:27 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/09 11:04:45 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,25 +66,6 @@ int is_digit_only(char *str)
 			return (1);
 		i++;
 	}
-	return (0);
-}
-
-int handle_exit_error(int arg_count, t_token *red, t_instruction *instr)
-{
-    if (arg_count > 1)
-    {
-        instr->exit_status = 1;
-		printf("exit\n");
-        printf("bash: exit: too many arguments\n");
-        return (1);
-    }
-    if (arg_count == 1 && red != NULL && is_digit_only(red->data) != 0)
-	{
-        instr->exit_status = 1;
-        printf("exit\n");
-        printf("bash: exit: too many arguments\n");
-        return (1);
-    }
 	return (0);
 }
 
