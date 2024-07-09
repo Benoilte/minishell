@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:50 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/09 11:48:37 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/09 12:24:53 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,12 @@ int		wait_child_process(t_instruction *instruction);
 
 int		red(t_token *current_red);
 int		open_file(char *red, t_token *token);
-int		here_doc(t_instruction *inst, t_bash *bash, t_token *current_red);
+
+// exec/red_here_doc.c
+
+int		setup_here_doc(t_instruction *inst, t_token *current_red);
 int		display_here_doc(char *limiter, t_instruction *inst);
+char	*here_doc_readline(char *limiter);
 
 // exec/sort_cmd_builtin
 
