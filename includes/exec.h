@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:50 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/09 21:03:36 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/09 22:24:24 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	child_here_doc_process(t_instruction *inst, t_token *current_red,
 			t_bash *bash);
 int		parent_here_doc_process(pid_t reader, t_instruction *inst,
 			t_token *current_red);
-
 
 // exec/sort_cmd_builtin
 
