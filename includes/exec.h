@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:50 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/09 11:09:24 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/09 11:35:12 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		inst_have_output_red(t_token *current_red);
 
 void	ft_cmd(char *sender, t_token *cmd, char **argv, t_bash *bash);
 char	*get_path(char *cmd, t_bash *bash);
+int		is_path_reachable(char *path, char *sender, t_token *cmd, t_bash *bash);
 
 // exec/process.c
 
