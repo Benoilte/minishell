@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:24:31 by tommartinel       #+#    #+#             */
-/*   Updated: 2024/07/09 11:05:13 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/09 22:15:31 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,10 @@ static int	count_arguments(t_token *cmd)
 
 void	finalize_exit(t_instruction *instruction, t_bash *bash, int arg_count)
 {
-	if (instruction->save_stdout != -1)
-	{
-		dup2(instruction->save_stdout, STDOUT_FILENO);
-		close(instruction->save_stdout);
-		instruction->save_stdout = -1;
-	}
+	reset_fd_stdin_and_stdout(instruction);
 	if (arg_count == 1)
 		bash->exit_code = ft_atoi(instruction->cmd->next->data);
-	printf("exit\n");
+	ft_putendl_fd("exit", STDOUT_FILENO);
 	clear_bash_and_exit(&bash, bash->exit_code);
 }
 
@@ -63,15 +58,17 @@ int	handle_exit_error(int arg_count, t_token *red, t_instruction *instr)
 	if (arg_count > 1)
 	{
 		instr->exit_status = 1;
-		printf("exit\n");
-		printf("bash: exit: too many arguments\n");
+		ft_putendl_fd("exit", STDERR_FILENO);
+		ft_putendl_fd("bash: exit: too many arguments", STDERR_FILENO);
 		return (1);
 	}
 	if (arg_count == 1 && red != NULL && is_digit_only(red->data) != 0)
 	{
 		instr->exit_status = 1;
-		printf("exit\n");
-		printf("bash: exit: too many arguments\n");
+		ft_putendl_fd("exit", STDERR_FILENO);
+		ft_putstr_fd("bash: exit: ", STDERR_FILENO);
+		ft_putstr_fd(instr->cmd->next->data, STDERR_FILENO);
+		ft_putendl_fd(": numeric argument required", STDERR_FILENO);
 		return (1);
 	}
 	return (0);
