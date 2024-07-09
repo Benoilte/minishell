@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:38:16 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/09 11:05:53 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/09 22:23:48 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void	exec_env_without_cmd(char **ms_env, t_instruction *instruction);
 // builtins/ft_env.c
 
 void	add_arg_env(t_bash *bash, t_token *arg);
-void	exec_env_cmd(t_token *cmd, t_token *arg_env, char **arg_cmd, t_bash *bash);
+void	exec_env_cmd(t_token *cmd, t_token *arg_env,
+			char **arg_cmd, t_bash *bash);
 
 //builtins/echo.c
 

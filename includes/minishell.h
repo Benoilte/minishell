@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:29:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/09 11:09:11 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/09 22:36:43 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	start_interactive_minishell(t_bash *bash, int debug);
 void	start_non_interactive_minishell(t_bash *bash, char *file, int debug);
 int		is_wrong_file_format(char *file, int fd);
 char	*get_sequence(int fd);
+int		open_arg_file(char *arg_file);
 
 // main/minishell_utils.c
 
