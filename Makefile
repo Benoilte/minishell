@@ -6,7 +6,7 @@
 #    By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/07/09 07:44:17 by bebrandt         ###   ########.fr        #
+#    Updated: 2024/07/09 11:13:30 by bebrandt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,7 @@ endif
 ifeq ($(EXEC), set)
 	EXEC_DIR			=	$(SRCS_DIR)exec/
 	EXEC_SRCS			=	$(addprefix $(EXEC_DIR), $(addsuffix .c, exec sort_red \
-							ft_cmd process red sort_cmd_builtin utils_exec multi_exec \
+							ft_cmd process red sort_cmd_builtin utils_exec exec_commands \
 							file_desriptors_utils))
 endif
 
