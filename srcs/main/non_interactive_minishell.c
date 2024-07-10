@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   non_interactive_minishell.c                        :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:56:33 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/08 17:54:43 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/09 22:38:16 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
@@ -16,15 +16,12 @@ void	start_non_interactive_minishell(t_bash *bash, char *file, int debug)
 {
 	int		fd;
 
-	fd = open(file, O_RDONLY);
+	fd = open_arg_file(file);
 	if (fd == -1)
-	{
-		perror("open()");
 		return ;
-	}
 	if (is_wrong_file_format(file, fd))
 	{
-		close (fd);
+		close(fd);
 		return ;
 	}
 	else
@@ -95,4 +92,19 @@ char	*get_sequence(int fd)
 		return (sequence);
 	}
 	return (line);
+}
+
+int	open_arg_file(char *arg_file)
+{
+	int	fd;
+
+	fd = open(arg_file, O_RDONLY);
+	if (fd == -1)
+	{
+		ft_putstr_fd("Minishell: ", STDERR_FILENO);
+		ft_putstr_fd(arg_file, STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+		ft_putendl_fd(strerror(errno), STDERR_FILENO);
+	}
+	return (fd);
 }
