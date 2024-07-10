@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:50 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/09 21:03:36 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/10 13:34:25 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,11 @@ int		dup_and_close(int fd, int fd2);
 // exec/red_here_doc.c
 
 int		setup_here_doc(t_instruction *inst, t_token *current_red, t_bash *bash);
-int		display_here_doc(char *limiter, t_instruction *inst, t_bash *bash);
-char	*here_doc_readline(char *limiter, t_bash *bash);
+int		display_here_doc(char *limiter, t_instruction *inst, t_token *red,
+			t_bash *bash);
+char	*here_doc_readline(char *limiter, t_instruction *inst,
+			t_token *current_red, t_bash *bash);
+int		close_here_doc_fd(int fd, char *sender, t_token *current_red);
 
 // exec/red_here_doc_utils.c
 

@@ -6,28 +6,29 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 12:19:30 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/09 20:59:15 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/10 13:34:46 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-int	setup_here_doc(t_instruction *inst, t_token *current_red, t_bash *bash)
+int	setup_here_doc(t_instruction *inst, t_token *red, t_bash *bash)
 {
 	pid_t	reader;
 
-	if (inst_have_input_red(current_red->next) != 0)
-		return (display_here_doc(current_red->option, inst, bash));
+	if (inst_have_input_red(red->next) != 0)
+		return (display_here_doc(red->option, inst, red, bash));
 	if (pipe(inst->fd_heredoc) == -1)
 	{
-		print_red_error("pipe here_doc()", current_red);
+		print_red_error("pipe here_doc()", red);
 		return (-1);
 	}
 	reader = fork();
-	return (handle_here_doc_process(reader, inst, current_red, bash));
+	return (handle_here_doc_process(reader, inst, red, bash));
 }
 
-int	display_here_doc(char *limiter, t_instruction *inst, t_bash *bash)
+int	display_here_doc(char *limiter, t_instruction *inst, t_token *red,
+		t_bash *bash)
 {
 	pid_t	reader;
 	char	*line;
@@ -40,7 +41,7 @@ int	display_here_doc(char *limiter, t_instruction *inst, t_bash *bash)
 		reset_fd_stdin_and_stdout(inst);
 		while (1)
 		{
-			line = here_doc_readline(limiter, bash);
+			line = here_doc_readline(limiter, inst, red, bash);
 			free(line);
 		}
 	}
@@ -52,17 +53,34 @@ int	display_here_doc(char *limiter, t_instruction *inst, t_bash *bash)
 	return (0);
 }
 
-char	*here_doc_readline(char *limiter, t_bash *bash)
+char	*here_doc_readline(char *limiter, t_instruction *inst, t_token *red,
+			t_bash *bash)
 {
 	char	*line;
 
 	line = readline("> ");
 	if (!line)
+	{
+		if (close_here_doc_fd(inst->fd_heredoc[1], "heredoc_readline()", red))
+			clear_bash_and_exit(&bash, EXIT_FAILURE);
 		clear_bash_and_exit(&bash, EXIT_SUCCESS);
+	}
 	if (ft_my_strcmp(line, limiter) == 0)
 	{
 		free(line);
+		if (close_here_doc_fd(inst->fd_heredoc[1], "heredoc_readline()", red))
+			clear_bash_and_exit(&bash, EXIT_FAILURE);
 		clear_bash_and_exit(&bash, EXIT_SUCCESS);
 	}
 	return (line);
+}
+
+int	close_here_doc_fd(int fd, char *sender, t_token *red)
+{
+	if (fd != -1 && close(fd) < 0)
+	{
+		print_red_error(sender, red);
+		return (-1);
+	}
+	return (0);
 }
