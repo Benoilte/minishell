@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:11 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/09 13:56:38 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:43:01 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,26 @@
 
 int	sort_red(t_instruction *instruction, t_bash *bash)
 {
-	t_token	*current_red_token;
+	t_token	*current_red;
 
-	current_red_token = instruction->red;
-	while (current_red_token != NULL)
+	current_red = instruction->red;
+	if (save_fd_stdin(instruction, current_red) < 0)
+		return (-1);
+	if (save_fd_stdout(instruction, current_red) < 0)
+		return (-1);
+	while (current_red != NULL)
 	{
-		if (current_red_token->data_type
-			& (INPUT | OUTPUT_APPEND | OUTPUT_TRUNCATE))
+		if (current_red->data_type & (INPUT | OUTPUT_APPEND | OUTPUT_TRUNCATE))
 		{
-			if (red(current_red_token) < 0)
+			if (red(current_red) < 0)
 				return (-1);
 		}
-		else if (current_red_token->data_type & (HEREDOC))
+		else if (current_red->data_type & (HEREDOC))
 		{
-			if (setup_here_doc(instruction, current_red_token, bash) < 0)
+			if (setup_here_doc(instruction, current_red, bash) < 0)
 				return (-1);
 		}
-		current_red_token = current_red_token->next;
+		current_red = current_red->next;
 	}
 	return (0);
 }

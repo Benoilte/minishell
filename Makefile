@@ -6,7 +6,7 @@
 #    By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/07/09 20:50:27 by bebrandt         ###   ########.fr        #
+#    Updated: 2024/07/10 20:43:48 by bebrandt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ ifeq ($(EXEC), set)
 	EXEC_SRCS			=	$(addprefix $(EXEC_DIR), $(addsuffix .c, exec sort_red \
 							ft_cmd process red sort_cmd_builtin utils_exec exec_commands \
 							red_here_doc file_desriptors_utils handle_execution_error \
-							red_here_doc_utils))
+							red_here_doc_utils fd_stdin_stdout_utils))
 endif
 
 # struct_utils ressources

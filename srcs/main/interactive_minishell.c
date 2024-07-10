@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:56:12 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/09 22:25:52 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/10 23:08:21 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	start_interactive_minishell(t_bash *bash, int debug)
 		test_print_ms_env(bash->ms_env);
 	while (1)
 	{
-		set_terminal(UNSET);
+		if (isatty(STDIN_FILENO))
+			set_terminal(UNSET);
 		set_sig_int(READLINE);
 		bash->sequence = readline("minishell> ");
 		set_sig_int(IGNORE);
@@ -40,5 +41,4 @@ void	start_interactive_minishell(t_bash *bash, int debug)
 		free(bash->sequence);
 		bash->sequence = NULL;
 	}
-	clear_history();
 }

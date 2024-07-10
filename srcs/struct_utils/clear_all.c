@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/09 22:25:08 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/09 22:25:11 by bebrandt         ###   ########.fr       */
+/*   Created: 2024/05/15 00:25:27 by bebrandt          #+#    #+#             */
+/*   Updated: 2024/07/10 23:08:03 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ void	*clear_instruction(t_instruction **instruction)
 			clear_token(&(clear)->cmd);
 		if (clear->cmd_array)
 			free(clear->cmd_array);
+		reset_fd_stdin_and_stdout(clear);
+		close_and_reset_pipe_fd(clear, clear->fd);
+		close_and_reset_pipe_fd(clear, clear->fd + 1);
 		clear->prev = NULL;
 		free(clear);
 		clear = next;
