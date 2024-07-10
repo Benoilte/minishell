@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 22:30:56 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/08 12:15:54 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/10 13:40:33 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,14 @@ t_instruction	*new_instruction(void)
 	instruction->fd_heredoc[0] = -1;
 	instruction->fd_heredoc[1] = -1;
 	instruction->pid = -1;
-	instruction->save_stdout = dup(STDOUT_FILENO);
-	if (!instruction->save_stdout)
-		return (NULL);
-	instruction->save_stdin = dup(STDIN_FILENO);
-	if (!instruction->save_stdin)
-		return (NULL);
+	instruction->save_stdout = -1;
+	instruction->save_stdin = -1;
+	// instruction->save_stdout = dup(STDOUT_FILENO);
+	// if (!instruction->save_stdout)
+	// 	return (NULL);
+	// instruction->save_stdin = dup(STDIN_FILENO);
+	// if (!instruction->save_stdin)
+	// 	return (NULL);
 	instruction->exit_status = 0;
 	instruction->prev = NULL;
 	instruction->next = NULL;

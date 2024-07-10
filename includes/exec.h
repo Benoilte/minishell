@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:50 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/10 13:34:25 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/10 19:43:23 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,13 @@ void	exec_commands(t_bash *bash, t_instruction *instr, char **envp);
 
 // exec/file_desriptors_utils.c
 
-void	reset_fd_stdin_and_stdout(t_instruction *inst);
-void	reset_fd_stdout(t_instruction *inst);
-void	reset_fd_stdin(t_instruction *inst);
 int		close_and_reset_fd(t_instruction *curent_inst, int *fd);
 void	close_unused_fd(t_instruction *current_inst, t_bash *bash);
+
+// exec/fd_stdin_stdout_utils.c
+
+void	reset_fd_stdin_and_stdout(t_instruction *inst);
+int		save_fd_stdin(t_instruction *inst, t_token *current_red);
+int		save_fd_stdout(t_instruction *inst, t_token *current_red);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 00:25:32 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/27 23:06:43 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/10 21:05:48 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	*clear_bash_and_exit(t_bash **bash, int exit_code)
 {
-	set_terminal(RESET);
+	if (isatty(STDIN_FILENO))
+		set_terminal(RESET);
 	clear_bash(bash);
 	exit(exit_code);
 }
