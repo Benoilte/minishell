@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:50 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/10 19:43:23 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/10 22:23:19 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int		display_here_doc(char *limiter, t_instruction *inst, t_token *red,
 			t_bash *bash);
 char	*here_doc_readline(char *limiter, t_instruction *inst,
 			t_token *current_red, t_bash *bash);
-int		close_here_doc_fd(int fd, char *sender, t_token *current_red);
 
 // exec/red_here_doc_utils.c
 
@@ -62,7 +61,6 @@ void	child_here_doc_process(t_instruction *inst, t_token *current_red,
 			t_bash *bash);
 int		parent_here_doc_process(pid_t reader, t_instruction *inst,
 			t_token *current_red);
-
 
 // exec/sort_cmd_builtin
 
@@ -87,8 +85,9 @@ void	exec_commands(t_bash *bash, t_instruction *instr, char **envp);
 
 // exec/file_desriptors_utils.c
 
-int		close_and_reset_fd(t_instruction *curent_inst, int *fd);
-void	close_unused_fd(t_instruction *current_inst, t_bash *bash);
+int		close_and_reset_pipe_fd(t_instruction *curent_inst, int *fd);
+void	close_unused_pipe_fd(t_instruction *current_inst, t_bash *bash);
+int		close_here_doc_fd(int fd, char *sender, t_token *current_red);
 
 // exec/fd_stdin_stdout_utils.c
 

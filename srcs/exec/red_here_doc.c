@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 12:19:30 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/10 13:34:46 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/10 22:28:58 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	display_here_doc(char *limiter, t_instruction *inst, t_token *red,
 	if (reader == 0)
 	{
 		reset_fd_stdin_and_stdout(inst);
+		close_and_reset_pipe_fd(inst, inst->fd);
+		close_and_reset_pipe_fd(inst, inst->fd + 1);
 		while (1)
 		{
 			line = here_doc_readline(limiter, inst, red, bash);
@@ -73,14 +75,4 @@ char	*here_doc_readline(char *limiter, t_instruction *inst, t_token *red,
 		clear_bash_and_exit(&bash, EXIT_SUCCESS);
 	}
 	return (line);
-}
-
-int	close_here_doc_fd(int fd, char *sender, t_token *red)
-{
-	if (fd != -1 && close(fd) < 0)
-	{
-		print_red_error(sender, red);
-		return (-1);
-	}
-	return (0);
 }

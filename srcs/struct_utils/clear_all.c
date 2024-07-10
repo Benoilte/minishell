@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   clear_all.c                                        :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 00:25:27 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/28 20:07:13 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/10 22:59:28 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
@@ -66,6 +66,9 @@ void	*clear_instruction(t_instruction **instruction)
 			clear_token(&(clear)->cmd);
 		if (clear->cmd_array)
 			free(clear->cmd_array);
+		reset_fd_stdin_and_stdout(clear);
+		close_and_reset_pipe_fd(clear, clear->fd);
+		close_and_reset_pipe_fd(clear, clear->fd + 1);
 		clear->prev = NULL;
 		free(clear);
 		clear = next;

@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 13:54:33 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/10 13:33:39 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/10 22:30:02 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	child_here_doc_process(t_instruction *inst, t_token *red,
 	char	*line;
 
 	reset_fd_stdin_and_stdout(inst);
+	close_and_reset_pipe_fd(inst, inst->fd);
+	close_and_reset_pipe_fd(inst, inst->fd + 1);
 	if (close(inst->fd_heredoc[0]) < 0)
 		print_red_error(" close child_here_doc_process()", red);
 	while (1)
