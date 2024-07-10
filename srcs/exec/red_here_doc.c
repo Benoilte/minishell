@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 12:19:30 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/10 22:28:58 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/10 23:14:11 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ char	*here_doc_readline(char *limiter, t_instruction *inst, t_token *red,
 	line = readline("> ");
 	if (!line)
 	{
+		ft_putchar_fd('\n', STDIN_FILENO);
 		if (close_here_doc_fd(inst->fd_heredoc[1], "heredoc_readline()", red))
 			clear_bash_and_exit(&bash, EXIT_FAILURE);
 		clear_bash_and_exit(&bash, EXIT_SUCCESS);
