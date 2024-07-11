@@ -6,11 +6,27 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 07:45:32 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/10 22:30:39 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/11 09:37:45 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
+
+int	close_and_reset_pipes(t_instruction *curent_inst)
+{
+	int	close_fd_0;
+	int	close_fd_1;
+
+	close_fd_0 = 0;
+	close_fd_1 = 0;
+	if (close_and_reset_pipe_fd(curent_inst, curent_inst->fd) < 0)
+		close_fd_0 = -1;
+	if (close_and_reset_pipe_fd(curent_inst, curent_inst->fd + 1) < 0)
+		close_fd_1 = -1;
+	if ((close_fd_0 < 0) || (close_fd_1 < 0))
+		return (-1);
+	return (0);
+}
 
 int	close_and_reset_pipe_fd(t_instruction *curent_inst, int *fd)
 {
