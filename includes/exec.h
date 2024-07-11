@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:50 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/10 23:07:45 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/11 09:31:20 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	child_here_doc_process(t_instruction *inst, t_token *current_red,
 			t_bash *bash);
 int		parent_here_doc_process(pid_t reader, t_instruction *inst,
 			t_token *current_red);
+int		check_child_exit_status(t_instruction *inst);
 
 // exec/sort_cmd_builtin
 
@@ -85,6 +86,7 @@ void	exec_commands(t_bash *bash, t_instruction *instr, char **envp);
 
 // exec/file_desriptors_utils.c
 
+int		close_and_reset_pipes(t_instruction *curent_inst);
 int		close_and_reset_pipe_fd(t_instruction *curent_inst, int *fd);
 void	close_unused_pipe_fd(t_instruction *current_inst, t_bash *bash);
 int		close_here_doc_fd(int fd, char *sender, t_token *current_red);
