@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:30:23 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/11 13:15:22 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/11 13:20:19 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ static char	*find_absolute_path(char *cmd, char **envp)
 	char	*part_path;
 
 	i = 0;
-	if (envp == NULL)
-		return (NULL);
 	while (ft_strnstr(envp[i], "PATH", 4) == 0)
 		i++;
 	paths = ft_split(envp[i] + 5, ':');
@@ -46,7 +44,11 @@ static char	*find_absolute_path(char *cmd, char **envp)
 char	*get_path(char *cmd, t_bash *bash)
 {
 	if (ft_strchr(cmd, '/') == NULL)
+	{
+		if (bash->ms_env == NULL)
+			return (NULL);
 		return (find_absolute_path(cmd, bash->ms_env));
+	}
 	else
 		return (ft_strdup(cmd));
 }
