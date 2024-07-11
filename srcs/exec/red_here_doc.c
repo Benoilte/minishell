@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 12:19:30 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/10 23:14:11 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/11 00:37:31 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	display_here_doc(char *limiter, t_instruction *inst, t_token *red,
 		return (-1);
 	if (reader == 0)
 	{
+		set_sig_int(DEFAULT);
 		reset_fd_stdin_and_stdout(inst);
 		close_and_reset_pipe_fd(inst, inst->fd);
 		close_and_reset_pipe_fd(inst, inst->fd + 1);
@@ -49,10 +50,10 @@ int	display_here_doc(char *limiter, t_instruction *inst, t_token *red,
 	}
 	else
 	{
-		if (waitpid(reader, NULL, 0) < 0)
+		if (waitpid(reader, &inst->exit_status, 0) < 0)
 			return (-1);
 	}
-	return (0);
+	return (check_child_exit_status(inst));
 }
 
 char	*here_doc_readline(char *limiter, t_instruction *inst, t_token *red,
