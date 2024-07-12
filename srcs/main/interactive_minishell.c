@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   interactive_minishell.c                            :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:56:12 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/10 23:08:21 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/12 08:52:59 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/minishell.h"
 
@@ -17,7 +17,6 @@ int	g_signal_code;
 void	start_interactive_minishell(t_bash *bash, int debug)
 {
 	g_signal_code = 0;
-	set_sig_quit(IGNORE);
 	if (debug)
 		test_print_ms_env(bash->ms_env);
 	while (1)
