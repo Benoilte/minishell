@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:24:31 by tommartinel       #+#    #+#             */
-/*   Updated: 2024/07/12 16:32:21 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/12 17:29:22 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	ft_exit(t_instruction *instruction, t_bash *bash)
 		arg_count = count_arguments(instruction->cmd);
 		if (too_many_arg(arg_count, instruction))
 			return ;
-		if (arg_is_not_numeric(instruction->cmd->next, instruction))
+		if ((arg_count > 0)
+			&& arg_is_not_numeric(instruction->cmd->next, instruction))
 			clear_bash_and_exit(&bash, instruction->exit_status);
 		finalize_exit(instruction, bash, arg_count);
 	}
