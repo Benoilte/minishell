@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   file_desriptors_utils.c                            :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 07:45:32 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/11 09:37:45 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/12 12:13:10 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/exec.h"
 
@@ -62,6 +62,20 @@ int	close_here_doc_fd(int fd, char *sender, t_token *red)
 	{
 		print_red_error(sender, red);
 		return (-1);
+	}
+	return (0);
+}
+
+int	close_previous_pipes_in_hd_child(t_instruction *current_inst)
+{
+	t_instruction	*tmp_inst;
+
+	tmp_inst = current_inst;
+	while (tmp_inst)
+	{
+		if (close_and_reset_pipes(tmp_inst) < 0)
+			return (-1);
+		tmp_inst = tmp_inst->prev;
 	}
 	return (0);
 }

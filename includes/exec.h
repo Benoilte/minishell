@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:50 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/11 09:31:20 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/12 12:09:11 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef EXEC_H
 # define EXEC_H
@@ -90,6 +90,7 @@ int		close_and_reset_pipes(t_instruction *curent_inst);
 int		close_and_reset_pipe_fd(t_instruction *curent_inst, int *fd);
 void	close_unused_pipe_fd(t_instruction *current_inst, t_bash *bash);
 int		close_here_doc_fd(int fd, char *sender, t_token *current_red);
+int		close_previous_pipes_in_hd_child(t_instruction *current_inst);
 
 // exec/fd_stdin_stdout_utils.c
 
