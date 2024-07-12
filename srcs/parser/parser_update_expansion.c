@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_update_expansion.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:13:10 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/10 10:53:01 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/12 15:21:26 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ int	get_env_value(t_list **recast, t_env *env, char *data, int *i)
 
 	origin = *i;
 	while (data[*i]
-		&& ((data[*i] != '$') && (data[*i] != '\'') && (data[*i] != '\"')))
+		&& ((data[*i] != '$')
+			&& (data[*i] != '\'')
+			&& (data[*i] != '\"')
+			&& (data[*i] != ' ')))
 		*i += 1;
 	env_var_name = ft_substr(data, origin, *i - origin);
 	if (!env_var_name)
