@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   red_here_doc_utils.c                               :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 13:54:33 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/11 11:13:31 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/12 12:09:30 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/exec.h"
 
@@ -21,7 +21,7 @@ int	handle_here_doc_process(pid_t reader, t_instruction *inst,
 	{
 		set_sig_int(DEFAULT);
 		reset_fd_stdin_and_stdout(inst);
-		close_and_reset_pipes(inst);
+		close_previous_pipes_in_hd_child(inst);
 		child_here_doc_process(inst, red, bash);
 	}
 	else

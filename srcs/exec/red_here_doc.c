@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   red_here_doc.c                                     :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 12:19:30 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/11 00:37:31 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/12 12:09:57 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/exec.h"
 
@@ -40,8 +40,7 @@ int	display_here_doc(char *limiter, t_instruction *inst, t_token *red,
 	{
 		set_sig_int(DEFAULT);
 		reset_fd_stdin_and_stdout(inst);
-		close_and_reset_pipe_fd(inst, inst->fd);
-		close_and_reset_pipe_fd(inst, inst->fd + 1);
+		close_previous_pipes_in_hd_child(inst);
 		while (1)
 		{
 			line = here_doc_readline(limiter, inst, red, bash);
