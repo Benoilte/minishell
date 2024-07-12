@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   exec_commands.c                                    :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:02:02 by tommartinel       #+#    #+#             */
-/*   Updated: 2024/07/11 12:41:34 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/12 08:40:25 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/exec.h"
 
@@ -21,7 +21,8 @@ void	exec_commands(t_bash *bash, t_instruction *instr, char **envp)
 	last_inst = last_instruction(instr);
 	while (current != NULL)
 	{
-		setup_pipe(current);
+		if (setup_pipe(current) < 0)
+			break ;
 		if (sort_red(current, bash) < 0)
 		{
 			if (current->exit_status == 130)
