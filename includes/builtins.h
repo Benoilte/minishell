@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:38:16 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/09 22:23:48 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/12 16:32:28 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ enum
 
 void	ft_exit(t_instruction *instruction, t_bash *bash);
 void	finalize_exit(t_instruction *instruction, t_bash *bash, int arg_count);
-int		handle_exit_error(int arg_count, t_token *red, t_instruction *instr);
+int		too_many_arg(int arg_count, t_instruction *instr);
+int		arg_is_not_numeric(t_token *cmd, t_instruction *instr);
 
 // builtins/pwd.c
 
