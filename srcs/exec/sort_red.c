@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   sort_red.c                                         :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:11 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/10 20:43:01 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/12 08:39:45 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/exec.h"
 
@@ -40,10 +40,16 @@ int	sort_red(t_instruction *instruction, t_bash *bash)
 
 int	setup_pipe(t_instruction *current)
 {
+	t_instruction	*last_inst;
+
+	last_inst = last_instruction(current);
 	if (current->next != NULL)
 	{
 		if (pipe(current->fd) == -1)
 		{
+			current = last_inst;
+			current->exit_status = EXIT_FAILURE;
+			last_inst->exit_status = EXIT_FAILURE;
 			print_cmd_error("setup_pipe", current->cmd);
 			return (-1);
 		}
