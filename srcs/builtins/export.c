@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:04:33 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/12 18:15:02 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/12 18:21:32 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,17 @@ void	print_env_vars(t_env *env, t_instruction *instruction)
 {
 	t_env	*current;
 
+	(void)instruction;
 	current = env;
 	while (current)
 	{
-		if (instruction->red != NULL)
-		{
-			ft_putstr_fd("declare -x ", STDOUT_FILENO);
-			ft_putstr_fd(current->name, STDOUT_FILENO);
-			ft_putstr_fd("=", STDOUT_FILENO);
-			ft_putchar_fd('"', STDOUT_FILENO);
-			ft_putendl_fd(current->value, STDOUT_FILENO);
-			ft_putchar_fd('"', STDOUT_FILENO);
-		}
-		else
-		{
-			printf("declare -x %s=%s\n", current->name, current->value);
-		}
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+		ft_putstr_fd(current->name, STDOUT_FILENO);
+		ft_putstr_fd("=", STDOUT_FILENO);
+		ft_putchar_fd('"', STDOUT_FILENO);
+		ft_putstr_fd(current->value, STDOUT_FILENO);
+		ft_putchar_fd('"', STDOUT_FILENO);
+		ft_putchar_fd('\n', STDOUT_FILENO);
 		current = current->next;
 	}
 }
