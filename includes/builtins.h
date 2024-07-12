@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:38:16 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/12 16:32:28 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/12 17:58:03 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,11 @@ void	ft_export(t_env *env, t_instruction *instruction);
 int		set_env_var_liste(t_env *env, char *envp);
 void	print_env_vars(t_env *env, t_instruction *instruction);
 void	handle_export_args(t_env *env, t_instruction *instruction);
+int		check_name_format(char *name);
+
+//builtins/export_utils.c
+
+void	print_export_error_identifier(char *name_to_value);
 
 //builtins/unset.c
 
