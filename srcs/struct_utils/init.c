@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 20:25:18 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/11 13:16:06 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/12 09:20:33 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/minishell.h"
 
@@ -21,12 +21,12 @@ void	init_bash(t_bash **bash, char **envp)
 		*bash = (t_bash *)malloc(sizeof(t_bash));
 		if (!*bash)
 			exit(EXIT_FAILURE);
-		(*bash)->working_directory = NULL;
 		(*bash)->sequence = NULL;
 		(*bash)->exit_code = 0;
 		(*bash)->env = init_env(envp);
 		(*bash)->ms_env = init_ms_env((*bash)->env);
 		(*bash)->instruction = NULL;
+		(*bash)->fd_arg_file = -1;
 	}
 }
 

@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   non_interactive_minishell.c                        :+:      :+:    :+:   */
@@ -6,29 +6,27 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:56:33 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/09 22:38:16 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/12 09:23:24 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/minishell.h"
 
 void	start_non_interactive_minishell(t_bash *bash, char *file, int debug)
 {
-	int		fd;
-
-	fd = open_arg_file(file);
-	if (fd == -1)
+	bash->fd_arg_file = open_arg_file(file);
+	if (bash->fd_arg_file == -1)
 		return ;
-	if (is_wrong_file_format(file, fd))
+	if (is_wrong_file_format(file, bash->fd_arg_file))
 	{
-		close(fd);
+		close(bash->fd_arg_file);
 		return ;
 	}
 	else
 	{
 		while (1)
 		{
-			bash->sequence = get_sequence(fd);
+			bash->sequence = get_sequence(bash->fd_arg_file);
 			if (!bash->sequence)
 				break ;
 			check_sequence_and_execution(bash, debug);
@@ -37,7 +35,8 @@ void	start_non_interactive_minishell(t_bash *bash, char *file, int debug)
 			bash->sequence = NULL;
 		}
 	}
-	close(fd);
+	close(bash->fd_arg_file);
+	bash->fd_arg_file = -1;
 }
 
 int	is_wrong_file_format(char *file, int fd)
@@ -59,13 +58,14 @@ int	is_wrong_file_format(char *file, int fd)
 	}
 	if (ft_my_strcmp(first_line, "#! minishell\n") == 0
 		|| ft_my_strcmp(first_line, "#! minishell") == 0)
-		return (0);
+		free(first_line);
 	else
 	{
 		free(first_line);
 		ft_printf("%s: file should start with `#! minishell`\n", file);
 		return (1);
 	}
+	return (0);
 }
 
 char	*get_sequence(int fd)
