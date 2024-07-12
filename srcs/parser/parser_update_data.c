@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:54:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/12 14:26:58 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/12 15:40:42 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	filter_data(t_bash *bash, t_list **recast, char *src, char quote)
 int	filter_expansion(t_bash *bash, t_list **recast, char *src, int *i)
 {
 	*i += 1;
-	if (src[*i] == '\0' || src[*i] == '\'')
+	if (src[*i] == '\0' || src[*i] == '\'' || src[*i] == ' ')
 		return (get_dollar_sign(recast));
 	else if (src[*i] == '?')
 		return (get_last_cmd_exit_status(recast, i, bash->exit_code));
