@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:24:31 by tommartinel       #+#    #+#             */
-/*   Updated: 2024/07/09 22:15:31 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/12 16:03:02 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_exit(t_instruction *instruction, t_bash *bash)
 
 	instruction_tmp = instruction->red;
 	if (instruction->cmd != NULL && instruction->cmd->data != NULL
-		&& strcmp(instruction->cmd->data, "exit") == 0)
+		&& ft_my_strcmp(instruction->cmd->data, "exit") == 0)
 	{
 		arg_count = count_arguments(instruction->cmd);
 		if (handle_exit_error(arg_count, instruction->cmd->next, instruction))
