@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 10:40:23 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/09 11:49:40 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/12 16:04:40 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int	is_digit_only(char *str)
 	if (ft_strlen(str) == 0)
 		return (1);
 	i = 0;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
 	while (i < ft_strlen(str))
 	{
 		if (!ft_isdigit((unsigned char)str[i]))

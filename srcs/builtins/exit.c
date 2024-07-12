@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:24:31 by tommartinel       #+#    #+#             */
-/*   Updated: 2024/07/09 22:15:31 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/12 16:32:21 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,36 +38,40 @@ void	finalize_exit(t_instruction *instruction, t_bash *bash, int arg_count)
 
 void	ft_exit(t_instruction *instruction, t_bash *bash)
 {
-	t_token		*instruction_tmp;
 	int			arg_count;
 
-	instruction_tmp = instruction->red;
 	if (instruction->cmd != NULL && instruction->cmd->data != NULL
-		&& strcmp(instruction->cmd->data, "exit") == 0)
+		&& ft_my_strcmp(instruction->cmd->data, "exit") == 0)
 	{
 		arg_count = count_arguments(instruction->cmd);
-		if (handle_exit_error(arg_count, instruction->cmd->next, instruction))
+		if (too_many_arg(arg_count, instruction))
 			return ;
-		instruction->red = instruction_tmp;
+		if (arg_is_not_numeric(instruction->cmd->next, instruction))
+			clear_bash_and_exit(&bash, instruction->exit_status);
 		finalize_exit(instruction, bash, arg_count);
 	}
 }
 
-int	handle_exit_error(int arg_count, t_token *red, t_instruction *instr)
+int	too_many_arg(int arg_count, t_instruction *inst)
 {
 	if (arg_count > 1)
 	{
-		instr->exit_status = 1;
+		inst->exit_status = 1;
 		ft_putendl_fd("exit", STDERR_FILENO);
 		ft_putendl_fd("bash: exit: too many arguments", STDERR_FILENO);
 		return (1);
 	}
-	if (arg_count == 1 && red != NULL && is_digit_only(red->data) != 0)
+	return (0);
+}
+
+int	arg_is_not_numeric(t_token *cmd, t_instruction *inst)
+{
+	if (is_digit_only(cmd->data) != 0)
 	{
-		instr->exit_status = 1;
+		inst->exit_status = 2;
 		ft_putendl_fd("exit", STDERR_FILENO);
 		ft_putstr_fd("bash: exit: ", STDERR_FILENO);
-		ft_putstr_fd(instr->cmd->next->data, STDERR_FILENO);
+		ft_putstr_fd(cmd->data, STDERR_FILENO);
 		ft_putendl_fd(": numeric argument required", STDERR_FILENO);
 		return (1);
 	}
