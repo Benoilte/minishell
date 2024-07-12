@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parser_update_data.c                               :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:54:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/01 15:24:12 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/12 11:13:27 by bebrandt         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "../../includes/parser.h"
 
@@ -79,7 +79,7 @@ int	get_text_unchanged(t_list **recast, char *src, int *i, char quote)
 	{
 		if ((src[*i] == '$') || (src[*i] == '\"'))
 			break ;
-		else if (quote != '\"' && (src[*i] == '\''))
+		else if ((quote != '\"') && (src[*i] == '\''))
 			break ;
 		*i += 1;
 	}
@@ -111,6 +111,7 @@ int	get_text_in_quotes(t_bash *bash, t_list **recast, char *data, int *i)
 			free(text_in_quotes);
 			return (RETURN_FAILURE);
 		}
+		free(text_in_quotes);
 		return (RETURN_SUCCESS);
 	}
 	return (add_back_recast(recast, text_in_quotes));
