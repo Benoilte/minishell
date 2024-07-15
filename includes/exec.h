@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:35:50 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/12 15:59:55 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:55:05 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int		is_path_reachable(char *path, char *sender, t_token *cmd, t_bash *bash);
 
 // exec/process.c
 
-int		handle_process(t_instruction *current, t_bash *bash, char **envp);
-void	child_process(t_instruction *instruction, t_bash *bash, char **envp);
+int		handle_process(t_instruction *current, t_bash *bash);
+void	child_process(t_instruction *instruction, t_bash *bash);
 int		parent_process(t_instruction *instruction);
 int		wait_child_process(t_instruction *instruction);
 
@@ -65,7 +65,7 @@ int		check_child_exit_status(t_instruction *inst);
 
 // exec/sort_cmd_builtin
 
-void	sort_cmd_builtin(t_instruction *instruction, t_bash *bash, char **envp);
+void	sort_cmd_builtin(t_instruction *instruction, t_bash *bash);
 
 // exec/utils_exec.c
 
@@ -82,7 +82,7 @@ void	print_error_and_exit(char *sender, t_token *cmd,
 
 // exec/exec_commands.c
 
-void	exec_commands(t_bash *bash, t_instruction *instr, char **envp);
+void	exec_commands(t_bash *bash, t_instruction *instr);
 
 // exec/file_desriptors_utils.c
 
