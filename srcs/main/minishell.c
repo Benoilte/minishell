@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:29:53 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/12 14:25:07 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:22:20 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ int	main(int argc, char *argv[], char *envp[])
 
 void	print_how_to_use_minishell(void)
 {
-	ft_printf("\n	\033[0;31mWRONG ARGUMENT FOR MINISHEL PROGRAM\033[0m\n\n\n");
+	ft_printf("\n\t\033[0;31mWRONG ARGUMENT FOR MINISHEL PROGRAM\033[0m\n\n\n");
 	ft_printf("	\033[0;32mSTART WITHOUT ARGUMENT `./minishell`\n\n\n");
 	ft_printf("	START WITH A FILE ARGUMENT `./minishell test.sh`\033[0m\n\n");
 	ft_printf("	\033[0;33mfile argument should be with extension`.sh` ");
-	ft_printf("and first line of the file should start with `#! minishell`\n\n");
-	ft_printf("\033[0m");
+	ft_printf("and first line of the file should start with `#! minishell`\n");
+	ft_printf("\n\033[0m");
 }
