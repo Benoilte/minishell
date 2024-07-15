@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:09:32 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/11 12:43:36 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:48:28 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	sort_cmd_builtin(t_instruction *instruction, t_bash *bash, char **envp)
 	{
 		if (type_equal_to(BUILTIN, current_cmd_token->data_type))
 		{
-			builtins(instruction, bash->env, bash);
+			builtins(instruction, bash);
 		}
 		else if (type_equal_to(CMD, current_cmd_token->data_type))
 			ft_cmd("minishell", instruction->cmd, instruction->cmd_array, bash);

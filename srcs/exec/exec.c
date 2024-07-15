@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/11 07:35:30 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:49:05 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	exec(t_instruction *inst, t_bash *bash, char **envp)
 {
-	t_env	*env;
-
-	env = bash->env;
 	if (inst->next == NULL && inst->cmd == NULL)
 	{
 		if (sort_red(inst, bash) < 0 && inst->exit_status != 130)
@@ -31,7 +28,7 @@ void	exec(t_instruction *inst, t_bash *bash, char **envp)
 				inst->exit_status = 1;
 		}
 		else
-			builtins(inst, env, bash);
+			builtins(inst, bash);
 		reset_fd_stdin_and_stdout(inst);
 	}
 	else

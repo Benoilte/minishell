@@ -6,14 +6,14 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:32:33 by tommartinel       #+#    #+#             */
-/*   Updated: 2024/07/15 23:28:32 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:47:03 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/builtins.h"
 
 // TODO : structure bash en attande pour recupe le builtins
-void	builtins(t_instruction *instruction, t_env *env, t_bash *bash)
+void	builtins(t_instruction *instruction, t_bash *bash)
 {
 	if (ft_strcmp(instruction->cmd->data, "cd") == 0)
 	{
@@ -27,7 +27,7 @@ void	builtins(t_instruction *instruction, t_env *env, t_bash *bash)
 	}
 	else if (ft_strcmp(instruction->cmd->data, "unset") == 0)
 	{
-		ft_unset(&env, instruction);
+		ft_unset(bash, instruction);
 		update_ms_env(bash);
 	}
 	else if (ft_strcmp(instruction->cmd->data, "echo") == 0)

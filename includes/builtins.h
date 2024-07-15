@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:38:16 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/15 23:36:43 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:44:59 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	fill_sorted_env(t_env *env, t_env **sorted_env);
 
 //builtins/unset.c
 
-void	ft_unset(t_env **env, t_instruction *instruction);
+void	ft_unset(t_bash *bash, t_instruction *instruction);
 
 //builtins/utils_builtins.c
 

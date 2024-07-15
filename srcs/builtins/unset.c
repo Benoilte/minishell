@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 16:12:33 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/08 17:15:10 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/07/15 23:44:26 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	delete_env_node(t_env **env, t_env *prev, t_env *current)
 	free(current);
 }
 
-void	ft_unset(t_env **env, t_instruction *instruction)
+void	ft_unset(t_bash *bash, t_instruction *instruction)
 {
 	char	*arg;
 	t_env	*current;
@@ -38,13 +38,13 @@ void	ft_unset(t_env **env, t_instruction *instruction)
 	while (instruction->cmd_array[i] != NULL)
 	{
 		arg = instruction->cmd_array[i];
-		current = *env;
+		current = bash->env;
 		prev = NULL;
 		while (current)
 		{
 			if (ft_strcmp(current->name, arg) == 0)
 			{
-				delete_env_node(env, prev, current);
+				delete_env_node(&(bash->env), prev, current);
 				break ;
 			}
 			prev = current;

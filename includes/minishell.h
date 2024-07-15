@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:29:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/09 22:36:43 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:47:26 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		sequence_is_filled(t_instruction *instruction);
 
 // builtins/builtins.c
 
-void	builtins(t_instruction *instruction, t_env *env, t_bash *bash);
+void	builtins(t_instruction *instruction, t_bash *bash);
 
 // exec/exec.c
 
