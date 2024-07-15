@@ -6,27 +6,27 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:04:33 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/15 23:21:38 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:36:57 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/builtins.h"
 
-int	set_env_var_liste(t_env *env, char *envp)
+int	set_env_var_liste(t_env **env, char *envp)
 {
 	t_env	*new;
 
 	new = new_env(envp);
 	if (!new)
 		return (0);
-	if (name_exist(env, new->name))
+	if (name_exist(*env, new->name))
 	{
-		update_value(env, new->name, new->value);
+		update_value(*env, new->name, new->value);
 		free(new->name);
 		free(new);
 		return (1);
 	}
-	add_back_env(&env, new);
+	add_back_env(env, new);
 	return (1);
 }
 
@@ -48,7 +48,7 @@ void	print_env_vars(t_env **sorted_env)
 	}
 }
 
-void	handle_export_args(t_env *env, t_instruction *instruction)
+void	handle_export_args(t_env **env, t_instruction *instruction)
 {
 	int	start_index;
 
@@ -72,20 +72,20 @@ void	handle_export_args(t_env *env, t_instruction *instruction)
 	}
 }
 
-void	ft_export(t_env *env, t_instruction *instruction)
+void	ft_export(t_bash *bash, t_instruction *instruction)
 {
 	t_env	**env_sorted;
 
-	if (instruction->cmd_array[1] == NULL)
+	if (instruction->cmd_array[1] == NULL && bash->env != NULL)
 	{
-		env_sorted = sort_export_env(env);
+		env_sorted = sort_export_env(bash->env);
 		if (!env_sorted)
 			print_cmd_error("export", instruction->cmd);
 		print_env_vars(env_sorted);
 		free(env_sorted);
 	}
 	else
-		handle_export_args(env, instruction);
+		handle_export_args(&(bash->env), instruction);
 }
 
 int	check_name_format(char *name)
