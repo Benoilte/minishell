@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:32:33 by tommartinel       #+#    #+#             */
-/*   Updated: 2024/07/08 16:32:35 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/07/15 23:28:32 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	builtins(t_instruction *instruction, t_env *env, t_bash *bash)
 	}
 	else if (ft_strcmp(instruction->cmd->data, "export") == 0)
 	{
-		ft_export(env, instruction);
+		ft_export(bash, instruction);
 		update_ms_env(bash);
 	}
 	else if (ft_strcmp(instruction->cmd->data, "unset") == 0)
