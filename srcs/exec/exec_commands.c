@@ -6,13 +6,13 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:02:02 by tommartinel       #+#    #+#             */
-/*   Updated: 2024/07/12 14:25:57 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:56:54 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-void	exec_commands(t_bash *bash, t_instruction *instr, char **envp)
+void	exec_commands(t_bash *bash, t_instruction *instr)
 {
 	t_instruction	*current;
 	t_instruction	*last_inst;
@@ -34,7 +34,7 @@ void	exec_commands(t_bash *bash, t_instruction *instr, char **envp)
 				current->exit_status = 1;
 		}
 		else
-			handle_process(current, bash, envp);
+			handle_process(current, bash);
 		reset_fd_stdin_and_stdout(current);
 		current = current->next;
 	}
