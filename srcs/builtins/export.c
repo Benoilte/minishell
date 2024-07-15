@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:04:33 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/12 18:21:32 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:21:38 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,21 @@ int	set_env_var_liste(t_env *env, char *envp)
 	return (1);
 }
 
-void	print_env_vars(t_env *env, t_instruction *instruction)
+void	print_env_vars(t_env **sorted_env)
 {
-	t_env	*current;
+	int	i;
 
-	(void)instruction;
-	current = env;
-	while (current)
+	i = 0;
+	while (sorted_env[i])
 	{
 		ft_putstr_fd("declare -x ", STDOUT_FILENO);
-		ft_putstr_fd(current->name, STDOUT_FILENO);
+		ft_putstr_fd((sorted_env[i])->name, STDOUT_FILENO);
 		ft_putstr_fd("=", STDOUT_FILENO);
 		ft_putchar_fd('"', STDOUT_FILENO);
-		ft_putstr_fd(current->value, STDOUT_FILENO);
+		ft_putstr_fd((sorted_env[i])->value, STDOUT_FILENO);
 		ft_putchar_fd('"', STDOUT_FILENO);
 		ft_putchar_fd('\n', STDOUT_FILENO);
-		current = current->next;
+		i++;
 	}
 }
 
@@ -75,8 +74,16 @@ void	handle_export_args(t_env *env, t_instruction *instruction)
 
 void	ft_export(t_env *env, t_instruction *instruction)
 {
+	t_env	**env_sorted;
+
 	if (instruction->cmd_array[1] == NULL)
-		print_env_vars(env, instruction);
+	{
+		env_sorted = sort_export_env(env);
+		if (!env_sorted)
+			print_cmd_error("export", instruction->cmd);
+		print_env_vars(env_sorted);
+		free(env_sorted);
+	}
 	else
 		handle_export_args(env, instruction);
 }
@@ -90,7 +97,7 @@ int	check_name_format(char *name)
 		return (1);
 	while (name[i] && (name[i] != '='))
 	{
-		if (ft_isalnum(name[i]) == 0)
+		if ((ft_isalnum(name[i]) == 0) && name[i] != '_')
 			return (1);
 		i++;
 	}
