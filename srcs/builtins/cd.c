@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tommartinelli <tommartinelli@student.42    +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:55:32 by tommartinel       #+#    #+#             */
-/*   Updated: 2024/07/08 16:55:53 by tommartinel      ###   ########.fr       */
+/*   Updated: 2024/07/17 12:16:50 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	cd_go_home(t_instruction *instruction, t_env **env, char *oldcwd)
 	{
 		ft_putendl_fd(CD_HOME_NOT_SET, STDERR_FILENO);
 		instruction->exit_status = 1;
+		free(oldcwd);
 		return ;
 	}
 	cd_move_dir(instruction, home, env, oldcwd);
@@ -65,6 +66,7 @@ void	cd_move_dir(t_instruction *inst, char *dir, t_env **env, char *oldcwd)
 	if (chdir(dir) != 0)
 	{
 		ft_chdir_error(dir, STDERR_FILENO);
+		free(oldcwd);
 		inst->exit_status = 1;
 	}
 	else
