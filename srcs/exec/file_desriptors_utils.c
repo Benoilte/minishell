@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 13:30:42 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/12 14:24:41 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/16 00:15:12 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,13 @@ void	close_unused_pipe_fd(t_instruction *current_inst, t_bash *bash)
 	{
 		if (close_and_reset_pipe_fd(current_inst, current_inst->fd) < 0)
 			clear_bash_and_exit(&bash, EXIT_FAILURE);
+		current_inst->fd[0] = -1;
 	}
 	if (current_inst->fd[1] != -1)
 	{
 		if (close_and_reset_pipe_fd(current_inst, current_inst->fd + 1) < 0)
 			clear_bash_and_exit(&bash, EXIT_FAILURE);
+		current_inst->fd[1] = -1;
 	}
 }
 
