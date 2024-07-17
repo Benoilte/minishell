@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:02:02 by tommartinel       #+#    #+#             */
-/*   Updated: 2024/07/17 07:30:45 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/17 07:35:33 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	handle_error_red_in_multiple_cmd(t_instruction *current);
 
-void	exec_commands(t_bash *bash, t_instruction *instr, char **envp)
+void	exec_commands(t_bash *bash, t_instruction *instr)
 {
 	t_instruction	*current;
 
