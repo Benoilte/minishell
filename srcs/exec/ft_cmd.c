@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2012/07/20 08:21:39 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/17 12:03:31 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/18 01:11:04 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*get_path(char *cmd, t_bash *bash)
 {
 	if (ft_strchr(cmd, '/') == NULL)
 	{
-		if (bash->ms_env == NULL)
+		if (bash->ms_env == NULL || (name_exist(bash->env, "PATH") == 0))
 			return (NULL);
 		return (find_absolute_path(cmd, bash->ms_env));
 	}
