@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:54:31 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/30 21:19:55 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/17 22:19:48 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,20 @@
 int	parsing(t_bash *bash)
 {
 	t_instruction	*instruction;
+	int				nb_next_inst;
 
 	instruction = bash->instruction;
+	nb_next_inst = size_instruction(instruction);
 	while (instruction)
 	{
-		if (check_instruction(instruction) == SYNTAX_ERROR)
+		if (check_instruction(instruction, nb_next_inst - 1) == SYNTAX_ERROR)
 			return (SYNTAX_ERROR);
 		if (update_instruction(bash, instruction) == RETURN_FAILURE)
 			return (RETURN_FAILURE);
 		if (fill_cmd_array(instruction, instruction->cmd) == RETURN_FAILURE)
 			return (RETURN_FAILURE);
 		instruction = instruction->next;
+		nb_next_inst--;
 	}
 	return (SYNTAX_OK);
 }
@@ -45,7 +48,7 @@ int	sequence_is_filled(t_instruction *instruction)
 		return (SEQUENCE_IS_FILLED);
 }
 
-int	check_instruction(t_instruction *instruction)
+int	check_instruction(t_instruction *instruction, int nb_next_inst)
 {
 	t_token	*red;
 	t_token	*cmd;
@@ -59,7 +62,7 @@ int	check_instruction(t_instruction *instruction)
 	}
 	while (red)
 	{
-		if (check_redirections(red) == SYNTAX_ERROR)
+		if (check_redirections(red, nb_next_inst) == SYNTAX_ERROR)
 			return (SYNTAX_ERROR);
 		red = red->next;
 	}

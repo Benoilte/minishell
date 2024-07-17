@@ -6,17 +6,18 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 12:39:23 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/17 18:49:54 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/17 22:25:50 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parser.h"
 
-int	check_redirections(t_token *red)
+int	check_redirections(t_token *red, int nb_next_inst)
 {
 	if (check_data_redirection(red->data, red->data_type) == SYNTAX_ERROR)
 		return (SYNTAX_ERROR);
-	if (check_opt_redirection(red->option, red->option_type) == SYNTAX_ERROR)
+	if (check_opt_redirection(red->option, red->option_type, nb_next_inst)
+		== SYNTAX_ERROR)
 		return (SYNTAX_ERROR);
 	return (SYNTAX_OK);
 }
@@ -49,11 +50,13 @@ int	check_data_redirection(char *data, int type)
 	return (SYNTAX_OK);
 }
 
-int	check_opt_redirection(char *option, int type)
+int	check_opt_redirection(char *option, int type, int nb_next_inst)
 {
 	int		i;
 
 	i = 0;
+	if (!option && (nb_next_inst > 0))
+		return (print_parsing_error_msg(UNEXPECTED_TOKEN, NULL, '|'));
 	if (!option)
 		return (print_parsing_error_msg(UNEXPECTED_TOKEN, "newline", 0));
 	if (option[i] == '#')

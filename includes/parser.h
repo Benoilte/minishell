@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:28:14 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/30 21:20:41 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/17 22:23:14 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ enum
 
 // parser/parser.c
 
-int		check_instruction(t_instruction *instruction);
+int		check_instruction(t_instruction *instruction, int nb_next_inst);
 int		update_instruction(t_bash *bash, t_instruction *instruction);
 
 // parser/parser_check_redirections.c
 
-int		check_redirections(t_token *red);
+int		check_redirections(t_token *red, int nb_next_inst);
 int		check_data_redirection(char *data, int type);
-int		check_opt_redirection(char *option, int type);
+int		check_opt_redirection(char *option, int type, int nb_next_inst);
 int		unexpected_red_token(char c);
 
 // parser/parser_check_cmd.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:53:37 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/24 14:33:10 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/17 21:51:17 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,11 @@ int	set_token_option(t_token *new, char *sequence, int *i)
 		new->option = get_text_data(sequence, i, &(new->option_type));
 		if (!new->option)
 			return (RETURN_FAILURE);
+		if (ft_strlen(new->option) == 0)
+		{
+			free(new->option);
+			new->option = NULL;
+		}
 	}
 	new->option_type |= REDIRECTION;
 	return (RETURN_SUCCESS);
