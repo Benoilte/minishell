@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:55:32 by tommartinel       #+#    #+#             */
-/*   Updated: 2024/07/17 11:01:25 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/17 12:16:50 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	cd_go_home(t_instruction *instruction, t_env **env, char *oldcwd)
 		return ;
 	}
 	cd_move_dir(instruction, home, env, oldcwd);
+	free(home);
 }
 
 void	cd_move_dir(t_instruction *inst, char *dir, t_env **env, char *oldcwd)
