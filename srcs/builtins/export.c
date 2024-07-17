@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:04:33 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/15 23:36:57 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:17:13 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	check_name_format(char *name)
 	int	i;
 
 	i = 0;
-	if (ft_isalpha(name[i]) == 0)
+	if ((ft_isalpha(name[i]) == 0) && (name[i] != '_'))
 		return (1);
 	while (name[i] && (name[i] != '='))
 	{
