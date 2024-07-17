@@ -6,11 +6,13 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2012/07/20 08:21:39 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/12 14:24:35 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/17 12:03:31 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
+
+static void	print_cmd_not_found_and_exit(t_token *cmd, t_bash *bash);
 
 static char	*find_absolute_path(char *cmd, char **envp)
 {
@@ -58,15 +60,10 @@ void	ft_cmd(char *sender, t_token *cmd, char **argv, t_bash *bash)
 	char		*path;
 
 	if (ft_strlen(cmd->data) == 0)
-		clear_bash_and_exit(&bash, EXIT_SUCCESS);
+		print_cmd_not_found_and_exit(cmd, bash);
 	path = get_path(cmd->data, bash);
 	if (!path)
-	{
-		ft_putstr_fd("Minishell: ", STDERR_FILENO);
-		ft_putstr_fd(cmd->data, STDERR_FILENO);
-		ft_putendl_fd(": command not found", STDERR_FILENO);
-		clear_bash_and_exit(&bash, CMD_NOT_FOUND);
-	}
+		print_cmd_not_found_and_exit(cmd, bash);
 	if (is_path_reachable(path, sender, cmd, bash))
 	{
 		set_sig_quit(DEFAULT);
@@ -96,4 +93,12 @@ int	is_path_reachable(char *path, char *sender, t_token *cmd, t_bash *bash)
 		return (0);
 	}
 	return (1);
+}
+
+static void	print_cmd_not_found_and_exit(t_token *cmd, t_bash *bash)
+{
+	ft_putstr_fd("Minishell: ", STDERR_FILENO);
+	ft_putstr_fd(cmd->data, STDERR_FILENO);
+	ft_putendl_fd(": command not found", STDERR_FILENO);
+	clear_bash_and_exit(&bash, CMD_NOT_FOUND);
 }
