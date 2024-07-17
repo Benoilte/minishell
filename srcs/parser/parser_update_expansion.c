@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:13:10 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/17 10:59:07 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:04:35 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,7 @@ int	get_env_value(t_list **recast, t_env *env, char *data, int *i)
 
 	origin = *i;
 	while (data[*i]
-		&& ((data[*i] != '$')
-			&& (data[*i] != '\'')
-			&& (data[*i] != '\"')
-			&& (data[*i] != '/')
-			&& (data[*i] != ' ')))
+		&& ft_isalnum(data[*i]))
 		*i += 1;
 	env_var_name = ft_substr(data, origin, *i - origin);
 	if (!env_var_name)
