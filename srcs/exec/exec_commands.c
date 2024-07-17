@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:02:02 by tommartinel       #+#    #+#             */
-/*   Updated: 2024/07/17 07:20:24 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/17 07:30:45 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	exec_commands(t_bash *bash, t_instruction *instr, char **envp)
 				break ;
 		}
 		else
-			handle_process(current, bash, envp);
+			handle_process(current, bash);
 		reset_fd_stdin_and_stdout(current);
 		current = current->next;
 	}

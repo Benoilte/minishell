@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 10:48:49 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/06/27 22:53:37 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:58:27 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	check_sequence_and_execution(t_bash *bash, int debug)
 		{
 			if (debug)
 				test_print_instruction(bash->instruction);
-			exec(bash->instruction, bash, bash->ms_env);
+			exec(bash->instruction, bash);
 		}
 		else
 			bash->exit_code = exit_status;

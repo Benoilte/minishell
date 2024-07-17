@@ -6,13 +6,13 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:51:22 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/11 12:42:49 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:57:28 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-int	handle_process(t_instruction *current, t_bash *bash, char **envp)
+int	handle_process(t_instruction *current, t_bash *bash)
 {
 	current->pid = fork();
 	if (current->pid == -1)
@@ -23,7 +23,7 @@ int	handle_process(t_instruction *current, t_bash *bash, char **envp)
 	else if (current->pid == 0)
 	{
 		set_sig_int(DEFAULT);
-		child_process(current, bash, envp);
+		child_process(current, bash);
 		clear_bash_and_exit(&bash, current->exit_status);
 	}
 	else
@@ -49,7 +49,7 @@ int	parent_process(t_instruction *instruction)
 	return (0);
 }
 
-void	child_process(t_instruction *instruction, t_bash *bash, char **envp)
+void	child_process(t_instruction *instruction, t_bash *bash)
 {
 	if ((inst_have_input_red(instruction->red) == 0)
 		&& (instruction->prev != NULL))
@@ -74,7 +74,7 @@ void	child_process(t_instruction *instruction, t_bash *bash, char **envp)
 			clear_bash_and_exit(&bash, EXIT_FAILURE);
 	}
 	close_unused_pipe_fd(instruction, bash);
-	sort_cmd_builtin(instruction, bash, envp);
+	sort_cmd_builtin(instruction, bash);
 }
 
 int	wait_child_process(t_instruction *instruction)

@@ -6,13 +6,13 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:48:12 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/15 23:49:05 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:53:54 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-void	exec(t_instruction *inst, t_bash *bash, char **envp)
+void	exec(t_instruction *inst, t_bash *bash)
 {
 	if (inst->next == NULL && inst->cmd == NULL)
 	{
@@ -32,7 +32,7 @@ void	exec(t_instruction *inst, t_bash *bash, char **envp)
 		reset_fd_stdin_and_stdout(inst);
 	}
 	else
-		exec_commands(bash, inst, envp);
+		exec_commands(bash, inst);
 	set_exit_code(bash);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:29:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/15 23:47:26 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:57:51 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	builtins(t_instruction *instruction, t_bash *bash);
 
 // exec/exec.c
 
-void	exec(t_instruction *instruction, t_bash *bash, char **envp);
+void	exec(t_instruction *instruction, t_bash *bash);
 
 // test/test.c
 
