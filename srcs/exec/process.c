@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:51:22 by tmartin2          #+#    #+#             */
-/*   Updated: 2024/07/15 23:57:28 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/18 00:35:25 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,11 @@ int	wait_child_process(t_instruction *instruction)
 	current_inst = instruction;
 	while (current_inst != NULL)
 	{
+		if (current_inst->pid == -1)
+		{
+			current_inst = current_inst->next;
+			continue ;
+		}
 		if (waitpid(current_inst->pid, &current_inst->exit_status, 0) == -1)
 			return (-1);
 		current_inst = current_inst->next;
