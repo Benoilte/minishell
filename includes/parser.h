@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:28:14 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/17 22:23:14 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/18 08:21:09 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ int		filter_data(t_bash *bash, t_list **recast, char *src, char quote);
 int		filter_expansion(t_bash *bash, t_list **recast, char *src, int *i);
 int		get_text_unchanged(t_list **recast, char *src, int *i, char quote);
 int		get_text_in_quotes(t_bash *bash, t_list **recast, char *data, int *i);
+
+// parser/parser_update_data_type.c
+
+int		update_data_cmd_type(t_instruction *instruction);
+int		remove_empty_expanded_first_token(t_instruction *instruction);
 
 // parser/parser_update_data_utils.c
 

@@ -6,7 +6,7 @@
 #    By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/04 11:59:35 by bebrandt          #+#    #+#              #
-#    Updated: 2024/07/12 17:54:00 by bebrandt         ###   ########.fr        #
+#    Updated: 2024/07/18 08:14:30 by bebrandt         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,8 @@ ifeq ($(PARSER), set)
 	PARSER_DIR			=	$(SRCS_DIR)parser/
 	PARSER_SRCS			=	$(addprefix $(PARSER_DIR), $(addsuffix .c, parser parser_utils \
 							parser_check_redirections parser_check_cmd parser_update_data \
-							parser_update_data_utils parser_update_expansion))
+							parser_update_data_utils parser_update_expansion \
+							parser_update_data_type))
 endif
 
 # builtins ressources
