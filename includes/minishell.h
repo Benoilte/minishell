@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:29:25 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/15 23:57:51 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/18 08:34:24 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int		open_arg_file(char *arg_file);
 // main/minishell_utils.c
 
 int		type_equal_to(int flag, int type);
+int		is_builtin(char *word);
 void	check_sequence_and_execution(t_bash *bash, int debug);
 
 //lexer/lexer.c

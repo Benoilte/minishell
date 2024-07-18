@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebrandt <bebrandt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 23:58:33 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/05/24 14:34:14 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/18 08:34:09 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int		set_token_option(t_token *new, char *sequence, int *i);
 
 //lexer/lexer_action_utils.c
 
-int		is_builtin(char *word);
 void	move_to_next_quote(char *sequence, int *i);
 
 //lexer/lexer_get_data.c

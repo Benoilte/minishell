@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 12:54:31 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/17 22:19:48 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/18 08:13:54 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,7 @@ int	update_instruction(t_bash *bash, t_instruction *instruction)
 			return (RETURN_FAILURE);
 		cmd = cmd->next;
 	}
+	if (update_data_cmd_type(instruction) == RETURN_FAILURE)
+		return (RETURN_FAILURE);
 	return (RETURN_SUCCESS);
 }
