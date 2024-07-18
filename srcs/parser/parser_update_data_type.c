@@ -6,7 +6,7 @@
 /*   By: bebrandt <benoit.brandt@proton.me>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 08:13:41 by bebrandt          #+#    #+#             */
-/*   Updated: 2024/07/18 10:20:02 by bebrandt         ###   ########.fr       */
+/*   Updated: 2024/07/18 10:28:23 by bebrandt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,11 @@ int	update_data_cmd_type(t_instruction *inst)
 	if (inst->cmd == NULL)
 		return (RETURN_SUCCESS);
 	if (is_builtin(inst->cmd->data) && (inst->cmd->data_type & CMD))
-	{
 		inst->cmd->data_type ^= (CMD | BUILTIN);
-		// inst->cmd->data_type |= BUILTIN;
-	}
 	else if (is_builtin(inst->cmd->data) && (inst->cmd->data_type & WORD))
-	{
 		inst->cmd->data_type ^= (WORD | BUILTIN);
-		// inst->cmd->data_type |= BUILTIN;
-	}
 	else if ((inst->cmd->data_type & WORD))
-	{
 		inst->cmd->data_type ^= (WORD | CMD);
-		// inst->cmd->data_type |= CMD;
-	}
 	return (RETURN_SUCCESS);
 }
 
